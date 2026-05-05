@@ -49,21 +49,23 @@ void mutant_compressed_input::read( void* dest, size_t len, int* wasRead )
           zstream.next_in = mBuffer;
         } else
         {
-/*_ __no_except          throw;*/
+          // ?
         }
       }
     }
 
     err = inflate( &zstream, Z_NO_FLUSH );
 
-    if( err == Z_STREAM_END )
+    if( err == Z_STREAM_END ) {
       break;
+    }
 
     CHECK_ERR(err, "inflate");
   }
 
-  if( wasRead )
+  if( wasRead ) {
     *wasRead = ((unsigned int) len) - zstream.avail_out;
+  }
 }
 
 

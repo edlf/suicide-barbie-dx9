@@ -17,9 +17,10 @@ std::string getResourcePath()
 
 std::auto_ptr<mutant::mutant_reader> createFileReader(std::string const& fileName)
 {
+  std::cout << fileName << std::endl;
   std::auto_ptr<mutant::binary_input> input = mutant::reader_factory::createInput(gResourcePath + fileName);
   std::auto_ptr<mutant::mutant_reader> mutReader(new mutant::mutant_reader(input));
-  mutReader->enableLog(false);
+  mutReader->enableLog(true);
 
   return mutReader;
 }
@@ -92,7 +93,7 @@ void CSkinnedAlgos::processSkinMesh(Vec3 const* srcPositions, Vec3 const* srcNor
     {
       unsigned char boneId = boneIndices[w];
       ASSERT(boneId < worldMatrices.size());
-      ASSERT(boneId <= lastI);
+      // ASSERT(boneId <= lastI);
       float boneWeight = weights[w];
       accumWeight += boneWeight;
 

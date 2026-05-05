@@ -46,7 +46,7 @@ void DXUTDisplaySwitchingToREFWarning()
         DWORD dwSkipWarning = 0;
         HKEY hKey;
         LONG lResult = RegOpenKeyEx( HKEY_CURRENT_USER, L"Software\\Microsoft\\DirectX 9.0 SDK", 0, KEY_READ, &hKey );
-        if( ERROR_SUCCESS == lResult ) 
+        if( ERROR_SUCCESS == lResult )
         {
             DWORD dwType;
             DWORD dwSize = sizeof(DWORD);
@@ -58,27 +58,27 @@ void DXUTDisplaySwitchingToREFWarning()
         {
             // Compact code to create a custom dialog box without using a template in a resource file.
             // If this dialog were in a .rc file, this would be a lot simpler but every sample calling this function would
-            // need a copy of the dialog in its own .rc file. Also MessageBox API could be used here instead, but 
+            // need a copy of the dialog in its own .rc file. Also MessageBox API could be used here instead, but
             // the MessageBox API is simpler to call but it can't provide a "Don't show again" checkbox
-            typedef struct { DLGITEMTEMPLATE a; WORD b; WORD c; WORD d; WORD e; WORD f; } DXUT_DLG_ITEM; 
-            typedef struct { DLGTEMPLATE a; WORD b; WORD c; WCHAR d[2]; WORD e; WCHAR f[14]; DXUT_DLG_ITEM i1; DXUT_DLG_ITEM i2; DXUT_DLG_ITEM i3; DXUT_DLG_ITEM i4; DXUT_DLG_ITEM i5; } DXUT_DLG_DATA; 
+            typedef struct { DLGITEMTEMPLATE a; WORD b; WORD c; WORD d; WORD e; WORD f; } DXUT_DLG_ITEM;
+            typedef struct { DLGTEMPLATE a; WORD b; WORD c; WCHAR d[2]; WORD e; WCHAR f[14]; DXUT_DLG_ITEM i1; DXUT_DLG_ITEM i2; DXUT_DLG_ITEM i3; DXUT_DLG_ITEM i4; DXUT_DLG_ITEM i5; } DXUT_DLG_DATA;
 
-            DXUT_DLG_DATA dtp = 
-            {                                                                                                                                                  
-                {WS_CAPTION|WS_POPUP|WS_VISIBLE|WS_SYSMENU|DS_ABSALIGN|DS_3DLOOK|DS_SETFONT|DS_MODALFRAME|DS_CENTER,0,5,0,0,269,82},0,0,L" ",8,L"MS Sans Serif", 
+            DXUT_DLG_DATA dtp =
+            {
+                {WS_CAPTION|WS_POPUP|WS_VISIBLE|WS_SYSMENU|DS_ABSALIGN|DS_3DLOOK|DS_SETFONT|DS_MODALFRAME|DS_CENTER,0,5,0,0,269,82},0,0,L" ",8,L"MS Sans Serif",
                 {{WS_CHILD|WS_VISIBLE|SS_ICON|SS_CENTERIMAGE,0,7,7,24,24,0x100},0xFFFF,0x0082,0,0,0}, // icon
                 {{WS_CHILD|WS_VISIBLE,0,40,7,230,25,0x101},0xFFFF,0x0082,0,0,0}, // static text
                 {{WS_CHILD|WS_VISIBLE|BS_DEFPUSHBUTTON,0,80,39,50,14,IDYES},0xFFFF,0x0080,0,0,0}, // Yes button
                 {{WS_CHILD|WS_VISIBLE,0,133,39,50,14,IDNO},0xFFFF,0x0080,0,0,0}, // No button
                 {{WS_CHILD|WS_VISIBLE|BS_CHECKBOX,0,7,59,70,16,IDIGNORE},0xFFFF,0x0080,0,0,0}, // checkbox
-            }; 
+            };
 
-            int nResult = (int) DialogBoxIndirect( DXUTGetHINSTANCE(), (DLGTEMPLATE*)&dtp, DXUTGetHWND(), DisplaySwitchToREFWarningProc ); 
+            int nResult = (int) DialogBoxIndirect( DXUTGetHINSTANCE(), (DLGTEMPLATE*)&dtp, DXUTGetHWND(), DisplaySwitchToREFWarningProc );
 
             if( (nResult & 0x80) == 0x80 ) // "Don't show again" checkbox was checked
             {
                 lResult = RegOpenKeyEx( HKEY_CURRENT_USER, L"Software\\Microsoft\\DirectX 9.0 SDK", 0, KEY_WRITE, &hKey );
-                if( ERROR_SUCCESS == lResult ) 
+                if( ERROR_SUCCESS == lResult )
                 {
                     dwSkipWarning = 1;
                     RegSetValueEx( hKey, L"Skip Warning On REF", 0, REG_DWORD, (BYTE*)&dwSkipWarning, sizeof(DWORD) );
@@ -87,8 +87,9 @@ void DXUTDisplaySwitchingToREFWarning()
             }
 
             // User choose not to continue
-            if( (nResult & 0x0F) == IDNO )
+            if( (nResult & 0x0F) == IDNO ) {
                 DXUTShutdown(1);
+            }
         }
     }
 }
@@ -97,32 +98,32 @@ void DXUTDisplaySwitchingToREFWarning()
 //--------------------------------------------------------------------------------------
 // MsgProc for DXUTDisplaySwitchingToREFWarning() dialog box
 //--------------------------------------------------------------------------------------
-INT_PTR CALLBACK DisplaySwitchToREFWarningProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam) 
-{ 
-    switch (message) 
-    { 
+INT_PTR CALLBACK DisplaySwitchToREFWarningProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
+{
+    switch (message)
+    {
         case WM_INITDIALOG:
             // Easier to set text here than in the DLGITEMTEMPLATE
             SetWindowText( hDlg, DXUTGetWindowTitle() );
             SendMessage( GetDlgItem(hDlg, 0x100), STM_SETIMAGE, IMAGE_ICON, (LPARAM)LoadIcon(0, IDI_QUESTION));
-            SetDlgItemText( hDlg, 0x101, L"Switching to the Direct3D reference rasterizer, a software device\nthat implements the entire Direct3D feature set, but runs very slowly.\nDo you wish to continue?" ); 
+            SetDlgItemText( hDlg, 0x101, L"Switching to the Direct3D reference rasterizer, a software device\nthat implements the entire Direct3D feature set, but runs very slowly.\nDo you wish to continue?" );
             SetDlgItemText( hDlg, IDYES, L"&Yes" );
             SetDlgItemText( hDlg, IDNO, L"&No" );
             SetDlgItemText( hDlg, IDIGNORE, L"&Don't show again" );
             break;
 
-        case WM_COMMAND: 
-            switch (LOWORD(wParam)) 
-            { 
+        case WM_COMMAND:
+            switch (LOWORD(wParam))
+            {
                 case IDIGNORE: CheckDlgButton( hDlg, IDIGNORE, (IsDlgButtonChecked( hDlg, IDIGNORE ) == BST_CHECKED) ? BST_UNCHECKED : BST_CHECKED ); EnableWindow( GetDlgItem( hDlg, IDNO ), (IsDlgButtonChecked( hDlg, IDIGNORE ) != BST_CHECKED) ); break;
-                case IDNO: EndDialog(hDlg, (IsDlgButtonChecked( hDlg, IDIGNORE ) == BST_CHECKED) ? IDNO|0x80 : IDNO|0x00 ); return TRUE; 
+                case IDNO: EndDialog(hDlg, (IsDlgButtonChecked( hDlg, IDIGNORE ) == BST_CHECKED) ? IDNO|0x80 : IDNO|0x00 ); return TRUE;
                 case IDCANCEL:
-                case IDYES: EndDialog(hDlg, (IsDlgButtonChecked( hDlg, IDIGNORE ) == BST_CHECKED) ? IDYES|0x80 : IDYES|0x00 ); return TRUE; 
-            } 
+                case IDYES: EndDialog(hDlg, (IsDlgButtonChecked( hDlg, IDIGNORE ) == BST_CHECKED) ? IDYES|0x80 : IDYES|0x00 ); return TRUE;
+            }
             break;
-    } 
-    return FALSE; 
-} 
+    }
+    return FALSE;
+}
 
 
 //--------------------------------------------------------------------------------------
@@ -146,7 +147,7 @@ CDXUTTimer::CDXUTTimer()
 void CDXUTTimer::Reset()
 {
     LARGE_INTEGER qwTime = GetAdjustedCurrentTime();
-    
+
     m_llBaseTime        = qwTime.QuadPart;
     m_llLastElapsedTime = qwTime.QuadPart;
     m_llStopTime        = 0;
@@ -216,7 +217,7 @@ double CDXUTTimer::GetTime()
 //--------------------------------------------------------------------------------------
 void CDXUTTimer::GetTimeValues( double* pfTime, double* pfAbsoluteTime, float* pfElapsedTime )
 {
-    assert( pfTime && pfAbsoluteTime && pfElapsedTime );    
+    assert( pfTime && pfAbsoluteTime && pfElapsedTime );
 
     LARGE_INTEGER qwTime = GetAdjustedCurrentTime();
 
@@ -224,17 +225,17 @@ void CDXUTTimer::GetTimeValues( double* pfTime, double* pfAbsoluteTime, float* p
     m_llLastElapsedTime = qwTime.QuadPart;
 
     // Clamp the timer to non-negative values to ensure the timer is accurate.
-    // fElapsedTime can be outside this range if processor goes into a 
-    // power save mode or we somehow get shuffled to another processor.  
-    // However, the main thread should call SetThreadAffinityMask to ensure that 
-    // we don't get shuffled to another processor.  Other worker threads should NOT call 
-    // SetThreadAffinityMask, but use a shared copy of the timer data gathered from 
+    // fElapsedTime can be outside this range if processor goes into a
+    // power save mode or we somehow get shuffled to another processor.
+    // However, the main thread should call SetThreadAffinityMask to ensure that
+    // we don't get shuffled to another processor.  Other worker threads should NOT call
+    // SetThreadAffinityMask, but use a shared copy of the timer data gathered from
     // the main thread.
     if( fElapsedTime < 0.0f )
         fElapsedTime = 0.0f;
-    
+
     *pfAbsoluteTime = qwTime.QuadPart / (double) m_llQPFTicksPerSec;
-    *pfTime = ( qwTime.QuadPart - m_llBaseTime ) / (double) m_llQPFTicksPerSec;   
+    *pfTime = ( qwTime.QuadPart - m_llBaseTime ) / (double) m_llQPFTicksPerSec;
     *pfElapsedTime = fElapsedTime;
 }
 
@@ -277,18 +278,18 @@ bool CDXUTTimer::IsStopped()
 
 
 //--------------------------------------------------------------------------------------
-// Limit the current thread to one processor (the current one). This ensures that timing code 
+// Limit the current thread to one processor (the current one). This ensures that timing code
 // runs on only one processor, and will not suffer any ill effects from power management.
 // See "Game Timing and Multicore Processors" for more details
 //--------------------------------------------------------------------------------------
 void CDXUTTimer::LimitThreadAffinityToCurrentProc()
 {
     HANDLE hCurrentProcess = GetCurrentProcess();
-    
+
     // Get the processor affinity mask for this process
     DWORD_PTR dwProcessAffinityMask = 0;
     DWORD_PTR dwSystemAffinityMask = 0;
-    
+
     if( GetProcessAffinityMask( hCurrentProcess, &dwProcessAffinityMask, &dwSystemAffinityMask ) != 0 && dwProcessAffinityMask )
     {
         // Find the lowest processor that our process is allows to run against
@@ -316,7 +317,7 @@ WCHAR* DXUTMediaSearchPath()
     static WCHAR s_strMediaSearchPath[MAX_PATH] = {0};
     return s_strMediaSearchPath;
 
-}   
+}
 
 //--------------------------------------------------------------------------------------
 LPCWSTR DXUTGetMediaSearchPath()
@@ -332,7 +333,7 @@ HRESULT DXUTSetMediaSearchPath( LPCWSTR strPath )
 
     WCHAR* s_strSearchPath = DXUTMediaSearchPath();
 
-    hr = StringCchCopy( s_strSearchPath, MAX_PATH, strPath );   
+    hr = StringCchCopy( s_strSearchPath, MAX_PATH, strPath );
     if( SUCCEEDED(hr) )
     {
         // append slash if needed
@@ -350,14 +351,14 @@ HRESULT DXUTSetMediaSearchPath( LPCWSTR strPath )
 
 //--------------------------------------------------------------------------------------
 // Tries to find the location of a SDK media file
-//       cchDest is the size in WCHARs of strDestPath.  Be careful not to 
+//       cchDest is the size in WCHARs of strDestPath.  Be careful not to
 //       pass in sizeof(strDest) on UNICODE builds.
 //--------------------------------------------------------------------------------------
 HRESULT DXUTFindDXSDKMediaFileCch( WCHAR* strDestPath, int cchDest, LPCWSTR strFilename )
 {
     bool bFound;
     WCHAR strSearchFor[MAX_PATH];
-    
+
     if( NULL==strFilename || strFilename[0] == 0 || NULL==strDestPath || cchDest < 10 )
         return E_INVALIDARG;
 
@@ -396,8 +397,8 @@ HRESULT DXUTFindDXSDKMediaFileCch( WCHAR* strDestPath, int cchDest, LPCWSTR strF
     if( bFound )
         return S_OK;
 
-    // Typical directory search again, but also look in a subdir called "\media\" 
-    StringCchPrintf( strSearchFor, MAX_PATH, L"media\\%s", strFilename ); 
+    // Typical directory search again, but also look in a subdir called "\media\"
+    StringCchPrintf( strSearchFor, MAX_PATH, L"media\\%s", strFilename );
     bFound = DXUTFindMediaSearchTypicalDirs( strDestPath, cchDest, strSearchFor, strExePath, strExeName );
     if( bFound )
         return S_OK;
@@ -405,7 +406,7 @@ HRESULT DXUTFindDXSDKMediaFileCch( WCHAR* strDestPath, int cchDest, LPCWSTR strF
     WCHAR strLeafName[MAX_PATH] = {0};
 
     // Search all parent directories starting at .\ and using strFilename as the leaf name
-    StringCchCopy( strLeafName, MAX_PATH, strFilename ); 
+    StringCchCopy( strLeafName, MAX_PATH, strFilename );
     bFound = DXUTFindMediaSearchParentDirs( strDestPath, cchDest, L".", strLeafName );
     if( bFound )
         return S_OK;
@@ -416,7 +417,7 @@ HRESULT DXUTFindDXSDKMediaFileCch( WCHAR* strDestPath, int cchDest, LPCWSTR strF
         return S_OK;
 
     // Search all parent directories starting at .\ and using "media\strFilename" as the leaf name
-    StringCchPrintf( strLeafName, MAX_PATH, L"media\\%s", strFilename ); 
+    StringCchPrintf( strLeafName, MAX_PATH, L"media\\%s", strFilename );
     bFound = DXUTFindMediaSearchParentDirs( strDestPath, cchDest, L".", strLeafName );
     if( bFound )
         return S_OK;
@@ -436,7 +437,7 @@ HRESULT DXUTFindDXSDKMediaFileCch( WCHAR* strDestPath, int cchDest, LPCWSTR strF
 //--------------------------------------------------------------------------------------
 // Search a set of typical directories
 //--------------------------------------------------------------------------------------
-bool DXUTFindMediaSearchTypicalDirs( WCHAR* strSearchPath, int cchSearch, LPCWSTR strLeaf, 
+bool DXUTFindMediaSearchTypicalDirs( WCHAR* strSearchPath, int cchSearch, LPCWSTR strLeaf,
                                      WCHAR* strExePath, WCHAR* strExeName )
 {
     // Typical directories:
@@ -450,56 +451,56 @@ bool DXUTFindMediaSearchTypicalDirs( WCHAR* strSearchPath, int cchSearch, LPCWST
     //      %EXE_DIR%\..\..\%EXE_NAME%
     //      DXSDK media path
 
-    // Search in .\  
-    StringCchCopy( strSearchPath, cchSearch, strLeaf ); 
+    // Search in .\
+    StringCchCopy( strSearchPath, cchSearch, strLeaf );
     if( GetFileAttributes( strSearchPath ) != 0xFFFFFFFF )
         return true;
 
-    // Search in ..\  
-    StringCchPrintf( strSearchPath, cchSearch, L"..\\%s", strLeaf ); 
+    // Search in ..\
+    StringCchPrintf( strSearchPath, cchSearch, L"..\\%s", strLeaf );
     if( GetFileAttributes( strSearchPath ) != 0xFFFFFFFF )
         return true;
 
-    // Search in ..\..\ 
-    StringCchPrintf( strSearchPath, cchSearch, L"..\\..\\%s", strLeaf ); 
+    // Search in ..\..\
+    StringCchPrintf( strSearchPath, cchSearch, L"..\\..\\%s", strLeaf );
     if( GetFileAttributes( strSearchPath ) != 0xFFFFFFFF )
         return true;
 
-    // Search in ..\..\ 
-    StringCchPrintf( strSearchPath, cchSearch, L"..\\..\\%s", strLeaf ); 
+    // Search in ..\..\
+    StringCchPrintf( strSearchPath, cchSearch, L"..\\..\\%s", strLeaf );
     if( GetFileAttributes( strSearchPath ) != 0xFFFFFFFF )
         return true;
 
-    // Search in the %EXE_DIR%\ 
-    StringCchPrintf( strSearchPath, cchSearch, L"%s\\%s", strExePath, strLeaf ); 
+    // Search in the %EXE_DIR%\
+    StringCchPrintf( strSearchPath, cchSearch, L"%s\\%s", strExePath, strLeaf );
     if( GetFileAttributes( strSearchPath ) != 0xFFFFFFFF )
         return true;
 
-    // Search in the %EXE_DIR%\..\ 
-    StringCchPrintf( strSearchPath, cchSearch, L"%s\\..\\%s", strExePath, strLeaf ); 
+    // Search in the %EXE_DIR%\..\
+    StringCchPrintf( strSearchPath, cchSearch, L"%s\\..\\%s", strExePath, strLeaf );
     if( GetFileAttributes( strSearchPath ) != 0xFFFFFFFF )
         return true;
 
-    // Search in the %EXE_DIR%\..\..\ 
-    StringCchPrintf( strSearchPath, cchSearch, L"%s\\..\\..\\%s", strExePath, strLeaf ); 
+    // Search in the %EXE_DIR%\..\..\
+    StringCchPrintf( strSearchPath, cchSearch, L"%s\\..\\..\\%s", strExePath, strLeaf );
     if( GetFileAttributes( strSearchPath ) != 0xFFFFFFFF )
         return true;
 
     // Search in "%EXE_DIR%\..\%EXE_NAME%\".  This matches the DirectX SDK layout
-    StringCchPrintf( strSearchPath, cchSearch, L"%s\\..\\%s\\%s", strExePath, strExeName, strLeaf ); 
+    StringCchPrintf( strSearchPath, cchSearch, L"%s\\..\\%s\\%s", strExePath, strExeName, strLeaf );
     if( GetFileAttributes( strSearchPath ) != 0xFFFFFFFF )
         return true;
 
     // Search in "%EXE_DIR%\..\..\%EXE_NAME%\".  This matches the DirectX SDK layout
-    StringCchPrintf( strSearchPath, cchSearch, L"%s\\..\\..\\%s\\%s", strExePath, strExeName, strLeaf ); 
+    StringCchPrintf( strSearchPath, cchSearch, L"%s\\..\\..\\%s\\%s", strExePath, strExeName, strLeaf );
     if( GetFileAttributes( strSearchPath ) != 0xFFFFFFFF )
         return true;
 
-    // Search in media search dir 
+    // Search in media search dir
     WCHAR* s_strSearchPath = DXUTMediaSearchPath();
     if( s_strSearchPath[0] != 0 )
     {
-        StringCchPrintf( strSearchPath, cchSearch, L"%s%s", s_strSearchPath, strLeaf ); 
+        StringCchPrintf( strSearchPath, cchSearch, L"%s%s", s_strSearchPath, strLeaf );
         if( GetFileAttributes( strSearchPath ) != 0xFFFFFFFF )
             return true;
     }
@@ -523,17 +524,17 @@ bool DXUTFindMediaSearchParentDirs( WCHAR* strSearchPath, int cchSearch, WCHAR* 
     GetFullPathName( strStartAt, MAX_PATH, strFullPath, &strFilePart );
     if( strFilePart == NULL )
         return false;
-   
+
     while( strFilePart != NULL && *strFilePart != '\0' )
     {
-        StringCchPrintf( strFullFileName, MAX_PATH, L"%s\\%s", strFullPath, strLeafName ); 
+        StringCchPrintf( strFullFileName, MAX_PATH, L"%s\\%s", strFullPath, strLeafName );
         if( GetFileAttributes( strFullFileName ) != 0xFFFFFFFF )
         {
-            StringCchCopy( strSearchPath, cchSearch, strFullFileName ); 
+            StringCchCopy( strSearchPath, cchSearch, strFullFileName );
             return true;
         }
 
-        StringCchPrintf( strSearch, MAX_PATH, L"%s\\..", strFullPath ); 
+        StringCchPrintf( strSearch, MAX_PATH, L"%s\\..", strFullPath );
         GetFullPathName( strSearch, MAX_PATH, strFullPath, &strFilePart );
     }
 
@@ -901,7 +902,7 @@ HRESULT CDXUTResourceCache::CreateVolumeTextureFromResourceEx( LPDIRECT3DDEVICE9
 HRESULT CDXUTResourceCache::CreateFont( LPDIRECT3DDEVICE9 pDevice, UINT Height, UINT Width, UINT Weight, UINT MipLevels, BOOL Italic, DWORD CharSet, DWORD OutputPrecision, DWORD Quality, DWORD PitchAndFamily, LPCTSTR pFacename, LPD3DXFONT *ppFont )
 {
     D3DXFONT_DESCW Desc;
-    
+
     Desc.Height = Height;
     Desc.Width = Width;
     Desc.Weight = Weight;
@@ -1206,8 +1207,8 @@ void CD3DArcBall::OnBegin( int nX, int nY )
 //--------------------------------------------------------------------------------------
 void CD3DArcBall::OnMove( int nX, int nY )
 {
-    if (m_bDrag) 
-    { 
+    if (m_bDrag)
+    {
         m_vCurrentPt = ScreenToVector( (float)nX, (float)nY );
         m_qNow = m_qDown * QuatFromBallPoints( m_vDownPt, m_vCurrentPt );
     }
@@ -1342,8 +1343,8 @@ CBaseCamera::CBaseCamera()
     m_fTotalDragTimeToZero = 0.25;
     m_vRotVelocity = D3DXVECTOR2(0,0);
 
-    m_fRotationScaler = 0.01f;           
-    m_fMoveScaler = 5.0f;           
+    m_fRotationScaler = 0.01f;
+    m_fMoveScaler = 5.0f;
 
     m_bInvertPitch = false;
     m_bEnableYAxisMovement = true;
@@ -1376,7 +1377,7 @@ VOID CBaseCamera::SetViewParams( D3DXVECTOR3* pvEyePt, D3DXVECTOR3* pvLookatPt )
     D3DXMATRIX mInvView;
     D3DXMatrixInverse( &mInvView, NULL, &m_mView );
 
-    // The axis basis vectors and camera position are stored inside the 
+    // The axis basis vectors and camera position are stored inside the
     // position matrix in the 4 rows of the camera's world matrix.
     // To figure out the yaw/pitch of the camera, we just need the Z basis vector
     D3DXVECTOR3* pZBasis = (D3DXVECTOR3*) &mInvView._31;
@@ -1465,16 +1466,16 @@ LRESULT CBaseCamera::HandleMessages( HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM
             if( ( uMsg == WM_RBUTTONDOWN || uMsg == WM_RBUTTONDBLCLK ) && PtInRect( &m_rcDrag, ptCursor ) )
                 { m_bMouseRButtonDown = true; m_nCurrentButtonMask |= MOUSE_RIGHT_BUTTON; }
 
-            // Capture the mouse, so if the mouse button is 
+            // Capture the mouse, so if the mouse button is
             // released outside the window, we'll get the WM_LBUTTONUP message
             SetCapture(hWnd);
             GetCursorPos( &m_ptLastMousePosition );
             return TRUE;
         }
 
-        case WM_RBUTTONUP: 
-        case WM_MBUTTONUP: 
-        case WM_LBUTTONUP:   
+        case WM_RBUTTONUP:
+        case WM_MBUTTONUP:
+        case WM_LBUTTONUP:
         {
             // Update member var state
             if( uMsg == WM_LBUTTONUP ) { m_bMouseLButtonDown = false; m_nCurrentButtonMask &= ~MOUSE_LEFT_BUTTON; }
@@ -1482,7 +1483,7 @@ LRESULT CBaseCamera::HandleMessages( HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM
             if( uMsg == WM_RBUTTONUP ) { m_bMouseRButtonDown = false; m_nCurrentButtonMask &= ~MOUSE_RIGHT_BUTTON; }
 
             // Release the capture if no mouse buttons down
-            if( !m_bMouseLButtonDown  && 
+            if( !m_bMouseLButtonDown  &&
                 !m_bMouseRButtonDown &&
                 !m_bMouseMButtonDown )
             {
@@ -1511,7 +1512,7 @@ LRESULT CBaseCamera::HandleMessages( HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM
             break;
         }
 
-        case WM_MOUSEWHEEL: 
+        case WM_MOUSEWHEEL:
             // Update member var state
             m_nMouseWheelDelta = (short)HIWORD(wParam) / 120;
             break;
@@ -1552,13 +1553,13 @@ void CBaseCamera::GetInput( bool bGetKeyboardInput, bool bGetMouseInput, bool bG
         // Get current position of mouse
         POINT ptCurMouseDelta;
         POINT ptCurMousePos;
-        
+
         if( GetCursorPos( &ptCurMousePos ) )
         {
             // Calc how far it's moved since last frame
             ptCurMouseDelta.x = ptCurMousePos.x - m_ptLastMousePosition.x;
             ptCurMouseDelta.y = ptCurMousePos.y - m_ptLastMousePosition.y;
-            
+
             // Record current position for next time
             m_ptLastMousePosition = ptCurMousePos;
         }
@@ -1571,10 +1572,10 @@ void CBaseCamera::GetInput( bool bGetKeyboardInput, bool bGetMouseInput, bool bG
 
         if( bResetCursorAfterMove && DXUTIsActive() )
         {
-            // Set position of camera to center of desktop, 
+            // Set position of camera to center of desktop,
             // so it always has room to move.  This is very useful
-            // if the cursor is hidden.  If this isn't done and cursor is hidden, 
-            // then invisible cursor will hit the edge of the screen 
+            // if the cursor is hidden.  If this isn't done and cursor is hidden,
+            // then invisible cursor will hit the edge of the screen
             // and the user can't tell what happened
             POINT ptCenter;
 
@@ -1583,12 +1584,12 @@ void CBaseCamera::GetInput( bool bGetKeyboardInput, bool bGetMouseInput, bool bG
             mi.cbSize = sizeof(MONITORINFO);
             DXUTGetMonitorInfo( DXUTMonitorFromWindow(DXUTGetHWND(),MONITOR_DEFAULTTONEAREST), &mi );
             ptCenter.x = (mi.rcMonitor.left + mi.rcMonitor.right) / 2;
-            ptCenter.y = (mi.rcMonitor.top + mi.rcMonitor.bottom) / 2;   
+            ptCenter.y = (mi.rcMonitor.top + mi.rcMonitor.bottom) / 2;
             SetCursorPos( ptCenter.x, ptCenter.y );
             m_ptLastMousePosition = ptCenter;
         }
 
-        // Smooth the relative mouse data over a few frames so it isn't 
+        // Smooth the relative mouse data over a few frames so it isn't
         // jerky when moving slowly at low frame rates.
         float fPercentOfNew =  1.0f / m_fFramesToSmoothMouseData;
         float fPercentOfOld =  1.0f - fPercentOfNew;
@@ -1608,9 +1609,9 @@ void CBaseCamera::GetInput( bool bGetKeyboardInput, bool bGetMouseInput, bool bG
             DXUTGetGamepadState( iUserIndex, &m_GamePad[iUserIndex], true, true );
 
             // Mark time if the controller is in a non-zero state
-            if( m_GamePad[iUserIndex].wButtons || 
-                m_GamePad[iUserIndex].sThumbLX || m_GamePad[iUserIndex].sThumbLX || 
-                m_GamePad[iUserIndex].sThumbRX || m_GamePad[iUserIndex].sThumbRY || 
+            if( m_GamePad[iUserIndex].wButtons ||
+                m_GamePad[iUserIndex].sThumbLX || m_GamePad[iUserIndex].sThumbLX ||
+                m_GamePad[iUserIndex].sThumbRX || m_GamePad[iUserIndex].sThumbRY ||
                 m_GamePad[iUserIndex].bLeftTrigger || m_GamePad[iUserIndex].bRightTrigger )
             {
                 m_GamePadLastActive[iUserIndex] = DXUTGetTime();
@@ -1656,7 +1657,7 @@ void CBaseCamera::UpdateVelocity( float fElapsedTime )
 
     D3DXVECTOR3 vAccel = m_vKeyboardDirection + m_vGamePadLeftThumb;
 
-    // Normalize vector so if moving 2 dirs (left & forward), 
+    // Normalize vector so if moving 2 dirs (left & forward),
     // the camera doesn't move faster than if moving in 1 dir
     D3DXVec3Normalize( &vAccel, &vAccel );
 
@@ -1669,14 +1670,14 @@ void CBaseCamera::UpdateVelocity( float fElapsedTime )
         if( D3DXVec3LengthSq( &vAccel ) > 0 )
         {
             // If so, then this means the user has pressed a movement key\
-            // so change the velocity immediately to acceleration 
+            // so change the velocity immediately to acceleration
             // upon keyboard input.  This isn't normal physics
             // but it will give a quick response to keyboard input
             m_vVelocity = vAccel;
             m_fDragTimer = m_fTotalDragTimeToZero;
             m_vVelocityDrag = vAccel / m_fDragTimer;
         }
-        else 
+        else
         {
             // If no key being pressed, then slowly decrease velocity to 0
             if( m_fDragTimer > 0 )
@@ -1707,7 +1708,7 @@ void CBaseCamera::UpdateVelocity( float fElapsedTime )
 //--------------------------------------------------------------------------------------
 void CBaseCamera::ConstrainToBoundary( D3DXVECTOR3* pV )
 {
-    // Constrain vector to a bounding box 
+    // Constrain vector to a bounding box
     pV->x = __max(pV->x, m_vMinBoundary.x);
     pV->y = __max(pV->y, m_vMinBoundary.y);
     pV->z = __max(pV->z, m_vMinBoundary.z);
@@ -1725,7 +1726,7 @@ void CBaseCamera::ConstrainToBoundary( D3DXVECTOR3* pV )
 //--------------------------------------------------------------------------------------
 D3DUtil_CameraKeys CBaseCamera::MapKey( UINT nKey )
 {
-    // This could be upgraded to a method that's user-definable but for 
+    // This could be upgraded to a method that's user-definable but for
     // simplicity, we'll use a hardcoded mapping.
     switch( nKey )
     {
@@ -1748,8 +1749,8 @@ D3DUtil_CameraKeys CBaseCamera::MapKey( UINT nKey )
         case VK_NUMPAD6: return CAM_STRAFE_RIGHT;
         case VK_NUMPAD8: return CAM_MOVE_FORWARD;
         case VK_NUMPAD2: return CAM_MOVE_BACKWARD;
-        case VK_NUMPAD9: return CAM_MOVE_UP;        
-        case VK_NUMPAD3: return CAM_MOVE_DOWN;      
+        case VK_NUMPAD9: return CAM_MOVE_UP;
+        case VK_NUMPAD3: return CAM_MOVE_DOWN;
 
         case VK_HOME:   return CAM_RESET;
     }
@@ -1803,10 +1804,10 @@ VOID CFirstPersonCamera::FrameMove( FLOAT fElapsedTime )
     // Simple euler method to calculate position delta
     D3DXVECTOR3 vPosDelta = m_vVelocity * fElapsedTime;
 
-    // If rotating the camera 
-    if( (m_nActiveButtonMask & m_nCurrentButtonMask) || 
-        m_bRotateWithoutButtonDown || 
-        m_vGamePadRightThumb.x != 0 || 
+    // If rotating the camera
+    if( (m_nActiveButtonMask & m_nCurrentButtonMask) ||
+        m_bRotateWithoutButtonDown ||
+        m_vGamePadRightThumb.x != 0 ||
         m_vGamePadRightThumb.z != 0 )
     {
         // Update the pitch & yaw angle based on mouse movement
@@ -1836,7 +1837,7 @@ VOID CFirstPersonCamera::FrameMove( FLOAT fElapsedTime )
     D3DXVec3TransformCoord( &vWorldUp, &vLocalUp, &mCameraRot );
     D3DXVec3TransformCoord( &vWorldAhead, &vLocalAhead, &mCameraRot );
 
-    // Transform the position delta by the camera's rotation 
+    // Transform the position delta by the camera's rotation
     D3DXVECTOR3 vPosDeltaWorld;
     if( !m_bEnableYAxisMovement )
     {
@@ -1846,12 +1847,12 @@ VOID CFirstPersonCamera::FrameMove( FLOAT fElapsedTime )
     }
     D3DXVec3TransformCoord( &vPosDeltaWorld, &vPosDelta, &mCameraRot );
 
-    // Move the eye position 
+    // Move the eye position
     m_vEye += vPosDeltaWorld;
     if( m_bClipToBoundary )
         ConstrainToBoundary( &m_vEye );
 
-    // Update the lookAt position based on the eye position 
+    // Update the lookAt position based on the eye position
     m_vLookAt = m_vEye + vWorldAhead;
 
     // Update the view matrix
@@ -1874,14 +1875,14 @@ void CFirstPersonCamera::SetRotateButtons( bool bLeft, bool bMiddle, bool bRight
 
 
 //--------------------------------------------------------------------------------------
-// Constructor 
+// Constructor
 //--------------------------------------------------------------------------------------
 CModelViewerCamera::CModelViewerCamera()
 {
     D3DXMatrixIdentity( &m_mWorld );
     D3DXMatrixIdentity( &m_mModelRot );
-    D3DXMatrixIdentity( &m_mModelLastRot );    
-    D3DXMatrixIdentity( &m_mCameraRotLast );    
+    D3DXMatrixIdentity( &m_mModelLastRot );
+    D3DXMatrixIdentity( &m_mCameraRotLast );
     m_vModelCenter = D3DXVECTOR3(0,0,0);
     m_fRadius    = 5.0f;
     m_fDefaultRadius = 5.0f;
@@ -1901,7 +1902,7 @@ CModelViewerCamera::CModelViewerCamera()
 
 
 //--------------------------------------------------------------------------------------
-// Update the view matrix & the model's world matrix based 
+// Update the view matrix & the model's world matrix based
 //       on user input & elapsed time
 //--------------------------------------------------------------------------------------
 VOID CModelViewerCamera::FrameMove( FLOAT fElapsedTime )
@@ -1942,11 +1943,11 @@ VOID CModelViewerCamera::FrameMove( FLOAT fElapsedTime )
     D3DXVec3TransformCoord( &vWorldUp, &vLocalUp, &mCameraRot );
     D3DXVec3TransformCoord( &vWorldAhead, &vLocalAhead, &mCameraRot );
 
-    // Transform the position delta by the camera's rotation 
+    // Transform the position delta by the camera's rotation
     D3DXVECTOR3 vPosDeltaWorld;
     D3DXVec3TransformCoord( &vPosDeltaWorld, &vPosDelta, &mCameraRot );
 
-    // Move the lookAt position 
+    // Move the lookAt position
     m_vLookAt += vPosDeltaWorld;
     if( m_bClipToBoundary )
         ConstrainToBoundary( &m_vLookAt );
@@ -1978,11 +1979,11 @@ VOID CModelViewerCamera::FrameMove( FLOAT fElapsedTime )
         D3DXMATRIX mCameraRotDelta = mCameraLastRotInv * mCameraRot; // local to world matrix
         m_mModelRot *= mCameraRotDelta;
     }
-    m_mCameraRotLast = mCameraRot; 
+    m_mCameraRotLast = mCameraRot;
 
     m_mModelLastRot = mModelRot;
 
-    // Since we're accumulating delta rotations, we need to orthonormalize 
+    // Since we're accumulating delta rotations, we need to orthonormalize
     // the matrix to prevent eventual matrix skew
     D3DXVECTOR3* pXBasis = (D3DXVECTOR3*) &m_mModelRot._11;
     D3DXVECTOR3* pYBasis = (D3DXVECTOR3*) &m_mModelRot._21;
@@ -2023,8 +2024,8 @@ VOID CModelViewerCamera::Reset()
 
     D3DXMatrixIdentity( &m_mWorld );
     D3DXMatrixIdentity( &m_mModelRot );
-    D3DXMatrixIdentity( &m_mModelLastRot );    
-    D3DXMatrixIdentity( &m_mCameraRotLast );    
+    D3DXMatrixIdentity( &m_mModelLastRot );
+    D3DXMatrixIdentity( &m_mCameraRotLast );
 
     m_fRadius = m_fDefaultRadius;
     m_WorldArcBall.Reset();
@@ -2115,7 +2116,7 @@ LRESULT CModelViewerCamera::HandleMessages( HWND hWnd, UINT uMsg, WPARAM wParam,
             {
                 m_WorldArcBall.OnEnd();
             }
-        
+
             if( (m_nRotateCameraButtonMask & MOUSE_LEFT_BUTTON) ||
                 (m_nRotateCameraButtonMask & MOUSE_MIDDLE_BUTTON) ||
                 (m_nRotateCameraButtonMask & MOUSE_RIGHT_BUTTON) )
@@ -2271,7 +2272,7 @@ VOID DXUTOutputDebugStringW( LPCWSTR strMsg, ... )
 {
 #if defined(DEBUG) || defined(_DEBUG)
     WCHAR strBuffer[512];
-    
+
     va_list args;
     va_start(args, strMsg);
     StringCchVPrintfW( strBuffer, 512, strMsg, args );
@@ -2292,7 +2293,7 @@ VOID DXUTOutputDebugStringA( LPCSTR strMsg, ... )
 {
 #if defined(DEBUG) || defined(_DEBUG)
     CHAR strBuffer[512];
-    
+
     va_list args;
     va_start(args, strMsg);
     StringCchVPrintfA( strBuffer, 512, strMsg, args );
@@ -2355,14 +2356,14 @@ HRESULT CDXUTLineManager::OnRender()
     bool bDrawingHasBegun = false;
     float fLastWidth = 0.0f;
     bool bLastAntiAlias = false;
-    
+
     for( int i=0; i<m_LinesList.GetSize(); i++ )
     {
         LINE_NODE* pLineNode = m_LinesList.GetAt(i);
         if( pLineNode )
         {
-            if( !bDrawingHasBegun || 
-                fLastWidth != pLineNode->fWidth || 
+            if( !bDrawingHasBegun ||
+                fLastWidth != pLineNode->fWidth ||
                 bLastAntiAlias != pLineNode->bAntiAlias )
             {
                 if( bDrawingHasBegun )
@@ -2488,7 +2489,7 @@ HRESULT CDXUTLineManager::AddRect( int* pnLineID, RECT rc, D3DCOLOR Color, float
 
         vertexList[7].x = (float)rc.left;
         vertexList[7].y = (float)rc.top;
-        
+
         return AddLine( pnLineID, vertexList, 8, Color, fWidth, fScaleRatio, bAntiAlias );
     }
     else
@@ -2508,7 +2509,7 @@ HRESULT CDXUTLineManager::AddRect( int* pnLineID, RECT rc, D3DCOLOR Color, float
 
         vertexList[4].x = (float)rc.left;
         vertexList[4].y = (float)rc.top;
-        
+
         return AddLine( pnLineID, vertexList, 5, Color, fWidth, fScaleRatio, bAntiAlias );
     }
 }
@@ -2557,8 +2558,8 @@ CDXUTTextHelper::CDXUTTextHelper( ID3DXFont* pFont, ID3DXSprite* pSprite, int nL
     m_pFont = pFont;
     m_pSprite = pSprite;
     m_clr = D3DXCOLOR(1,1,1,1);
-    m_pt.x = 0; 
-    m_pt.y = 0; 
+    m_pt.x = 0;
+    m_pt.y = 0;
     m_nLineHeight = nLineHeight;
 }
 
@@ -2567,7 +2568,7 @@ CDXUTTextHelper::CDXUTTextHelper( ID3DXFont* pFont, ID3DXSprite* pSprite, int nL
 HRESULT CDXUTTextHelper::DrawFormattedTextLine( const WCHAR* strMsg, ... )
 {
     WCHAR strBuffer[512];
-    
+
     va_list args;
     va_start(args, strMsg);
     StringCchVPrintf( strBuffer, 512, strMsg, args );
@@ -2581,12 +2582,12 @@ HRESULT CDXUTTextHelper::DrawFormattedTextLine( const WCHAR* strMsg, ... )
 //--------------------------------------------------------------------------------------
 HRESULT CDXUTTextHelper::DrawTextLine( const WCHAR* strMsg )
 {
-    if( NULL == m_pFont ) 
+    if( NULL == m_pFont )
         return DXUT_ERR_MSGBOX( L"DrawTextLine", E_INVALIDARG );
 
     HRESULT hr;
     RECT rc;
-    SetRect( &rc, m_pt.x, m_pt.y, 0, 0 ); 
+    SetRect( &rc, m_pt.x, m_pt.y, 0, 0 );
     hr = m_pFont->DrawText( m_pSprite, strMsg, -1, &rc, DT_NOCLIP, m_clr );
     if( FAILED(hr) )
         return DXTRACE_ERR_MSGBOX( L"DrawText", hr );
@@ -2600,7 +2601,7 @@ HRESULT CDXUTTextHelper::DrawTextLine( const WCHAR* strMsg )
 HRESULT CDXUTTextHelper::DrawFormattedTextLine( RECT &rc, DWORD dwFlags, const WCHAR* strMsg, ... )
 {
     WCHAR strBuffer[512];
-    
+
     va_list args;
     va_start(args, strMsg);
     StringCchVPrintf( strBuffer, 512, strMsg, args );
@@ -2613,7 +2614,7 @@ HRESULT CDXUTTextHelper::DrawFormattedTextLine( RECT &rc, DWORD dwFlags, const W
 
 HRESULT CDXUTTextHelper::DrawTextLine( RECT &rc, DWORD dwFlags, const WCHAR* strMsg )
 {
-    if( NULL == m_pFont ) 
+    if( NULL == m_pFont )
         return DXUT_ERR_MSGBOX( L"DrawTextLine", E_INVALIDARG );
 
     HRESULT hr;
@@ -2642,8 +2643,8 @@ void CDXUTTextHelper::End()
 
 //--------------------------------------------------------------------------------------
 IDirect3DDevice9* CDXUTDirectionWidget::s_pd3dDevice = NULL;
-ID3DXEffect*      CDXUTDirectionWidget::s_pEffect = NULL;       
-ID3DXMesh*        CDXUTDirectionWidget::s_pMesh = NULL;    
+ID3DXEffect*      CDXUTDirectionWidget::s_pEffect = NULL;
+ID3DXMesh*        CDXUTDirectionWidget::s_pMesh = NULL;
 
 
 //--------------------------------------------------------------------------------------
@@ -2667,7 +2668,7 @@ HRESULT CDXUTDirectionWidget::StaticOnCreateDevice( IDirect3DDevice9* pd3dDevice
 
     s_pd3dDevice = pd3dDevice;
 
-    const char* g_strBuffer = 
+    const char* g_strBuffer =
     "float4 g_MaterialDiffuseColor;      // Material's diffuse color\r\n"
     "float3 g_LightDir;                  // Light's direction in world space\r\n"
     "float4x4 g_mWorld;                  // World matrix for object\r\n"
@@ -2713,20 +2714,20 @@ HRESULT CDXUTDirectionWidget::StaticOnCreateDevice( IDirect3DDevice9* pd3dDevice
     "}\r\n"
     "";
 
-    UINT dwBufferSize = (UINT)strlen(g_strBuffer) + 1; 
+    UINT dwBufferSize = (UINT)strlen(g_strBuffer) + 1;
 
     V_RETURN( D3DXCreateEffect( s_pd3dDevice, g_strBuffer, dwBufferSize, NULL, NULL, D3DXFX_NOT_CLONEABLE, NULL, &s_pEffect, NULL ) );
 
     // Load the mesh with D3DX and get back a ID3DXMesh*.  For this
-    // sample we'll ignore the X file's embedded materials since we know 
+    // sample we'll ignore the X file's embedded materials since we know
     // exactly the model we're loading.  See the mesh samples such as
     // "OptimizedMesh" for a more generic mesh loading example.
     V_RETURN( DXUTCreateArrowMeshFromInternalArray( s_pd3dDevice, &s_pMesh ) );
 
-    // Optimize the mesh for this graphics card's vertex cache 
-    // so when rendering the mesh's triangle list the vertices will 
-    // cache hit more often so it won't have to re-execute the vertex shader 
-    // on those vertices so it will improve perf.     
+    // Optimize the mesh for this graphics card's vertex cache
+    // so when rendering the mesh's triangle list the vertices will
+    // cache hit more often so it won't have to re-execute the vertex shader
+    // on those vertices so it will improve perf.
     DWORD* rgdwAdjacency = new DWORD[s_pMesh->GetNumFaces() * 3];
     if( rgdwAdjacency == NULL )
         return E_OUTOFMEMORY;
@@ -2759,11 +2760,11 @@ void CDXUTDirectionWidget::StaticOnDestroyDevice()
 {
     SAFE_RELEASE(s_pEffect);
     SAFE_RELEASE(s_pMesh);
-}    
+}
 
 
 //--------------------------------------------------------------------------------------
-LRESULT CDXUTDirectionWidget::HandleMessages( HWND hWnd, UINT uMsg, 
+LRESULT CDXUTDirectionWidget::HandleMessages( HWND hWnd, UINT uMsg,
                                               WPARAM wParam, LPARAM lParam )
 {
     switch( uMsg )
@@ -2834,7 +2835,7 @@ LRESULT CDXUTDirectionWidget::HandleMessages( HWND hWnd, UINT uMsg,
 
 
 //--------------------------------------------------------------------------------------
-HRESULT CDXUTDirectionWidget::OnRender( D3DXCOLOR color, const D3DXMATRIX* pmView, 
+HRESULT CDXUTDirectionWidget::OnRender( D3DXCOLOR color, const D3DXMATRIX* pmView,
                                         const D3DXMATRIX* pmProj, const D3DXVECTOR3* pEyePt )
 {
     m_mView = *pmView;
@@ -2906,7 +2907,7 @@ HRESULT CDXUTDirectionWidget::UpdateLightDir()
     // Note that per-frame delta rotations could be problematic over long periods of time.
     m_mRot *= m_mView * mLastRotInv * mRot * mInvView;
 
-    // Since we're accumulating delta rotations, we need to orthonormalize 
+    // Since we're accumulating delta rotations, we need to orthonormalize
     // the matrix to prevent eventual matrix skew
     D3DXVECTOR3* pXBasis = (D3DXVECTOR3*) &m_mRot._11;
     D3DXVECTOR3* pYBasis = (D3DXVECTOR3*) &m_mRot._21;
@@ -2962,7 +2963,7 @@ static bool DXUT_EnsureD3DAPIs( void )
         return false;
     StringCchCat( wszPath, MAX_PATH, L"\\d3d9.dll" );
     s_hModD3D9 = LoadLibrary( wszPath );
-    if( s_hModD3D9 == NULL ) 
+    if( s_hModD3D9 == NULL )
         return false;
     s_DynamicDirect3DCreate9 = (LPDIRECT3DCREATE9)GetProcAddress( s_hModD3D9, "Direct3DCreate9" );
     s_DynamicD3DPERF_BeginEvent = (LPD3DPERF_BEGINEVENT)GetProcAddress( s_hModD3D9, "D3DPERF_BeginEvent" );
@@ -2975,7 +2976,7 @@ static bool DXUT_EnsureD3DAPIs( void )
     return true;
 }
 
-IDirect3D9 * WINAPI DXUT_Dynamic_Direct3DCreate9(UINT SDKVersion) 
+IDirect3D9 * WINAPI DXUT_Dynamic_Direct3DCreate9(UINT SDKVersion)
 {
     if( DXUT_EnsureD3DAPIs() && s_DynamicDirect3DCreate9 != NULL )
         return s_DynamicDirect3DCreate9( SDKVersion );
@@ -3035,7 +3036,7 @@ DWORD WINAPI DXUT_Dynamic_D3DPERF_GetStatus( void )
 
 
 //--------------------------------------------------------------------------------------
-// Trace a string description of a decl 
+// Trace a string description of a decl
 //--------------------------------------------------------------------------------------
 void DXUTTraceDecl( D3DVERTEXELEMENT9 decl[MAX_FVF_DECL_SIZE] )
 {
@@ -3045,7 +3046,7 @@ void DXUTTraceDecl( D3DVERTEXELEMENT9 decl[MAX_FVF_DECL_SIZE] )
         if( decl[iDecl].Stream == 0xFF )
             break;
 
-        DXUTOutputDebugString( L"decl[%d]=Stream:%d, Offset:%d, %s, %s, %s, UsageIndex:%d\n", iDecl, 
+        DXUTOutputDebugString( L"decl[%d]=Stream:%d, Offset:%d, %s, %s, %s, UsageIndex:%d\n", iDecl,
                     decl[iDecl].Stream,
                     decl[iDecl].Offset,
                     DXUTTraceD3DDECLTYPEtoString( decl[iDecl].Type ),
@@ -3134,19 +3135,19 @@ BOOL DXUTGetMonitorInfo(HMONITOR hMonitor, LPMONITORINFO lpMonitorInfo)
 {
     static bool s_bInited = false;
     static LPGETMONITORINFO s_pFnGetMonitorInfo = NULL;
-    if( !s_bInited )        
+    if( !s_bInited )
     {
         s_bInited = true;
         HMODULE hUser32 = GetModuleHandle( L"USER32" );
-        if (hUser32 ) 
+        if (hUser32 )
         {
             OSVERSIONINFOA osvi = {0}; osvi.dwOSVersionInfoSize = sizeof(osvi); GetVersionExA((OSVERSIONINFOA*)&osvi);
-            bool bNT = (VER_PLATFORM_WIN32_NT == osvi.dwPlatformId);    
+            bool bNT = (VER_PLATFORM_WIN32_NT == osvi.dwPlatformId);
             s_pFnGetMonitorInfo = (LPGETMONITORINFO) (bNT ? GetProcAddress(hUser32,"GetMonitorInfoW") : GetProcAddress(hUser32,"GetMonitorInfoA"));
         }
     }
 
-    if( s_pFnGetMonitorInfo ) 
+    if( s_pFnGetMonitorInfo )
         return s_pFnGetMonitorInfo(hMonitor, lpMonitorInfo);
 
     RECT rcWork;
@@ -3168,14 +3169,14 @@ HMONITOR DXUTMonitorFromWindow(HWND hWnd, DWORD dwFlags)
 {
     static bool s_bInited = false;
     static LPMONITORFROMWINDOW s_pFnGetMonitorFronWindow = NULL;
-    if( !s_bInited )        
+    if( !s_bInited )
     {
         s_bInited = true;
         HMODULE hUser32 = GetModuleHandle( L"USER32" );
         if (hUser32 ) s_pFnGetMonitorFronWindow = (LPMONITORFROMWINDOW) GetProcAddress(hUser32,"MonitorFromWindow");
     }
 
-    if( s_pFnGetMonitorFronWindow ) 
+    if( s_pFnGetMonitorFronWindow )
         return s_pFnGetMonitorFronWindow(hWnd, dwFlags);
     if (dwFlags & (MONITOR_DEFAULTTOPRIMARY | MONITOR_DEFAULTTONEAREST))
         return DXUT_PRIMARY_MONITOR;
@@ -3184,13 +3185,13 @@ HMONITOR DXUTMonitorFromWindow(HWND hWnd, DWORD dwFlags)
 
 
 //--------------------------------------------------------------------------------------
-// Get the desktop resolution of an adapter. This isn't the same as the current resolution 
-// from GetAdapterDisplayMode since the device might be fullscreen 
+// Get the desktop resolution of an adapter. This isn't the same as the current resolution
+// from GetAdapterDisplayMode since the device might be fullscreen
 //--------------------------------------------------------------------------------------
 void DXUTGetDesktopResolution( UINT AdapterOrdinal, UINT* pWidth, UINT* pHeight )
 {
     CD3DEnumeration* pd3dEnum = DXUTGetEnumeration();
-    CD3DEnumAdapterInfo* pAdapterInfo = pd3dEnum->GetAdapterInfo( AdapterOrdinal );                       
+    CD3DEnumAdapterInfo* pAdapterInfo = pd3dEnum->GetAdapterInfo( AdapterOrdinal );
     DEVMODE devMode;
     ZeroMemory( &devMode, sizeof(DEVMODE) );
     devMode.dmSize = sizeof(DEVMODE);
@@ -3198,7 +3199,7 @@ void DXUTGetDesktopResolution( UINT AdapterOrdinal, UINT* pWidth, UINT* pHeight 
     MultiByteToWideChar( CP_ACP, 0, pAdapterInfo->AdapterIdentifier.DeviceName, -1, strDeviceName, 256 );
     strDeviceName[255] = 0;
     EnumDisplaySettings( strDeviceName, ENUM_REGISTRY_SETTINGS, &devMode );
-    
+
     if( pWidth )
         *pWidth = devMode.dmPelsWidth;
     if( pHeight )
@@ -3260,7 +3261,7 @@ HRESULT DXUTGetGamepadState( DWORD dwPort, DXUT_GAMEPAD* pGamePad, bool bThumbst
             StringCchCat( wszPath, MAX_PATH, L"\\" );
             StringCchCat( wszPath, MAX_PATH, XINPUT_DLL );
             HINSTANCE hInst = LoadLibrary( wszPath );
-            if( hInst ) 
+            if( hInst )
             {
                 s_pXInputGetState = (LPXINPUTGETSTATE)GetProcAddress( hInst, "XInputGetState" );
                 s_pXInputGetCapabilities = (LPXINPUTGETCAPABILITIES)GetProcAddress( hInst, "XInputGetCapabilities" );
@@ -3301,24 +3302,24 @@ HRESULT DXUTGetGamepadState( DWORD dwPort, DXUT_GAMEPAD* pGamePad, bool bThumbst
         // Apply deadzone to each axis independantly to slightly snap to up/down/left/right
         if( pGamePad->sThumbLX < XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE && pGamePad->sThumbLX > -XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE )
             pGamePad->sThumbLX = 0;
-        if( pGamePad->sThumbLY < XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE && pGamePad->sThumbLY > -XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE ) 
+        if( pGamePad->sThumbLY < XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE && pGamePad->sThumbLY > -XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE )
             pGamePad->sThumbLY = 0;
         if( pGamePad->sThumbRX < XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE && pGamePad->sThumbRX > -XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE )
             pGamePad->sThumbRX = 0;
-        if( pGamePad->sThumbRY < XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE && pGamePad->sThumbRY > -XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE ) 
+        if( pGamePad->sThumbRY < XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE && pGamePad->sThumbRY > -XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE )
             pGamePad->sThumbRY = 0;
     }
     else if( bThumbstickDeadZone )
     {
         // Apply deadzone if centered
-        if( (pGamePad->sThumbLX < XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE && pGamePad->sThumbLX > -XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE) && 
-            (pGamePad->sThumbLY < XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE && pGamePad->sThumbLY > -XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE) ) 
-        {   
+        if( (pGamePad->sThumbLX < XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE && pGamePad->sThumbLX > -XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE) &&
+            (pGamePad->sThumbLY < XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE && pGamePad->sThumbLY > -XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE) )
+        {
             pGamePad->sThumbLX = 0;
             pGamePad->sThumbLY = 0;
         }
-        if( (pGamePad->sThumbRX < XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE && pGamePad->sThumbRX > -XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE) && 
-            (pGamePad->sThumbRY < XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE && pGamePad->sThumbRY > -XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE) ) 
+        if( (pGamePad->sThumbRX < XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE && pGamePad->sThumbRX > -XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE) &&
+            (pGamePad->sThumbRY < XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE && pGamePad->sThumbRY > -XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE) )
         {
             pGamePad->sThumbRX = 0;
             pGamePad->sThumbRY = 0;
@@ -3331,7 +3332,7 @@ HRESULT DXUTGetGamepadState( DWORD dwPort, DXUT_GAMEPAD* pGamePad, bool bThumbst
     pGamePad->fThumbRX = pGamePad->sThumbRX / 32767.0f;
     pGamePad->fThumbRY = pGamePad->sThumbRY / 32767.0f;
 
-    // Get the boolean buttons that have been pressed since the last call. 
+    // Get the boolean buttons that have been pressed since the last call.
     // Each button is represented by one bit.
     pGamePad->wPressedButtons = ( pGamePad->wLastButtons ^ pGamePad->wButtons ) & pGamePad->wButtons;
     pGamePad->wLastButtons    = pGamePad->wButtons;
@@ -3351,7 +3352,7 @@ HRESULT DXUTGetGamepadState( DWORD dwPort, DXUT_GAMEPAD* pGamePad, bool bThumbst
 
 
 //--------------------------------------------------------------------------------------
-// Don't pause the game or deactive the window without first stopping rumble otherwise 
+// Don't pause the game or deactive the window without first stopping rumble otherwise
 // the controller will continue to rumble
 //--------------------------------------------------------------------------------------
 HRESULT DXUTStopRumbleOnAllControllers()
@@ -3365,7 +3366,7 @@ HRESULT DXUTStopRumbleOnAllControllers()
             StringCchCat( wszPath, MAX_PATH, L"\\" );
             StringCchCat( wszPath, MAX_PATH, XINPUT_DLL );
             HINSTANCE hInst = LoadLibrary( wszPath );
-            if( hInst ) 
+            if( hInst )
                 s_pXInputSetState = (LPXINPUTSETSTATE)GetProcAddress( hInst, "XInputSetState" );
         }
     }
@@ -3390,7 +3391,7 @@ bool DXUTReLaunchMediaCenter()
     // Skip if not running on a Media Center
     if( GetSystemMetrics( 87 ) == 0 ) //  SM_MEDIACENTER == 87, but is only defined if _WIN32_WINNT >= 0x0501
         return false;
- 
+
     // Get the path to Media Center
     WCHAR szExpandedPath[MAX_PATH];
     if( !ExpandEnvironmentStrings( L"%SystemRoot%\\ehome\\ehshell.exe", szExpandedPath, MAX_PATH) )
@@ -3399,8 +3400,8 @@ bool DXUTReLaunchMediaCenter()
     // Skip if ehshell.exe doesn't exist
     if( GetFileAttributes( szExpandedPath ) == 0xFFFFFFFF )
         return false;
- 
-    // Launch ehshell.exe 
+
+    // Launch ehshell.exe
     INT_PTR result = (INT_PTR)ShellExecute( NULL, TEXT("open"), szExpandedPath, NULL, NULL, SW_SHOWNORMAL);
     return (result > 32);
 }

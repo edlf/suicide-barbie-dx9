@@ -20,13 +20,21 @@ std::string& binary_input_utils::readString( std::string& str )
   int rd = 0;
   unsigned size = readDword();
 
+  if (size == 0) {
+    return std::string();
+  }
+
   size_t pos = str.size();
   str.resize( pos + size );
   std::fill_n( str.begin() + pos, size, ' ' );
-  while( size-- ) {
-    mInput->read( &c, sizeof(c), &rd );
-    if( !rd )
+
+  while(size--) {
+    mInput->read(&c, sizeof(c), &rd);
+
+    if( !rd ) {
       break;
+    }
+
     str[pos++] = c;
   }
   return str;

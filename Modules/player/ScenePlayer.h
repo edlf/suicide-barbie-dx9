@@ -288,7 +288,7 @@ AP<mutant::mutant_reader> createFileReader(std::string const& fileName);
 template <typename ResourceType>
 static AP<ResourceType> loadResource(std::string fileName)
 {
-  ;;printf("loadResource<>: $ %s\n", fileName.c_str());
+  printf("loadResource<>: $ %s\n", fileName.c_str());
   AP<mutant::mutant_reader> reader = createFileReader(fileName);
   AP<ResourceType> resource(new ResourceType);
   *reader >> *resource;

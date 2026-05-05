@@ -91,9 +91,12 @@ std::auto_ptr<Dx9RenderableScene> prepare(RenderContext& rc, mutalisk::data::sce
   std::auto_ptr<Dx9RenderableScene> scene(new Dx9RenderableScene(data));
 
   // load shared resources
+  std::cout << "Mesh IDs: " << data.meshIds.size() << std::endl;
+
   scene->mResources.meshes.resize(data.meshIds.size());
   for(size_t q = 0; q < data.meshIds.size(); ++q)
   {
+    std::cout << "Loading mesh ID: " << data.meshIds[q] << std::endl;
     scene->mResources.meshes[q].blueprint = loadResource<mutalisk::data::mesh>(data.meshIds[q]);
     scene->mResources.meshes[q].renderable = prepare(rc, *scene->mResources.meshes[q].blueprint);
   }

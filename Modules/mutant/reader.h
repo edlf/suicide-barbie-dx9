@@ -28,59 +28,6 @@ namespace mutant
     std::string readString();
     std::string& readString( std::string& str );
 
-/*    std::string readString()
-    {
-      std::string str;
-      unsigned char c;
-      int rd = 0;
-      unsigned size = readDword();
-
-      while( size-- ) {
-        mInput->read( &c, sizeof(c), &rd );
-        if( !rd )
-          break;
-//        if( c == '\x0' )
-//          break;
-
-        str += c;
-      }
-      return str;
-    }
-
-    std::string& readString2(std::string& str)
-    {
-      unsigned char c;
-      int rd = 0;
-      unsigned size = readDword();
-
-      while( size-- ) {
-        mInput->read( &c, sizeof(c), &rd );
-        if( !rd )
-          break;
-        str += c;
-      }
-      return str;
-    }
-
-
-    std::string readStringOld()
-    {
-      std::string str;
-      unsigned char c;
-      int rd = 0;
-
-      while( 1 ) {
-        mInput->read( &c, sizeof(c), &rd );
-        if( !rd )
-          break;
-        if( c == '\x0' )
-          break;
-
-        str += c;
-      }
-      return str;
-    }*/
-
     unsigned int readDword()
     {
       unsigned int i = 0;

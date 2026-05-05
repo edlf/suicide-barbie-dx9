@@ -4,13 +4,15 @@
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 
+#include <iostream>
+
 namespace mutant
 {
   file_input::file_input( std::string const& name )
   :  mFile( NULL )
   {
-    std::wstring wc( name.size(), L'#' );
-    mbstowcs( &wc[0], name.c_str(), name.size() );
+    std::wstring wc(name.size(), L'#');
+    mbstowcs(&wc[0], name.c_str(), name.size());
 
     mFile = CreateFile(
       wc.c_str(),
@@ -21,26 +23,12 @@ namespace mutant
       FILE_ATTRIBUTE_NORMAL|FILE_FLAG_SEQUENTIAL_SCAN,
       NULL );
 
-    if( mFile == INVALID_HANDLE_VALUE )
+    if( mFile == INVALID_HANDLE_VALUE ) {
+      std::cout << "Failed to open: " << name << " invalid handle" << std::endl;
       throw EIoError( IO_NOFILE, "Failed to open `" + name + "' for reading" );
+    }
   }
 
-/*  file_input::file_input( std::wstring const& name )
-  :  mFile( NULL )
-  {
-    mFile = CreateFileW(
-      name.c_str(),
-      GENERIC_READ,
-      FILE_SHARE_READ,
-      NULL,
-      OPEN_EXISTING,
-      FILE_ATTRIBUTE_NORMAL|FILE_FLAG_SEQUENTIAL_SCAN,
-      NULL );
-
-    if( mFile == INVALID_HANDLE_VALUE )
-      throw EIoError( IO_NOFILE, "Failed to open `???' for reading" );
-  }
-*/
   file_input::~file_input() {
     if( mFile ) {
       CloseHandle( (HANDLE)mFile );
@@ -64,13 +52,14 @@ namespace mutant
     }
 
     if( !good ) {
+      std::cout << "Failed to read: " << n << " bytes" << std::endl;
       throw EIoError( IO_ERROR, std::string("Failed to read `") + n + "' bytes from file" );
     }
   }
 
   file_output::file_output( std::string const& name ) {
-    std::wstring wc( name.size(), L'#' );
-    mbstowcs( &wc[0], name.c_str(), name.size() );
+    std::wstring wc(name.size(), L'#');
+    mbstowcs(&wc[0], name.c_str(), name.size());
 
     mFile = CreateFile(
       wc.c_str(),

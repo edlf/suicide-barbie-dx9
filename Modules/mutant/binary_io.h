@@ -28,14 +28,14 @@ namespace mutant
   class binary_input
   {
   public:
-    virtual ~binary_input() /*_ __gcc = 0*/ {}
+    virtual ~binary_input() {}
     virtual void read( void* dest, size_t n, int* wasRead ) = 0; // throws EIoError
   };
 
   class binary_output
   {
   public:
-    virtual ~binary_output() /*_ __gcc = 0*/ {}
+    virtual ~binary_output() {}
     virtual void write( void const* src, size_t n, int* wasWritten ) = 0;
   };
 }

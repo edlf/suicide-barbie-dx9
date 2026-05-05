@@ -12,7 +12,8 @@ template <typename In> In& operator>> (In& i, dx9_mesh& data)
 
   try
   {
-    unsigned versionCheck = (data.Version == i.readDword()); ASSERT(versionCheck);
+    unsigned versionCheck = (data.Version == i.readDword());
+    ASSERT(versionCheck);
 
     // base_mesh
     i >> data.base();

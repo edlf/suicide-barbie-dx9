@@ -92,11 +92,12 @@ namespace mutant
         case ANIM_MAGIC:
           return ret_ptr( new mutant_plain_input(in) );
         default:
+          std::cout << "Invalid magic token" << std::endl;
           THROW_IoError( "Invalid magic token. File corrupted or unsupported version" );
         }
-      } catch( EIoEof& ) {
+      } catch(EIoEof&) {
         THROW_MutantError( std::string("unexpected end of file while reading `") + name + std::string("'") );
-      } catch( EIoError& /*e*/ ) {
+      } catch(EIoError&) {
         THROW_MutantError( std::string("Error while reading file. ") + e.what() );
       }
       return ret_ptr(NULL);

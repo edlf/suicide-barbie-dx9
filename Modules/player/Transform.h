@@ -3,10 +3,8 @@
 
 #include "cfg.h"
 
-extern "C" {
-  #include <Base/Math/Lin.h>
-  #include <Base/Math/Quat.h>
-}
+#include <Base/Math/Lin.hpp>
+#include <Base/Math/Quat.hpp>
 
 //#define FORCE_D3DXMATH
 #if defined(FORCE_D3DXMATH)

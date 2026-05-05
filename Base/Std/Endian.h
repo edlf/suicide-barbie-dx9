@@ -1,13 +1,5 @@
-
 #ifndef NEWAGE_BASE_STD_ENDIAN_H
 #define NEWAGE_BASE_STD_ENDIAN_H
-
-#if defined AMIGA
-#define NEWAGE_BIG_ENDIAN
-#elif defined WIN32 || defined __psp__
-#else
-#error Platform not defined
-#endif
 
 // warning C4505: : unreferenced local function has been removed
 #if defined WIN32

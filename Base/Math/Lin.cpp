@@ -1,9 +1,7 @@
 #include <cmath>
 
 #include <Base/Math/Math.h>
-#include <Base/Math/Quat.h>
-
-extern "C" {
+#include <Base/Math/Quat.hpp>
 
 float Vec3_dot(Vec3* v0, Vec3* v1)
 {
@@ -195,5 +193,3 @@ void Mat34_setIdentity(Mat34* t)
   Mat33_setIdentity(&t->Rot);
   Vec3_setZero(&t->Move);
 }
-
-} // extern C

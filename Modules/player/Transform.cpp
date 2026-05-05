@@ -152,10 +152,8 @@ CTransform const& CTransform::operator=( t_matrix const& m )
     v3.x, v3.y, v3.z,
     0.0f, 0.0f, 0.0f );
 
-  typedef float float_t;
-
-  float_t T = 1.0f + mat34_ij( rotM, 0, 0 ) + mat34_ij( rotM, 1, 1 ) + mat34_ij( rotM, 2, 2 );
-  float_t S, X, Y, Z, W;
+  float T = 1.0f + mat34_ij( rotM, 0, 0 ) + mat34_ij( rotM, 1, 1 ) + mat34_ij( rotM, 2, 2 );
+  float S, X, Y, Z, W;
 
   if( T >= 0.000001 )
   {
@@ -222,11 +220,9 @@ CTransform::t_matrix operator*( CTransform::t_matrix const& lh, CTransform const
 
 CTransform::t_matrix CTransform::matrix() const
 {
-  typedef float float_t;
-
   t_matrix m;
-  float_t sx = scale().x, sy = scale().y, sz = scale().z;
-  float_t tx = translation().x, ty = translation().y, tz = translation().z;
+  float sx = scale().x, sy = scale().y, sz = scale().z;
+  float tx = translation().x, ty = translation().y, tz = translation().z;
 
   QuatNormalize((t_quaternion*)&mRotation, (t_quaternion*)&mRotation);
   Mat33_setRotQuat( &m.Rot, (t_quaternion*)&mRotation );

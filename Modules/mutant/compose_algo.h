@@ -1,11 +1,9 @@
 #ifndef MUTANT_COMPOSE_ALGO_H_
 #define MUTANT_COMPOSE_ALGO_H_
 
-extern "C" {
-  #include <Base/Std/Std.h>
-  #include <Base/Math/Lin.h>
-  #include <Base/Math/Quat.h>
-}
+#include <Base/Std/Std.h>
+#include <Base/Math/Lin.hpp>
+#include <Base/Math/Quat.hpp>
 
 namespace mutant
 {

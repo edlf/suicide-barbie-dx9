@@ -48,7 +48,7 @@ public:
 
     void Init( CDXUTDialogResourceManager* pManager );
     void Init( CDXUTDialogResourceManager* pManager, LPCWSTR szControlTextureFileName );
-  void Init( CDXUTDialogResourceManager* pManager, LPCWSTR pszControlTextureResourcename, HMODULE hModule);
+    void Init( CDXUTDialogResourceManager* pManager, LPCWSTR pszControlTextureResourcename, HMODULE hModule);
 
     HRESULT OnCreateDevice( IDirect3DDevice9* pd3dDevice );
     HRESULT Refresh();

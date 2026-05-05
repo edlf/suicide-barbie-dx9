@@ -988,6 +988,14 @@
 			</Filter>
 		</Filter>
 		<File
+			RelativePath=".\guicon.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\guicon.h"
+			>
+		</File>
+		<File
 			RelativePath=".\MutaliskUberShader.fx"
 			>
 		</File>

@@ -1,12 +1,11 @@
 #ifndef MUTALISK_DATA_TYPES_H_
 #define MUTALISK_DATA_TYPES_H_
 
-#include "cfg.h"
 #include "array.h"
 
 namespace mutalisk {
-namespace data
-{
+namespace data {
+
   typedef unsigned char byte;
 
   struct Color {

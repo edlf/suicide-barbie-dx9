@@ -1,8 +1,6 @@
 #ifndef MUTALISK_DATA_PLATFORM_H_
 #define MUTALISK_DATA_PLATFORM_H_
 
-#include "cfg.h"
-
 #if defined WIN32
 #  include "dx9Platform.h"
 #else

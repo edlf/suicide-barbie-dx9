@@ -1,7 +1,6 @@
 #ifndef MUTALISK_COMMON_H_
 #define MUTALISK_COMMON_H_
 
-#include "cfg.h"
 #include "types.h"
 #include "metainfo.h"
 

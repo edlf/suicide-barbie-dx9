@@ -32,6 +32,7 @@
 #include <Modules/player/ScenePlayer.h>
 #include <Modules/player/dx9ScenePlayer.h>
 
+#include "guicon.h"
 
 namespace {
 void splitFilename(std::string const& fullPath, std::string& path, std::string& fileName)
@@ -436,12 +437,13 @@ void    RenderText( double fTime );
 //--------------------------------------------------------------------------------------
 INT WINAPI WinMain( HINSTANCE, HINSTANCE, LPSTR cmdLine, int )
 {
-  std::cout << "YO" << std::endl;
+  RedirectIOToConsole();
+  std::cerr << "WinMain" << std::endl;
 
-    // Enable run-time memory check for debug builds.
-#if defined(DEBUG) | defined(_DEBUG)
+  // Enable run-time memory check for debug builds.
+  #if defined(DEBUG) | defined(_DEBUG)
     _CrtSetDbgFlag( _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF );
-#endif
+  #endif
 
   if(*cmdLine) {
     gSceneFileName = cmdLine;
@@ -610,7 +612,8 @@ bool CALLBACK ModifyDeviceSettings( DXUTDeviceSettings* pDeviceSettings, const D
 //--------------------------------------------------------------------------------------
 HRESULT CALLBACK OnCreateDevice( IDirect3DDevice9* pd3dDevice, const D3DSURFACE_DESC* pBackBufferSurfaceDesc, void* pUserContext )
 {
-    HRESULT hr;
+  std::cout << "OnCreateDevice" << std::endl;
+  HRESULT hr;
 
     V_RETURN( g_DialogResourceManager.OnCreateDevice( pd3dDevice ) );
     V_RETURN( g_SettingsDlg.OnCreateDevice( pd3dDevice ) );

@@ -1,7 +1,7 @@
 ###  Suicide Barbie by The Black Lotus
 ####      DX9 buildable project for VS 2005
 
-This currently doesn't work properly. But all the available windows code builds.
+This currently doesn't work properly. But all the available windows code builds and runs.
 
 
 #### Missing stuff

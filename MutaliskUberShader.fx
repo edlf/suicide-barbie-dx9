@@ -293,8 +293,7 @@ VS_OUTPUT mainVS( VS_INPUT i )
 
   float3 totalLightDiffuse = float3(0,0,0);
   float3 totalLightSpecular = float3(0,0,0);
-  for(int q = 0; q < iNumLights; q++)
-  {
+  for(int q = 0; q < iNumLights; q++) {
     totalLightDiffuse += diffuseLight(worldPos, worldNormal, q);
     totalLightSpecular += specularLight(worldPos, worldNormal, q);
   }

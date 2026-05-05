@@ -77,13 +77,11 @@ struct ScenePlayerApp
     scene.renderable = prepare(renderContext, *scene.blueprint);
   }
 
-  void setViewMatrix(D3DXMATRIX const& viewMatrix)
-  {
+  void setViewMatrix(D3DXMATRIX const& viewMatrix) {
     renderContext.viewMatrix = viewMatrix;
   }
 
-  void setProjMatrix(D3DXMATRIX const& projMatrix)
-  {
+  void setProjMatrix(D3DXMATRIX const& projMatrix){
     renderContext.projMatrix = projMatrix;
   }
 
@@ -119,7 +117,7 @@ std::string gSceneFileName = "logo\\dx9\\logo.msk";
 //--------------------------------------------------------------------------------------
 //
 //--------------------------------------------------------------------------------------
-enum { FramesPerSecond = 30 };
+enum { FramesPerSecond = 60 };
 unsigned timeToFrame(float t) { return static_cast<unsigned>(floor(t*FramesPerSecond)); }
 
 template <typename Context>
@@ -154,25 +152,24 @@ public:
 
   void update(Context& ctx, unsigned frame)
   {
-    for(RunningScripts::iterator it = mScripts.begin(); it != mScripts.end(); ++it)
-    {
+    for(RunningScripts::iterator it = mScripts.begin(); it != mScripts.end(); ++it) {
       unsigned& currScriptIt = it->second;
-      if(currScriptIt == it->first.size())
+      if(currScriptIt == it->first.size()) {
         continue;
+      }
 
       unsigned nextScriptIt = currScriptIt;
-      if(frame >= it->first[currScriptIt].startFrame)
-      {
+      if(frame >= it->first[currScriptIt].startFrame) {
         ++nextScriptIt;
         if(nextScriptIt < it->first.size() && frame >= it->first[nextScriptIt].startFrame)
           currScriptIt = nextScriptIt;
-      }
-      else
-      {
-        if(nextScriptIt > 0)
+      } else {
+        if(nextScriptIt > 0) {
           --nextScriptIt;
-        if(frame < it->first[currScriptIt].startFrame)
+        }
+        if(frame < it->first[currScriptIt].startFrame) {
           currScriptIt = nextScriptIt;
+        }
       }
 
       TimelineFuncT func = it->first[currScriptIt].func;
@@ -182,8 +179,8 @@ public:
   }
 
 private:
-  typedef std::vector<Item>                      ScriptT;
-  typedef std::vector<std::pair<ScriptT, unsigned> >          RunningScripts;
+  typedef std::vector<Item> ScriptT;
+  typedef std::vector<std::pair<ScriptT, unsigned> > RunningScripts;
 
   RunningScripts  mScripts;
 };
@@ -219,7 +216,8 @@ public:
   }
   float sceneTime(Scene const& scene);
 
-  void blink() {}
+  void blink() {
+  }
 
   //
   unsigned frame() const { return mCurrFrame; }
@@ -268,8 +266,10 @@ float BaseDemoPlayer::sceneTime(Scene const& scene)
 
 void BaseDemoPlayer::draw(Scene const& scene)
 {
-  if(scene.startTime <= 0.0f)
+  std::cout << "BaseDemoPlayer::draw" << std::endl;
+  if(scene.startTime <= 0.0f) {
     scene.startTime = time();
+  }
 
   ASSERT(scene.renderable);
   mutalisk::update(*scene.renderable, time() - scene.startTime);
@@ -311,6 +311,7 @@ class TestDemo : public BaseDemoPlayer
 public:
   void doFrame(float t)
   {
+    std::cout << "TestDemo::doFrame" << std::endl;
     setTime(t);
     timeline.update(*this, frame());
   }
@@ -318,6 +319,7 @@ public:
 protected:
   virtual void onStart()
   {
+    std::cout << "TestDemo::onStart" << std::endl;
     {Item items[] = {
       Item(0,    0,  S_FUNC(logo)),
       Item(9,    20,  S_FUNC(logo_to_flower)),
@@ -477,10 +479,10 @@ INT WINAPI WinMain( HINSTANCE, HINSTANCE, LPSTR cmdLine, int )
   DXUTInit( true, true, true ); // Parse the command line, handle the default hotkeys, and show msgboxes
   DXUTCreateWindow( L"Suicide Barbie" );
 
-  float const screenScaler = 2;
-  std::cout << "DXUTCreateDevice" << std::endl;
+  float const screenScaler = 3;
+
   DXUTCreateDevice( D3DADAPTER_DEFAULT, true, (int) (480*screenScaler), (int) (272*screenScaler), (LPDXUTCALLBACKISDEVICEACCEPTABLE)IsDeviceAcceptable, (LPDXUTCALLBACKMODIFYDEVICESETTINGS)ModifyDeviceSettings );
-  std::cout << "DXUTCreateDevice ret" << std::endl;
+
   // Pass control to DXUT for handling the message pump and
   // dispatching render calls. DXUT will call your FrameMove
   // and FrameRender callback when there is idle time between handling window messages.
@@ -488,8 +490,6 @@ INT WINAPI WinMain( HINSTANCE, HINSTANCE, LPSTR cmdLine, int )
 
   // Perform any application-level cleanup here. Direct3D device resources are released within the
   // appropriate callback functions and therefore don't require any cleanup code here.
-
-  std::cout << "WinMain Exit" << std::endl;
 
   return DXUTGetExitCode();
 }
@@ -597,8 +597,9 @@ bool CALLBACK ModifyDeviceSettings( DXUTDeviceSettings* pDeviceSettings, const D
   if( s_bFirstTime )
   {
     s_bFirstTime = false;
-    if( pDeviceSettings->DeviceType == D3DDEVTYPE_REF )
+    if( pDeviceSettings->DeviceType == D3DDEVTYPE_REF ) {
       DXUTDisplaySwitchingToREFWarning();
+    }
   }
 
   return true;
@@ -642,8 +643,7 @@ HRESULT CALLBACK OnCreateDevice( IDirect3DDevice9* pd3dDevice, const D3DSURFACE_
   D3DXMatrixRotationX( &m, D3DX_PI / 2.0f );
   g_mCenterWorld *= m;
 
-  // TODO:
-  // V_RETURN( CDXUTDirectionWidget::StaticOnCreateDevice( pd3dDevice ) );
+  V_RETURN( CDXUTDirectionWidget::StaticOnCreateDevice( pd3dDevice ) );
 
   for( int i=0; i<MAX_LIGHTS; i++ ) {
     g_LightControl[i].SetRadius( fObjectRadius );
@@ -679,13 +679,11 @@ HRESULT CALLBACK OnCreateDevice( IDirect3DDevice9* pd3dDevice, const D3DSURFACE_
   WCHAR str[MAX_PATH];
   V_RETURN( DXUTFindDXSDKMediaFileCch( str, MAX_PATH, L"MutaliskUberShader.fx" ) );
 
-  // If this fails, there should be debug output as to
-  // why the .fx file failed to compile
+  // If this fails, there should be debug output as to why the .fx file failed to compile
   com_ptr<ID3DXBuffer> errorBuffer;
   HRESULT hr2 = D3DXCreateEffectFromFile( pd3dDevice, str, NULL, NULL, dwShaderFlags, NULL, &g_pEffect, &errorBuffer );
-  if(errorBuffer)
-  {
-    std::string errorStr = std::string((char*)errorBuffer->GetBufferPointer(), (char*)errorBuffer->GetBufferSize());
+  if(errorBuffer) {
+    std::string errorStr = std::string((char*)errorBuffer->GetBufferPointer(), errorBuffer->GetBufferSize());
   }
   V_RETURN(hr2);
 
@@ -766,16 +764,19 @@ HRESULT CALLBACK OnResetDevice( IDirect3DDevice9* pd3dDevice,
   V_RETURN( g_DialogResourceManager.OnResetDevice() );
   V_RETURN( g_SettingsDlg.OnResetDevice() );
 
-  if( g_pFont )
+  if( g_pFont ) {
     V_RETURN( g_pFont->OnResetDevice() );
-  if( g_pEffect )
+  }
+  if( g_pEffect ) {
     V_RETURN( g_pEffect->OnResetDevice() );
+  }
 
   // Create a sprite to help batch calls when drawing many lines of text
   V_RETURN( D3DXCreateSprite( pd3dDevice, &g_pSprite ) );
 
-  for( int i=0; i<MAX_LIGHTS; i++ )
+  for( int i=0; i<MAX_LIGHTS; i++ ) {
     g_LightControl[i].OnResetDevice( pBackBufferSurfaceDesc  );
+  }
 
   // Setup the camera's projection parameters
   float fAspectRatio = pBackBufferSurfaceDesc->Width / (FLOAT)pBackBufferSurfaceDesc->Height;
@@ -815,7 +816,6 @@ void CALLBACK OnFrameMove( IDirect3DDevice9* pd3dDevice, double fTime, float fEl
 //--------------------------------------------------------------------------------------
 void CALLBACK OnFrameRender( IDirect3DDevice9* pd3dDevice, double fTime, float fElapsedTime, void* pUserContext )
 {
-  std::cout << "Render" << std::endl;
   // If the settings dialog is being shown, then
   // render it instead of rendering the app's scene
   if(g_SettingsDlg.IsActive()) {
@@ -846,110 +846,6 @@ void CALLBACK OnFrameRender( IDirect3DDevice9* pd3dDevice, double fTime, float f
     mProj = *g_Camera.GetProjMatrix();
     mView = *g_Camera.GetViewMatrix();
 
-    /*    updateAnim( pd3dDevice );
-
-    static std::vector<CTransform::t_matrix> worldMatrices;
-    {
-    worldMatrices.resize( boneMap.size() );
-
-    unsigned i = 0;
-    BoneMapT::iterator bIdIt = boneMap.begin();
-    for( ; (i < boneMap.size()) && (bIdIt != boneMap.end()); ++bIdIt, ++i )
-    {
-    CTransform::t_matrix skinM;
-    if(skin.get())
-    {
-    float* mat16 = skin->bones[ bIdIt->first ].matrix.data;
-    skinM = CTransform::t_matrix( // new-age wants transposed matrix
-    mat16[0], mat16[4], mat16[8],
-    mat16[1], mat16[5], mat16[9],
-    mat16[2], mat16[6], mat16[10],
-    //          mat16[0], mat16[1], mat16[2],
-    //          mat16[4], mat16[5], mat16[6],
-    //          mat16[8], mat16[9], mat16[10],
-    //          1, 0, 0,
-    //          0, 1, 0,
-    //          0, 0, 1,
-    //          0, 0, 0
-    mat16[12], mat16[13], mat16[14]
-    );
-    }
-    else
-    {
-    Mat34_setIdentity(&skinM);
-    }
-    CTransform::t_matrix animM = matrices[ bIdIt->second ];
-    //        Mat33_transpose(&animM.Rot, &animM.Rot);
-    //        Mat33_setIdentity(&animM.Rot);
-    //        animM.Move.x = 0;
-    //        animM.Move.y = 0;
-    //        animM.Move.z = 0;
-
-    worldMatrices[i] = animM;
-    //        Mat34_mul( &worldMatrices[i], (Mat34*)&animM, &skinM );
-    //        Mat34_mul( &worldMatrices[i], &tm, (Mat34*)&animM );
-    worldMatrices[i] = worldMatrices[i];
-    }
-    }
-
-    V( g_pEffect->SetTechnique( "RenderSceneWithTexture1Light" ) );//"Debug" ) )
-
-    // Apply the technique contained in the effect
-    V( g_pEffect->Begin(&cPasses, 0) );
-    for (iPass = 0; iPass < cPasses; iPass++)
-    {
-    V( g_pEffect->BeginPass(iPass) );
-    for(MatricesT::const_iterator it = worldMatrices.begin(); it < worldMatrices.end(); ++it)
-    {
-    CTransform::t_matrix const& src = *it;
-    D3DXMATRIX animM;
-    static int method = 0;
-
-    if(method == 0)
-    {
-    animM = D3DXMATRIX (
-    src.Rot.Row[0].x, src.Rot.Row[1].x, src.Rot.Row[2].x, 0.0f,
-    src.Rot.Row[0].y, src.Rot.Row[1].y, src.Rot.Row[2].y, 0.0f,
-    src.Rot.Row[0].z, src.Rot.Row[1].z, src.Rot.Row[2].z, 0.0f,
-    src.Move.x, src.Move.y, src.Move.z, 1.0f
-    );
-    }
-
-    if(method == 1)
-    {
-    animM = D3DXMATRIX (
-    src.Rot.Row[0].x, src.Rot.Row[0].y, src.Rot.Row[0].z, 0.0f,
-    src.Rot.Row[1].x, src.Rot.Row[1].y, src.Rot.Row[1].z, 0.0f,
-    src.Rot.Row[2].x, src.Rot.Row[2].y, src.Rot.Row[2].z, 0.0f,
-    src.Move.x, src.Move.y, src.Move.z, 1.0f
-    );
-    }
-
-    if(method == 2)
-    {
-    animM = D3DXMATRIX(
-    1.0f, 0.0f, 0.0f, 0.0f,
-    0.0f, 1.0f, 0.0f, 0.0f,
-    0.0f, 0.0f, 1.0f, 0.0f,
-    src.Move.x, src.Move.y, src.Move.z, 1.0f
-    );
-    }
-
-    D3DXMATRIX worldViewProjection = animM * mWorld * mView * mProj;
-
-    V( g_pEffect->SetMatrix( "g_mWorldViewProjection", &worldViewProjection ) );
-    V( g_pEffect->SetMatrix( "g_mWorld", &animM ) );
-    V( g_pEffect->CommitChanges() );
-
-    if(gRenderDebugSkeleton)
-    V( g_pMesh->DrawSubset(0) );
-    }
-
-    V( g_pEffect->EndPass() );
-    }
-    V( g_pEffect->End() );
-
-    */
 
     mWorldViewProjection = mWorld * mView * mProj;
     for( int i=0; i<g_nNumActiveLights; i++ )
@@ -985,30 +881,6 @@ void CALLBACK OnFrameRender( IDirect3DDevice9* pd3dDevice, double fTime, float f
     static int maxActors = -1;
     scenePlayerApp->render(maxActors);
 
-
-#if 0
-    // Apply the technique contained in the effect
-    V( g_pEffect->Begin(&cPasses, 0) );
-
-    for (iPass = 0; iPass < cPasses; iPass++)
-    {
-      V( g_pEffect->BeginPass(iPass) );
-
-      // The effect interface queues up the changes and performs them
-      // with the CommitChanges call. You do not need to call CommitChanges if
-      // you are not setting any parameters between the BeginPass and EndPass.
-      // V( g_pEffect->CommitChanges() );
-
-      // Render the mesh with the applied technique
-      //      V( g_pMesh->DrawSubset(0) );
-
-      if(skin.get() && gRenderSkin)
-        renderAnim( pd3dDevice );
-
-      V( g_pEffect->EndPass() );
-    }
-    V( g_pEffect->End() );
-#endif
     g_HUD.OnRender( fElapsedTime );
     g_SampleUI.OnRender( fElapsedTime );
 
@@ -1079,22 +951,24 @@ LRESULT CALLBACK MsgProc( HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, bo
   // Always allow dialog resource manager calls to handle global messages
   // so GUI state is updated correctly
   *pbNoFurtherProcessing = g_DialogResourceManager.MsgProc( hWnd, uMsg, wParam, lParam );
-  if( *pbNoFurtherProcessing )
+  if( *pbNoFurtherProcessing ) {
     return 0;
+  }
 
-  if( g_SettingsDlg.IsActive() )
-  {
+  if( g_SettingsDlg.IsActive() ) {
     g_SettingsDlg.MsgProc( hWnd, uMsg, wParam, lParam );
     return 0;
   }
 
   // Give the dialogs a chance to handle the message first
   *pbNoFurtherProcessing = g_HUD.MsgProc( hWnd, uMsg, wParam, lParam );
-  if( *pbNoFurtherProcessing )
+  if( *pbNoFurtherProcessing ) {
     return 0;
+  }
   *pbNoFurtherProcessing = g_SampleUI.MsgProc( hWnd, uMsg, wParam, lParam );
-  if( *pbNoFurtherProcessing )
+  if( *pbNoFurtherProcessing ){
     return 0;
+  }
 
   g_LightControl[g_nActiveLight].HandleMessages( hWnd, uMsg, wParam, lParam );
 
@@ -1204,12 +1078,13 @@ void CALLBACK OnLostDevice( void* pUserContext )
   g_DialogResourceManager.OnLostDevice();
   g_SettingsDlg.OnLostDevice();
   CDXUTDirectionWidget::StaticOnLostDevice();
-  if( g_pFont )
+  if( g_pFont ) {
     g_pFont->OnLostDevice();
-  if( g_pEffect )
+  }
+  if( g_pEffect ) {
     g_pEffect->OnLostDevice();
+  }
   SAFE_RELEASE(g_pSprite);
-
 }
 
 

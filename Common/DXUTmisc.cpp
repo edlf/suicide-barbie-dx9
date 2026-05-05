@@ -2709,7 +2709,7 @@ HRESULT CDXUTDirectionWidget::StaticOnCreateDevice( IDirect3DDevice9* pd3dDevice
     "    pass P0\r\n"
     "    {\r\n"
     "        VertexShader = compile vs_1_1 RenderWith1LightNoTextureVS();\r\n"
-    "        PixelShader  = compile ps_1_1 RenderWith1LightNoTexturePS();\r\n"
+    "        PixelShader  = compile ps_2_0 RenderWith1LightNoTexturePS();\r\n"
     "    }\r\n"
     "}\r\n"
     "";
@@ -2729,8 +2729,10 @@ HRESULT CDXUTDirectionWidget::StaticOnCreateDevice( IDirect3DDevice9* pd3dDevice
     // cache hit more often so it won't have to re-execute the vertex shader
     // on those vertices so it will improve perf.
     DWORD* rgdwAdjacency = new DWORD[s_pMesh->GetNumFaces() * 3];
-    if( rgdwAdjacency == NULL )
-        return E_OUTOFMEMORY;
+    if( rgdwAdjacency == NULL ) {
+      return E_OUTOFMEMORY;
+    }
+
     V( s_pMesh->GenerateAdjacency(1e-6f,rgdwAdjacency) );
     V( s_pMesh->OptimizeInplace(D3DXMESHOPT_VERTEXCACHE, rgdwAdjacency, NULL, NULL, NULL) );
     delete []rgdwAdjacency;
@@ -2750,8 +2752,9 @@ HRESULT CDXUTDirectionWidget::OnResetDevice( const D3DSURFACE_DESC* pBackBufferS
 //--------------------------------------------------------------------------------------
 void CDXUTDirectionWidget::StaticOnLostDevice()
 {
-    if( s_pEffect )
-        s_pEffect->OnLostDevice();
+  if( s_pEffect ) {
+    s_pEffect->OnLostDevice();
+  }
 }
 
 

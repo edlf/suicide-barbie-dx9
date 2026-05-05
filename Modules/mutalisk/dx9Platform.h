@@ -6,12 +6,12 @@
 
 namespace mutalisk { namespace data
 {
-	// macro
-	//#define USE_EXCEPTIONS
+  // macro
+  //#define USE_EXCEPTIONS
 
-	// types
-	typedef dx9_mesh	mesh;
-	typedef dx9_texture	texture;
+  // types
+  typedef dx9_mesh  mesh;
+  typedef dx9_texture  texture;
 
 } // namespace data
 } // namespace mutalisk

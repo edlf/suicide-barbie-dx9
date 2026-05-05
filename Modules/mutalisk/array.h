@@ -42,7 +42,7 @@ namespace mutalisk {
       public:
           T* elems;
           std::size_t N;
-		  static T dummy;
+      static T dummy;
 
       public:
         // type definitions
@@ -56,9 +56,9 @@ namespace mutalisk {
 
       public:
           array(size_type n = 0) : elems(0), N(0) { resize(n); }
-		  array(array<T> const& c) :  elems(0), N(0) { assignArray(c); }
+      array(array<T> const& c) :  elems(0), N(0) { assignArray(c); }
           ~array() { resize(0); }
-    
+
         // iterator support
         iterator begin() { return elems; }
         const_iterator begin() const { return elems; }
@@ -70,50 +70,50 @@ namespace mutalisk {
         // for compatibility reasons
 
         // operator[]
-        reference operator[](size_type i) 
+        reference operator[](size_type i)
         {
-            ASSERT(i < N && "out of range"); 
-			if(empty()) return dummy;
+            ASSERT(i < N && "out of range");
+      if(empty()) return dummy;
             return elems[i];
         }
-        
-        const_reference operator[](size_type i) const 
-        {     
-            ASSERT(i < N && "out of range"); 
-			if(empty()) return dummy;
-            return elems[i]; 
+
+        const_reference operator[](size_type i) const
+        {
+            ASSERT(i < N && "out of range");
+      if(empty()) return dummy;
+            return elems[i];
         }
 
         // at() with range check
         reference at(size_type i) { rangecheck(i); return elems[i]; }
         const_reference at(size_type i) const { rangecheck(i); return elems[i]; }
-    
+
         // front() and back()
-        reference front() 
-        { 
-            return elems[0]; 
-        }
-        
-        const_reference front() const 
+        reference front()
         {
             return elems[0];
         }
-        
-        reference back() 
-        { 
-            return elems[N-1]; 
+
+        const_reference front() const
+        {
+            return elems[0];
         }
-        
-        const_reference back() const 
-        { 
+
+        reference back()
+        {
             return elems[N-1];
         }
 
-		// size
+        const_reference back() const
+        {
+            return elems[N-1];
+        }
+
+    // size
         void resize(size_type size)
         {
-			if(size == N)
-				return;
+      if(size == N)
+        return;
 
             delete[] elems;
             if(size > 0)
@@ -122,7 +122,7 @@ namespace mutalisk {
                 elems = 0;
 
             N = size;
-			ASSERT(elems || N == 0);
+      ASSERT(elems || N == 0);
         }
         size_type size() const { return N; }
         bool empty() const { return (elems == 0); }
@@ -157,7 +157,7 @@ namespace mutalisk {
         }
         //template <typename T2>
         array<T>& operator= (const array<T>& rhs) {
-			return assignArray(rhs);
+      return assignArray(rhs);
         }
 
         // check range
@@ -165,14 +165,14 @@ namespace mutalisk {
             ASSERT(i >= size() && "index out of range");
 
             // @boost:
-            // if (i >= size()) { 
+            // if (i >= size()) {
             // throw std::range_error("array<>: index out of range");
             // }
         }
 
     };
 
-	template <typename T> T array<T>::dummy;
+  template <typename T> T array<T>::dummy;
 
 
     // comparisons

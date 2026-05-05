@@ -9,27 +9,27 @@
 
 namespace mutant
 {
-	class mutant_compressed_input : public binary_input
-	{
-	public:
-		enum { BUF_SIZE = 4096 };
+  class mutant_compressed_input : public binary_input
+  {
+  public:
+    enum { BUF_SIZE = 4096 };
 
-		mutant_compressed_input( std::auto_ptr<binary_input>& input );
-		~mutant_compressed_input();
+    mutant_compressed_input( std::auto_ptr<binary_input>& input );
+    ~mutant_compressed_input();
 
-		virtual void read( void* dest, size_t len, int* wasRead );
+    virtual void read( void* dest, size_t len, int* wasRead );
 
-	protected:
-		void initInflate();
+  protected:
+    void initInflate();
 
-		void flush();
+    void flush();
 
-	private:
-		std::auto_ptr<binary_input>	mInput;
+  private:
+    std::auto_ptr<binary_input>  mInput;
 
-		z_stream		zstream;
-		unsigned char*	mBuffer;
-	};
+    z_stream    zstream;
+    unsigned char*  mBuffer;
+  };
 }
 
 #endif // MUTANT_BINARY_COMRESSED_INPUT_H_

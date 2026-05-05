@@ -10,99 +10,99 @@ namespace mutalisk { namespace effects {
 struct IVertexTransformer;
 struct BaseEffect
 {
-	enum nMatrix {
-		WorldMatrix,
-		ViewMatrix,
-		ProjMatrix,
-		ViewProjMatrix,
-		WorldViewProjMatrix,
-		InvWorldMatrix,
-		TextureProjMatrix,
-		MaxCount_nMatrix
-	};
+  enum nMatrix {
+    WorldMatrix,
+    ViewMatrix,
+    ProjMatrix,
+    ViewProjMatrix,
+    WorldViewProjMatrix,
+    InvWorldMatrix,
+    TextureProjMatrix,
+    MaxCount_nMatrix
+  };
 
 public:
-	virtual ~BaseEffect() {}
+  virtual ~BaseEffect() {}
 
-	struct Input;
-	//Input& allocInput();
-	static void clearInput(Input& input);
+  struct Input;
+  //Input& allocInput();
+  static void clearInput(Input& input);
 
-	struct PassInfo;
-	virtual void begin() = 0;
-	virtual unsigned passCount(Input const& i) = 0;
-	virtual PassInfo const& passInfo(Input const& i, unsigned passIndex) = 0;
-	virtual void pass(Input const& i, unsigned passIndex) = 0;
-	virtual void end() = 0;
+  struct PassInfo;
+  virtual void begin() = 0;
+  virtual unsigned passCount(Input const& i) = 0;
+  virtual PassInfo const& passInfo(Input const& i, unsigned passIndex) = 0;
+  virtual void pass(Input const& i, unsigned passIndex) = 0;
+  virtual void end() = 0;
 
-	virtual void captureState() = 0;
+  virtual void captureState() = 0;
 
 public:
-	struct PassInfo
-	{
-		enum nPassType {
-			GenericPass,
-			LightPass,
-			SurfacePass,
-			AssemblyPass
-		};
+  struct PassInfo
+  {
+    enum nPassType {
+      GenericPass,
+      LightPass,
+      SurfacePass,
+      AssemblyPass
+    };
 
-		IVertexTransformer const*	rigidTransformer;
-//		IVertexTransformer const*	skinnedTransformer;
-		nPassType					passType;
+    IVertexTransformer const*  rigidTransformer;
+//    IVertexTransformer const*  skinnedTransformer;
+    nPassType          passType;
 
-		PassInfo(IVertexTransformer const* v = 0, nPassType	p = GenericPass)
-			: rigidTransformer(v), passType(p) {}
-	};
+    PassInfo(IVertexTransformer const* v = 0, nPassType  p = GenericPass)
+      : rigidTransformer(v), passType(p) {}
+  };
 
-	struct Input
-	{
-		struct Lights
-		{
-			LightT const*	data;
-			MatrixT const*	matrices;
-			size_t			count;
-		};
-		struct Surface
-		{
-			ColorT			ambient;
-			ColorT			diffuse;
-			ColorT			specular;
-			ColorT			emissive;
+  struct Input
+  {
+    struct Lights
+    {
+      LightT const*  data;
+      MatrixT const*  matrices;
+      size_t      count;
+    };
+    struct Surface
+    {
+      ColorT      ambient;
+      ColorT      diffuse;
+      ColorT      specular;
+      ColorT      emissive;
 
-			TextureT const*	diffuseTexture;
-			TextureT const*	envmapTexture;
+      TextureT const*  diffuseTexture;
+      TextureT const*  envmapTexture;
 
-			float			uOffset;
-			float			vOffset;
-			float			uScale;
-			float			vScale;
-			float			transparency;
-			float			dummy;
+      float      uOffset;
+      float      vOffset;
+      float      uScale;
+      float      vScale;
+      float      transparency;
+      float      dummy;
 
-			int				srcBlend;
-			int				dstBlend;
-			int				xTexWrap;
-			int				yTexWrap;
+      int        srcBlend;
+      int        dstBlend;
+      int        xTexWrap;
+      int        yTexWrap;
 
-			VecT			aux0;
-		};
-		struct BufferControl
-		{
-			bool			colorWriteEnable;
-			bool			alphaTestEnable;
-			//bool			blendEnable;
-			bool			zWriteEnable;
-			bool			zReadEnable;
-			bool			zEqual;
-		};
+      VecT      aux0;
+    };
+    struct BufferControl
+    {
+      bool      colorWriteEnable;
+      bool      alphaTestEnable;
+      //bool      blendEnable;
+      bool      zWriteEnable;
+      bool      zReadEnable;
+      bool      zEqual;
+    };
 
-		Lights lights;
-		Surface const* surface;
-		MatrixT const* matrices;
-		BufferControl const* bufferControl;
-		//mutalisk::array<MatrixT> const* matrices;
-	};
+    Lights lights;
+    Surface const* surface;
+    MatrixT const* matrices;
+    BufferControl const* bufferControl;
+    //mutalisk::array<MatrixT> const* matrices;
+  };
 };
 
 } // namespace effects

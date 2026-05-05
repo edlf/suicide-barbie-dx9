@@ -9,7 +9,7 @@ extern "C" {
 typedef float float_t;
 typedef struct QuatTag
 {
-	float_t x, y, z, w;
+  float_t x, y, z, w;
 } Quat;
 
 struct Vec3Tag;
@@ -33,7 +33,7 @@ extern void QuatLinearCombine1(Quat *q, Quat *q0, float scale);
 extern void QuatLinearCombine2(Quat *q, Quat *q0, Quat *q1, float s, float t);
 extern void QuatLinearCombine3(Quat *q, Quat *q0, Quat *q1, Quat *q2, float s, float t, float u);
 extern void QuatLinearCombine4(Quat *q, Quat *q0, Quat *q1, Quat *q2, Quat *q3,
-					float s, float t, float u, float v);
+          float s, float t, float u, float v);
 extern void QuatSLinearCombine(Quat *q, Quat *q0, Quat *q1, float t);
 extern void QuatMul(Quat *q, Quat *q0, Quat *q1);
 extern void QuatDiv(Quat *q, Quat *q0, Quat *q1);

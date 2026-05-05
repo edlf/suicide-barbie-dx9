@@ -8,29 +8,29 @@
 
 namespace mutant
 {
-	class file_input : public binary_input
-	{
-	public:
-		file_input( std::string const& name );
-//		file_input( std::wstring const& name );
-		~file_input();
-		virtual void read( void* dest, size_t n, int* wasRead );
+  class file_input : public binary_input
+  {
+  public:
+    file_input( std::string const& name );
+//    file_input( std::wstring const& name );
+    ~file_input();
+    virtual void read( void* dest, size_t n, int* wasRead );
 
-	private:
-		void*	mFile;
-	};
+  private:
+    void*  mFile;
+  };
 
-	class file_output : public binary_output
-	{
-	public:
-		file_output( std::string const& name );
-//		file_output( std::wstring const& name );
-		~file_output();
-		virtual void write( void const* src, size_t n, int* wasWritten );
+  class file_output : public binary_output
+  {
+  public:
+    file_output( std::string const& name );
+//    file_output( std::wstring const& name );
+    ~file_output();
+    virtual void write( void const* src, size_t n, int* wasWritten );
 
-	private:
-		void*	mFile;
-	};
+  private:
+    void*  mFile;
+  };
 }
 
 #endif // MUTANT_BINARY_IO_WIN32_H_

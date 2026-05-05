@@ -6,13 +6,13 @@
 namespace mutalisk { namespace data
 {
 
-	// types
-	struct Mat16;
+  // types
+  struct Mat16;
 
-	// data
-	struct base_mesh;
-	struct skin_info;
-	struct scene;
+  // data
+  struct base_mesh;
+  struct skin_info;
+  struct scene;
 
 } // namespace data
 } // namespace mutalisk

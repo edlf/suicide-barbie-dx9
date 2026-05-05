@@ -9,9 +9,9 @@
 
 namespace mutalisk
 {
-	// types
-	typedef RenderContext		RenderContextT;
-	typedef Dx9RenderableScene	RenderableSceneT;
+  // types
+  typedef RenderContext    RenderContextT;
+  typedef Dx9RenderableScene  RenderableSceneT;
 
 } // namespace mutalisk
 

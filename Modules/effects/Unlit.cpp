@@ -8,18 +8,18 @@ using namespace mutalisk::effects;
 
 struct Unlit::Impl : public CommonEffectImpl
 {
-	PassInfo	passInfo;
+  PassInfo  passInfo;
 
-	void setupEmissiveOnly()
-	{
-		D3DXVECTOR4 white = D3DXVECTOR4(1,1,1,1);
-		fx().SetValue("vMaterialEmissive", &white, sizeof(D3DXVECTOR4));
-		fx().SetInt("iNumLights", 0);
-	}
+  void setupEmissiveOnly()
+  {
+    D3DXVECTOR4 white = D3DXVECTOR4(1,1,1,1);
+    fx().SetValue("vMaterialEmissive", &white, sizeof(D3DXVECTOR4));
+    fx().SetInt("iNumLights", 0);
+  }
 };
 
 Unlit::Unlit()
-:	mImpl(new Impl())
+:  mImpl(new Impl())
 {
 }
 
@@ -29,44 +29,44 @@ Unlit::~Unlit()
 
 void Unlit::begin()
 {
-	mImpl->passIndex = ~0U;
-	mImpl->begin("Main");
+  mImpl->passIndex = ~0U;
+  mImpl->begin("Main");
 }
 
 unsigned Unlit::passCount(Input const& i)
 {
-	(void) i;
-	return 1;
+  (void) i;
+  return 1;
 }
 
 BaseEffect::PassInfo const& Unlit::passInfo(Input const& i, unsigned passIndex)
 {
-	(void) i;
-	(void) passIndex;
-	return mImpl->passInfo;
+  (void) i;
+  (void) passIndex;
+  return mImpl->passInfo;
 }
 
 void Unlit::pass(Input const& i, unsigned passIndex)
 {
-	unsigned fxPass = min(1, passIndex); 
-	if(mImpl->passIndex != fxPass)
-		mImpl->pass(fxPass);
+  unsigned fxPass = min(1, passIndex);
+  if(mImpl->passIndex != fxPass)
+    mImpl->pass(fxPass);
 
-	mImpl->setupSurface(i);
-	mImpl->setupGeometry(i);
-	mImpl->setupBuffers(i);
-	mImpl->setupEmissiveOnly();
+  mImpl->setupSurface(i);
+  mImpl->setupGeometry(i);
+  mImpl->setupBuffers(i);
+  mImpl->setupEmissiveOnly();
 
-	mImpl->commit();
+  mImpl->commit();
 }
 
 void Unlit::captureState()
 {
-	mImpl->captureState();
+  mImpl->captureState();
 }
 
 void Unlit::end()
 {
-	mImpl->end();
-	mImpl->restoreState();
+  mImpl->end();
+  mImpl->restoreState();
 }

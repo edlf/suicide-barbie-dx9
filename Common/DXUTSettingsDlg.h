@@ -36,7 +36,7 @@
 
 
 //--------------------------------------------------------------------------------------
-// Dialog for selection of device settings 
+// Dialog for selection of device settings
 // Use DXUTGetSettingsDialog() to access global instance
 // To control the contents of the dialog, use the CD3DEnumeration class.
 //--------------------------------------------------------------------------------------
@@ -48,7 +48,7 @@ public:
 
     void Init( CDXUTDialogResourceManager* pManager );
     void Init( CDXUTDialogResourceManager* pManager, LPCWSTR szControlTextureFileName );
-	void Init( CDXUTDialogResourceManager* pManager, LPCWSTR pszControlTextureResourcename, HMODULE hModule);
+  void Init( CDXUTDialogResourceManager* pManager, LPCWSTR pszControlTextureResourcename, HMODULE hModule);
 
     HRESULT OnCreateDevice( IDirect3DDevice9* pd3dDevice );
     HRESULT Refresh();
@@ -130,7 +130,7 @@ protected:
 
     IDirect3DStateBlock9* m_pStateBlock;
     CDXUTDialog m_Dialog;
-    bool m_bActive; 
+    bool m_bActive;
 };
 
 
@@ -139,4 +139,3 @@ CD3DSettingsDlg* DXUTGetSettingsDialog();
 
 
 #endif
-

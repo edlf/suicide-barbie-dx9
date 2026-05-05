@@ -11,25 +11,25 @@ namespace mutalisk { namespace effects {
 class Mirror : public BaseEffect
 {
 public:
-	Mirror();
-	virtual ~Mirror();
+  Mirror();
+  virtual ~Mirror();
 
-	virtual void begin();
-	virtual unsigned passCount(Input const& i);
-	virtual PassInfo const& passInfo(Input const& i, unsigned passIndex);
-	virtual void pass(Input const& i, unsigned passIndex);
-	virtual void end();
-	
-	virtual void captureState();
+  virtual void begin();
+  virtual unsigned passCount(Input const& i);
+  virtual PassInfo const& passInfo(Input const& i, unsigned passIndex);
+  virtual void pass(Input const& i, unsigned passIndex);
+  virtual void end();
+
+  virtual void captureState();
 
 private:
-	struct Impl;
-	std::auto_ptr<Impl>	mImpl;
+  struct Impl;
+  std::auto_ptr<Impl>  mImpl;
 };
 
 void setTexProjMatrix(MatrixT const& m);
 
-} // namespace effects 
+} // namespace effects
 } // namespace mutalisk
 
 #endif // MUTALISK_EFFECT__MIRROR_H_

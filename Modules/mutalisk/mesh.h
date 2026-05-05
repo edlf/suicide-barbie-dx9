@@ -8,55 +8,55 @@ namespace mutalisk {
 namespace data
 {
 
-	struct base_mesh
-	{
-		unsigned int vertexCount;
-		unsigned int vertexStride;
-		unsigned int vertexDataSize;
-		byte* vertexData;
+  struct base_mesh
+  {
+    unsigned int vertexCount;
+    unsigned int vertexStride;
+    unsigned int vertexDataSize;
+    byte* vertexData;
 
-		unsigned int indexCount;
-		unsigned int indexSize;
-		byte* indexData;
+    unsigned int indexCount;
+    unsigned int indexSize;
+    byte* indexData;
 
-		struct Subset
-		{
-			unsigned int offset;
-			unsigned int count;
-		};
-		array<Subset> subsets;
+    struct Subset
+    {
+      unsigned int offset;
+      unsigned int count;
+    };
+    array<Subset> subsets;
 
-		// memory management
-		base_mesh(); ~base_mesh();
-	};
+    // memory management
+    base_mesh(); ~base_mesh();
+  };
 
-	struct skin_info
-	{
-		struct Bone
-		{
-			Mat16 matrix;
-			std::string	name;
-		};
+  struct skin_info
+  {
+    struct Bone
+    {
+      Mat16 matrix;
+      std::string  name;
+    };
 
-		unsigned int weightsPerVertex;
-//		unsigned int boneCount;
-		array<Bone> bones;
+    unsigned int weightsPerVertex;
+//    unsigned int boneCount;
+    array<Bone> bones;
 
-		// memory management
-		skin_info();
-		~skin_info();
-	};
+    // memory management
+    skin_info();
+    ~skin_info();
+  };
 
-	// I/O
-	template <typename In> In& operator>> (In& i, base_mesh& mesh);
-	template <typename Out> Out& operator<< (Out& o, base_mesh const& mesh);
+  // I/O
+  template <typename In> In& operator>> (In& i, base_mesh& mesh);
+  template <typename Out> Out& operator<< (Out& o, base_mesh const& mesh);
 
-	template <typename In> In& operator>> (In& i, skin_info& skin);
-	template <typename Out> Out& operator<< (Out& o, skin_info const& skin);
+  template <typename In> In& operator>> (In& i, skin_info& skin);
+  template <typename Out> Out& operator<< (Out& o, skin_info const& skin);
 
-	// memory management
-	void clear(base_mesh& mesh);
-	void clear(skin_info& skin);
+  // memory management
+  void clear(base_mesh& mesh);
+  void clear(skin_info& skin);
 
 } // namespace data
 } // namespace mutalisk

@@ -13,14 +13,14 @@ dx9_mesh::dx9_mesh()
 }
 
 dx9_mesh::~dx9_mesh()
-{ 
-	clear(*this);
+{
+  clear(*this);
 }
 
 void clear(dx9_mesh& data)
 {
-	delete data.skinInfo;
+  delete data.skinInfo;
 }
 
-} // namespace data 
+} // namespace data
 } // namespace mutalisk

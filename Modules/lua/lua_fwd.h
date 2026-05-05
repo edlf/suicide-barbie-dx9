@@ -4,7 +4,7 @@
 #include "cfg.h"
 
 extern "C" {
-	struct lua_State;
+  struct lua_State;
 }
 
 #endif // MUTALISK_LUA__FWD_H

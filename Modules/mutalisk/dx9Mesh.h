@@ -8,26 +8,26 @@
 namespace mutalisk { namespace data
 {
 
-	struct dx9_mesh : public parent<base_mesh>
-	{
-		enum { Version = 0x0102 };
+  struct dx9_mesh : public parent<base_mesh>
+  {
+    enum { Version = 0x0102 };
 
-		unsigned int fvfVertexDecl;
-		D3DPRIMITIVETYPE primitiveType;
-		skin_info* skinInfo;	// $HACK
+    unsigned int fvfVertexDecl;
+    D3DPRIMITIVETYPE primitiveType;
+    skin_info* skinInfo;  // $HACK
 
-		// memory management
-		dx9_mesh(); ~dx9_mesh();
-	};
+    // memory management
+    dx9_mesh(); ~dx9_mesh();
+  };
 
-	// I/O
-	template <typename In> In& operator>> (In& i, dx9_mesh& data);
-	template <typename Out> Out& operator<< (Out& o, dx9_mesh const& data);
+  // I/O
+  template <typename In> In& operator>> (In& i, dx9_mesh& data);
+  template <typename Out> Out& operator<< (Out& o, dx9_mesh const& data);
 
-	// memory management
-	void clear(dx9_mesh& data);
+  // memory management
+  void clear(dx9_mesh& data);
 
-} // namespace data 
+} // namespace data
 } // namespace mutalisk
 
 #include "dx9Mesh.inl"

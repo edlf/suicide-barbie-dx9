@@ -3,22 +3,22 @@
 
 namespace mutalisk { namespace data
 {
-	struct dx9_texture
-	{
-	};
+  struct dx9_texture
+  {
+  };
 
 template <typename In> In& operator>> (In& i, dx9_texture& texture)
 {
-	try
-	{
-		// TODO
-		(void) texture;
-	} catch( EIoEof& ) {
-		mutant_throw( "Unexpected end-of-file (file may be corrupted)" );
-	} catch( EIoError& ) {
-		mutant_throw( "Read/write error" );
-	}
-	return i;
+  try
+  {
+    // TODO
+    (void) texture;
+  } catch( EIoEof& ) {
+    mutant_throw( "Unexpected end-of-file (file may be corrupted)" );
+  } catch( EIoError& ) {
+    mutant_throw( "Read/write error" );
+  }
+  return i;
 }
 
 } // namespace data

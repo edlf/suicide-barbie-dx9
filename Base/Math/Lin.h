@@ -8,18 +8,18 @@ extern "C" {
 
 typedef struct Vec3Tag
 {
-	float x, y, z;
+  float x, y, z;
 } Vec3;
 
 typedef struct Mat33Tag
 {
-	Vec3 Row[3];
+  Vec3 Row[3];
 } Mat33;
 
 typedef struct Mat34Tag
 {
-	Mat33 Rot;
-	Vec3 Move;
+  Mat33 Rot;
+  Vec3 Move;
 } Mat34;
 
 struct QuatTag;
@@ -43,7 +43,7 @@ extern void Vec3_linearCombine1(Vec3* v, Vec3* v0, float scale);
 extern void Vec3_linearCombine2(Vec3* v, Vec3* v0, Vec3* v1, float s, float t);
 extern void Vec3_linearCombine3(Vec3* v, Vec3* v0, Vec3* v1, Vec3* v2, float s, float t, float u);
 extern void Vec3_linearCombine4(Vec3* v, Vec3* v0, Vec3* v1, Vec3* v2, Vec3* v3,
-					float s, float t, float u, float w);
+          float s, float t, float u, float w);
 
 extern void Vec3_setZero(Vec3* v);
 extern void Vec3_setXYZ(Vec3* v, float x, float y, float z);
@@ -140,32 +140,32 @@ extern Mat34 Mat34_sIdentity;
 
 static inline void Vec3_readBigEndian(Vec3* binary, Vec3* host)
 {
-	host->x = endianReadFloat32Big(&binary->x);
-	host->y = endianReadFloat32Big(&binary->y);
-	host->z = endianReadFloat32Big(&binary->z);
+  host->x = endianReadFloat32Big(&binary->x);
+  host->y = endianReadFloat32Big(&binary->y);
+  host->z = endianReadFloat32Big(&binary->z);
 }
 
 static inline void Vec3_writeBigEndian(Vec3* binary, Vec3* host)
 {
-	endianWriteFloat32Big(&binary->x, host->x);
-	endianWriteFloat32Big(&binary->y, host->y);
-	endianWriteFloat32Big(&binary->z, host->z);
+  endianWriteFloat32Big(&binary->x, host->x);
+  endianWriteFloat32Big(&binary->y, host->y);
+  endianWriteFloat32Big(&binary->z, host->z);
 }
 
 static inline void Mat34_readBigEndian(Mat34* binary, Mat34* host)
 {
-	Vec3_readBigEndian(&binary->Rot.Row[0], &host->Rot.Row[0]);
-	Vec3_readBigEndian(&binary->Rot.Row[1], &host->Rot.Row[1]);
-	Vec3_readBigEndian(&binary->Rot.Row[2], &host->Rot.Row[2]);
-	Vec3_readBigEndian(&binary->Move, &host->Move);
+  Vec3_readBigEndian(&binary->Rot.Row[0], &host->Rot.Row[0]);
+  Vec3_readBigEndian(&binary->Rot.Row[1], &host->Rot.Row[1]);
+  Vec3_readBigEndian(&binary->Rot.Row[2], &host->Rot.Row[2]);
+  Vec3_readBigEndian(&binary->Move, &host->Move);
 }
 
 static inline void Mat34_writeBigEndian(Mat34* binary, Mat34* host)
 {
-	Vec3_writeBigEndian(&binary->Rot.Row[0], &host->Rot.Row[0]);
-	Vec3_writeBigEndian(&binary->Rot.Row[1], &host->Rot.Row[1]);
-	Vec3_writeBigEndian(&binary->Rot.Row[2], &host->Rot.Row[2]);
-	Vec3_writeBigEndian(&binary->Move, &host->Move);
+  Vec3_writeBigEndian(&binary->Rot.Row[0], &host->Rot.Row[0]);
+  Vec3_writeBigEndian(&binary->Rot.Row[1], &host->Rot.Row[1]);
+  Vec3_writeBigEndian(&binary->Rot.Row[2], &host->Rot.Row[2]);
+  Vec3_writeBigEndian(&binary->Move, &host->Move);
 }
 
 } //extern C

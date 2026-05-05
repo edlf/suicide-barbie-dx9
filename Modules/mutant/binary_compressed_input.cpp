@@ -7,86 +7,86 @@ using namespace mutant;
 
 template<typename _A>
 void CHECK_ERR( int e, _A const& a )  {
-	if( e!=Z_OK )
+  if( e!=Z_OK )
 #if defined(__psp__)
-		printf("ZLIB ERROR: (%i) %s\n", e, a);
+    printf("ZLIB ERROR: (%i) %s\n", e, a);
 #else
-		std::cerr << "ZLIB ERROR: (" << e << ") " << (a) << std::endl;
+    std::cerr << "ZLIB ERROR: (" << e << ") " << (a) << std::endl;
 #endif
 }
 
 mutant_compressed_input::mutant_compressed_input( std::auto_ptr<binary_input>& input )
-:	mInput( input )
+:  mInput( input )
 {
-	mBuffer = new unsigned char[BUF_SIZE];
-	initInflate();
+  mBuffer = new unsigned char[BUF_SIZE];
+  initInflate();
 }
 
 mutant_compressed_input::~mutant_compressed_input()
 {
-	flush();
-	delete []mBuffer;
+  flush();
+  delete []mBuffer;
 }
 
 void mutant_compressed_input::read( void* dest, size_t len, int* wasRead )
 {
-	int err = Z_OK;
+  int err = Z_OK;
 
-	zstream.avail_out = (unsigned int) len;
-	zstream.next_out = (Bytef*)dest;
+  zstream.avail_out = (unsigned int) len;
+  zstream.next_out = (Bytef*)dest;
 
-	while( zstream.avail_out != 0 ) {
-		if( zstream.avail_in == 0 ) {
-			int was_read = 0;
-			try
-			{
-				mInput->read( mBuffer, BUF_SIZE, &was_read );
-				zstream.avail_in = was_read;
-				zstream.next_in = mBuffer;
-			} catch( EIoEof& ) {
-				if( was_read != 0 ) {
-					zstream.avail_in = was_read;
-					zstream.next_in = mBuffer;
-				} else
-				{
-/*_ __no_except					throw;*/
-				}
-			}
-		}
+  while( zstream.avail_out != 0 ) {
+    if( zstream.avail_in == 0 ) {
+      int was_read = 0;
+      try
+      {
+        mInput->read( mBuffer, BUF_SIZE, &was_read );
+        zstream.avail_in = was_read;
+        zstream.next_in = mBuffer;
+      } catch( EIoEof& ) {
+        if( was_read != 0 ) {
+          zstream.avail_in = was_read;
+          zstream.next_in = mBuffer;
+        } else
+        {
+/*_ __no_except          throw;*/
+        }
+      }
+    }
 
-		err = inflate( &zstream, Z_NO_FLUSH );
+    err = inflate( &zstream, Z_NO_FLUSH );
 
-		if( err == Z_STREAM_END )
-			break;
+    if( err == Z_STREAM_END )
+      break;
 
-		CHECK_ERR(err, "inflate");
-	}
+    CHECK_ERR(err, "inflate");
+  }
 
-	if( wasRead )
-		*wasRead = ((unsigned int) len) - zstream.avail_out;
+  if( wasRead )
+    *wasRead = ((unsigned int) len) - zstream.avail_out;
 }
 
 
 void mutant_compressed_input::initInflate()
 {
-	int err = Z_OK;
+  int err = Z_OK;
 
-	zstream.zalloc = (alloc_func)0;
-	zstream.zfree = (free_func)0;
-	zstream.opaque = (voidpf)0;
+  zstream.zalloc = (alloc_func)0;
+  zstream.zfree = (free_func)0;
+  zstream.opaque = (voidpf)0;
 
-	zstream.next_in  = mBuffer;
-	zstream.avail_in = 0;
-	zstream.next_out = 0;
+  zstream.next_in  = mBuffer;
+  zstream.avail_in = 0;
+  zstream.next_out = 0;
 
-	err = inflateInit( &zstream );
-	CHECK_ERR( err, "inflateInit" );
+  err = inflateInit( &zstream );
+  CHECK_ERR( err, "inflateInit" );
 }
 
 void mutant_compressed_input::flush()
 {
-	int err = Z_OK;
+  int err = Z_OK;
 
-	err = inflateEnd( &zstream );
-	CHECK_ERR( err, "inflateEnd" );
+  err = inflateEnd( &zstream );
+  CHECK_ERR( err, "inflateEnd" );
 }

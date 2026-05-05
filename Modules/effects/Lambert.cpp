@@ -8,30 +8,30 @@ using namespace mutalisk::effects;
 
 struct Lambert::Impl : public CommonEffectImpl
 {
-	PassInfo							passInfo;
-	LightsInPassesT						lightsInPasses;
-	BaseEffect::Input::Lights const*	prevLights;
+  PassInfo              passInfo;
+  LightsInPassesT            lightsInPasses;
+  BaseEffect::Input::Lights const*  prevLights;
 
-	Impl()
-	{
-		lightsInPasses.resize(4);
-	}
+  Impl()
+  {
+    lightsInPasses.resize(4);
+  }
 
-	LightsInPassesT& processLights(BaseEffect::Input::Lights const& lights)
-	{
-		if(this->prevLights == &lights)
-			return this->lightsInPasses;
+  LightsInPassesT& processLights(BaseEffect::Input::Lights const& lights)
+  {
+    if(this->prevLights == &lights)
+      return this->lightsInPasses;
 
-		this->lightsInPasses.resize(0);
-		organizeLightsInPasses(lights, this->lightsInPasses);
+    this->lightsInPasses.resize(0);
+    organizeLightsInPasses(lights, this->lightsInPasses);
 
-		this->prevLights = &lights;
-		return this->lightsInPasses;
-	}
+    this->prevLights = &lights;
+    return this->lightsInPasses;
+  }
 };
 
 Lambert::Lambert()
-:	mImpl(new Impl())
+:  mImpl(new Impl())
 {
 }
 
@@ -41,44 +41,44 @@ Lambert::~Lambert()
 
 void Lambert::begin()
 {
-	mImpl->passIndex = ~0U;
-	mImpl->begin("Main");
+  mImpl->passIndex = ~0U;
+  mImpl->begin("Main");
 }
 
 unsigned Lambert::passCount(Input const& i)
 {
-	unsigned lightPasses = static_cast<unsigned>(mImpl->processLights(i.lights).size());
-	return max(1, lightPasses);
+  unsigned lightPasses = static_cast<unsigned>(mImpl->processLights(i.lights).size());
+  return max(1, lightPasses);
 }
 
 BaseEffect::PassInfo const& Lambert::passInfo(Input const& i, unsigned passIndex)
 {
-	(void) i;
-	(void) passIndex;
-	return mImpl->passInfo;
+  (void) i;
+  (void) passIndex;
+  return mImpl->passInfo;
 }
 
 void Lambert::pass(Input const& i, unsigned passIndex)
 {
-	unsigned fxPass = min(1, passIndex); 
-	if(mImpl->passIndex != fxPass)
-		mImpl->pass(fxPass);
+  unsigned fxPass = min(1, passIndex);
+  if(mImpl->passIndex != fxPass)
+    mImpl->pass(fxPass);
 
-	mImpl->setupLights(mImpl->processLights(i.lights)[passIndex]);
-	mImpl->setupSurface(i);
-	mImpl->setupGeometry(i);
-	mImpl->setupBuffers(i);
-	
-	mImpl->commit();
+  mImpl->setupLights(mImpl->processLights(i.lights)[passIndex]);
+  mImpl->setupSurface(i);
+  mImpl->setupGeometry(i);
+  mImpl->setupBuffers(i);
+
+  mImpl->commit();
 }
 
 void Lambert::captureState()
 {
-	mImpl->captureState();
+  mImpl->captureState();
 }
 
 void Lambert::end()
 {
-	mImpl->end();
-	mImpl->restoreState();
+  mImpl->end();
+  mImpl->restoreState();
 }

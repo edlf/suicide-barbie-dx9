@@ -16,14 +16,14 @@ base_mesh::base_mesh()
 }
 
 base_mesh::~base_mesh()
-{ 
-	clear(*this);
+{
+  clear(*this);
 }
 
 void clear(base_mesh& data)
 {
-	delete[] data.vertexData;
-	delete[] data.indexData;
+  delete[] data.vertexData;
+  delete[] data.indexData;
 }
 
 // skin_info
@@ -35,14 +35,14 @@ skin_info::skin_info()
 
 skin_info::~skin_info()
 {
-	clear(*this);
+  clear(*this);
 }
 
 void clear(skin_info& data)
 {
-	// nothing to destroy
-	(void) data;
+  // nothing to destroy
+  (void) data;
 }
 
-} // namespace data 
+} // namespace data
 } // namespace mutalisk

@@ -23,54 +23,54 @@ namespace mutalisk
 
 struct RenderContext
 {
-	com_ptr<IDirect3DDevice9>	device;
-	com_ptr<ID3DXEffect>		defaultEffect;
-	D3DXMATRIX					viewMatrix;
-	D3DXMATRIX					projMatrix;
-	D3DXMATRIX					viewProjMatrix;
+  com_ptr<IDirect3DDevice9>  device;
+  com_ptr<ID3DXEffect>    defaultEffect;
+  D3DXMATRIX          viewMatrix;
+  D3DXMATRIX          projMatrix;
+  D3DXMATRIX          viewProjMatrix;
 
-	float						znear;
-	float						zfar;
+  float            znear;
+  float            zfar;
 };
 
 struct RenderableMesh
 {
-	RenderableMesh(mutalisk::data::mesh const& blueprint) : mBlueprint(blueprint) {}
-	~RenderableMesh() {}
-	mutalisk::data::mesh const&			mBlueprint;
-	com_ptr<ID3DXMesh>					mNative;
+  RenderableMesh(mutalisk::data::mesh const& blueprint) : mBlueprint(blueprint) {}
+  ~RenderableMesh() {}
+  mutalisk::data::mesh const&      mBlueprint;
+  com_ptr<ID3DXMesh>          mNative;
 
 private:
-	RenderableMesh(RenderableMesh const& c);
-	RenderableMesh& operator= (RenderableMesh const& c);
+  RenderableMesh(RenderableMesh const& c);
+  RenderableMesh& operator= (RenderableMesh const& c);
 };
 
 struct RenderableTexture
 {
-	RenderableTexture(mutalisk::data::texture const& blueprint)
-	: mBlueprint(blueprint)
-	{
-	}
+  RenderableTexture(mutalisk::data::texture const& blueprint)
+  : mBlueprint(blueprint)
+  {
+  }
 
-	~RenderableTexture() {}
+  ~RenderableTexture() {}
 
-	mutalisk::data::texture const& mBlueprint;
+  mutalisk::data::texture const& mBlueprint;
 
 private:
-	RenderableTexture(RenderableTexture const& c);
-	RenderableTexture& operator= (RenderableTexture const& c);
+  RenderableTexture(RenderableTexture const& c);
+  RenderableTexture& operator= (RenderableTexture const& c);
 };
 
 ////////////////////////////////////////////////
 struct Dx9RenderableScene : public RenderableScene
 {
-	Dx9RenderableScene(mutalisk::data::scene const& blueprint) : RenderableScene(blueprint) {}
+  Dx9RenderableScene(mutalisk::data::scene const& blueprint) : RenderableScene(blueprint) {}
 
-	struct NativeSharedResources {
-		mutalisk::array<com_ptr<IDirect3DTexture9> >	textures;
-	};
+  struct NativeSharedResources {
+    mutalisk::array<com_ptr<IDirect3DTexture9> >  textures;
+  };
 
-	NativeSharedResources	mNativeResources;
+  NativeSharedResources  mNativeResources;
 };
 
 AP<Dx9RenderableScene> prepare(RenderContext& rc, mutalisk::data::scene const& data);

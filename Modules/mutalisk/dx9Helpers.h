@@ -9,27 +9,27 @@ namespace dx {
 template< typename T >
 IDirect3DDevice9& getDevice( T& o )
 {
-	IDirect3DDevice9* device = NULL;
-	o.GetDevice( &device );
-	ASSERT( device );
+  IDirect3DDevice9* device = NULL;
+  o.GetDevice( &device );
+  ASSERT( device );
 
-	return *device;
+  return *device;
 }
 
 template< typename T >
 void release( T& o )
 {
-	if( o )
-		o->Release();
-	o = NULL;
+  if( o )
+    o->Release();
+  o = NULL;
 }
 
 template< typename T >
 void assertRelease( T& o )
 {
-	ASSERT( o );
-	o->Release();
-	o = NULL;
+  ASSERT( o );
+  o->Release();
+  o = NULL;
 }
 
 unsigned calcTextureSize(IDirect3DTexture9 const& texture);
@@ -39,16 +39,16 @@ unsigned calcTextureSize(IDirect3DVolumeTexture9 const& texture);
 class ResultCheck
 {
 public:
-	ResultCheck( char const* errorMessage_ = "execute DirectX function",
-		char const* messagePrefix_ = "Failed to ",
-		char const* messagePostfix_ = "." );
+  ResultCheck( char const* errorMessage_ = "execute DirectX function",
+    char const* messagePrefix_ = "Failed to ",
+    char const* messagePostfix_ = "." );
 
-	ResultCheck& operator= (HRESULT result);
+  ResultCheck& operator= (HRESULT result);
 
 private:
-	char const*	errorMessage;
-	char const*	messagePrefix;
-	char const*	messagePostfix;
+  char const*  errorMessage;
+  char const*  messagePrefix;
+  char const*  messagePostfix;
 };
 
 }; // namespace dx

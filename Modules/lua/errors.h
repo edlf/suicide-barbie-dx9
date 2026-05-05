@@ -4,18 +4,18 @@
 #include "cfg.h"
 #include <Modules/mutalisk/errors.h>
 
-#define THROW_LUAERROR(result,msg)		THROW(ELuaError(result, msg, BASE_ERROR_PARAMS))
+#define THROW_LUAERROR(result,msg)    THROW(ELuaError(result, msg, BASE_ERROR_PARAMS))
 
 class ELuaError : public EBaseError {
 public:
-	ELuaError( int luaError, std::string msg, std::string fileName, int lineNumber )
-	:	EBaseError( msg, fileName, lineNumber ),
-		mLuaError( luaError ) {}
+  ELuaError( int luaError, std::string msg, std::string fileName, int lineNumber )
+  :  EBaseError( msg, fileName, lineNumber ),
+    mLuaError( luaError ) {}
 
-	int getLuaError() const { return mLuaError; }
+  int getLuaError() const { return mLuaError; }
 
 private:
-	int	const	mLuaError;
+  int  const  mLuaError;
 };
 
 #endif // MUTALISK_LUA___ERRORS_H

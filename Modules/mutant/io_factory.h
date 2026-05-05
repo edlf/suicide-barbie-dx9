@@ -13,95 +13,95 @@
 
 namespace mutant
 {
-	struct writer_factory
-	{
-		enum eWriteType
-		{
-			COMPRESSED,
-			PLAIN,
+  struct writer_factory
+  {
+    enum eWriteType
+    {
+      COMPRESSED,
+      PLAIN,
 
-			UNKNOWN = 0x31337
-		};
+      UNKNOWN = 0x31337
+    };
 
-		static std::auto_ptr<binary_output> createOutput( std::string const& name, eWriteType type = COMPRESSED )
-		{
-			typedef std::auto_ptr<binary_output> ret_ptr;
-			try
-			{
-				ret_ptr out( new file_output(name) );
+    static std::auto_ptr<binary_output> createOutput( std::string const& name, eWriteType type = COMPRESSED )
+    {
+      typedef std::auto_ptr<binary_output> ret_ptr;
+      try
+      {
+        ret_ptr out( new file_output(name) );
 
-				switch( type )
-				{
-				case COMPRESSED: {
-					unsigned int magic = ANIM_COMPR_MAGIC;
-					out->write( &magic, sizeof(magic), 0 );
-					return ret_ptr( new mutant_compressed_output(out) );
-				}
-				case PLAIN: {
-					unsigned int magic = ANIM_MAGIC;
-					out->write( &magic, sizeof(magic), 0 );
-					return ret_ptr( new mutant_plain_output(out) );
-				}
-				default:
-					THROW_MutantError( "Invalid write type id passed" );
-				}
-			} catch( EIoEof& ) {
-				THROW_MutantError( std::string("unexpected end of file while writing `") + name + std::string("'") );
-			} catch( EIoError& ) {
-				THROW_MutantError( std::string("Error while writing `") + name + std::string("'") );
-			}
-			return ret_ptr(NULL);
-		}
-	};
+        switch( type )
+        {
+        case COMPRESSED: {
+          unsigned int magic = ANIM_COMPR_MAGIC;
+          out->write( &magic, sizeof(magic), 0 );
+          return ret_ptr( new mutant_compressed_output(out) );
+        }
+        case PLAIN: {
+          unsigned int magic = ANIM_MAGIC;
+          out->write( &magic, sizeof(magic), 0 );
+          return ret_ptr( new mutant_plain_output(out) );
+        }
+        default:
+          THROW_MutantError( "Invalid write type id passed" );
+        }
+      } catch( EIoEof& ) {
+        THROW_MutantError( std::string("unexpected end of file while writing `") + name + std::string("'") );
+      } catch( EIoError& ) {
+        THROW_MutantError( std::string("Error while writing `") + name + std::string("'") );
+      }
+      return ret_ptr(NULL);
+    }
+  };
 
 
-	struct reader_factory
-	{
-		static writer_factory::eWriteType getFileType( std::string const& name )
-		{
-			file_input in(name);
+  struct reader_factory
+  {
+    static writer_factory::eWriteType getFileType( std::string const& name )
+    {
+      file_input in(name);
 
-			unsigned int magic = 0;
-			in.read( &magic, sizeof(magic), 0 );
+      unsigned int magic = 0;
+      in.read( &magic, sizeof(magic), 0 );
 
-			switch( magic )
-			{
-			case ANIM_COMPR_MAGIC:
-				return writer_factory::COMPRESSED;
-			case ANIM_MAGIC:
-				return writer_factory::PLAIN;
-			default:
-				return writer_factory::UNKNOWN;
-			}
-		}
+      switch( magic )
+      {
+      case ANIM_COMPR_MAGIC:
+        return writer_factory::COMPRESSED;
+      case ANIM_MAGIC:
+        return writer_factory::PLAIN;
+      default:
+        return writer_factory::UNKNOWN;
+      }
+    }
 
-		static std::auto_ptr<binary_input> createInput( std::string const& name ) {
-			typedef std::auto_ptr<binary_input> ret_ptr;
+    static std::auto_ptr<binary_input> createInput( std::string const& name ) {
+      typedef std::auto_ptr<binary_input> ret_ptr;
 
-			try
-			{
-				ret_ptr in( new file_input(name) );
+      try
+      {
+        ret_ptr in( new file_input(name) );
 
-				unsigned int magic = 0;
-				in->read( &magic, sizeof(magic), 0 );
+        unsigned int magic = 0;
+        in->read( &magic, sizeof(magic), 0 );
 
-				switch( magic )
-				{
-				case ANIM_COMPR_MAGIC:
-					return ret_ptr( new mutant_compressed_input(in) );
-				case ANIM_MAGIC:
-					return ret_ptr( new mutant_plain_input(in) );
-				default:
-					THROW_IoError( "Invalid magic token. File corrupted or unsupported version" );
-				}
-			} catch( EIoEof& ) {
-				THROW_MutantError( std::string("unexpected end of file while reading `") + name + std::string("'") );
-			} catch( EIoError& /*e*/ ) {
-				THROW_MutantError( std::string("Error while reading file. ") + e.what() );
-			}
-			return ret_ptr(NULL);
-		}
-	};
+        switch( magic )
+        {
+        case ANIM_COMPR_MAGIC:
+          return ret_ptr( new mutant_compressed_input(in) );
+        case ANIM_MAGIC:
+          return ret_ptr( new mutant_plain_input(in) );
+        default:
+          THROW_IoError( "Invalid magic token. File corrupted or unsupported version" );
+        }
+      } catch( EIoEof& ) {
+        THROW_MutantError( std::string("unexpected end of file while reading `") + name + std::string("'") );
+      } catch( EIoError& /*e*/ ) {
+        THROW_MutantError( std::string("Error while reading file. ") + e.what() );
+      }
+      return ret_ptr(NULL);
+    }
+  };
 }
 
 #endif // MUTANT_READER_FACTORY_H_

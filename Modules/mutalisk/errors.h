@@ -6,69 +6,69 @@
 #include "platform.h"
 
 #if defined USE_EXCEPTIONS
-	#include <stdexcept>
+  #include <stdexcept>
 #endif
 
-#define BASE_ERROR_PARAMS	__FILE__, __LINE__
+#define BASE_ERROR_PARAMS  __FILE__, __LINE__
 #if defined __ERROR_C1055_WORKAROUND
-	#undef BASE_ERROR_PARAMS
-	#define BASE_ERROR_PARAMS	__FILE__, -1
+  #undef BASE_ERROR_PARAMS
+  #define BASE_ERROR_PARAMS  __FILE__, -1
 #endif
 
 #if defined USE_EXCEPTIONS
-	#define THROW(e) throw e
-	#define TRY try
-	#define CATCH(e) catch(e)
+  #define THROW(e) throw e
+  #define TRY try
+  #define CATCH(e) catch(e)
 #else
-	#define THROW(e) {}
-	#define TRY {}
-	#define CATCH(e) {} if(0)
+  #define THROW(e) {}
+  #define TRY {}
+  #define CATCH(e) {} if(0)
 #endif
 
-#define THROW_ERROR(msg)				THROW(EBaseError(msg, BASE_ERROR_PARAMS))
-#define THROW_DXERROR(result,msg)		THROW(EDXError(result, msg, BASE_ERROR_PARAMS))
+#define THROW_ERROR(msg)        THROW(EBaseError(msg, BASE_ERROR_PARAMS))
+#define THROW_DXERROR(result,msg)    THROW(EDXError(result, msg, BASE_ERROR_PARAMS))
 
 class EBaseError
 #if defined USE_EXCEPTIONS
-	: public std::runtime_error
+  : public std::runtime_error
 #endif
 {
 public:
-	EBaseError( std::string msg, std::string fileName, int lineNumber ) :
+  EBaseError( std::string msg, std::string fileName, int lineNumber ) :
 #if defined USE_EXCEPTIONS
-		std::runtime_error( msg ),
+    std::runtime_error( msg ),
 #endif
-		mFileName( fileName ),
-		mLineNumber( lineNumber )
-	{
-		mWhereMsg = "file: " + mFileName;
-	};
+    mFileName( fileName ),
+    mLineNumber( lineNumber )
+  {
+    mWhereMsg = "file: " + mFileName;
+  };
 
-	// mimick the runtime_error style
-	virtual const char* where() const {	return mWhereMsg.c_str(); }
+  // mimick the runtime_error style
+  virtual const char* where() const {  return mWhereMsg.c_str(); }
 
-	std::string const& getFileName() const { return mFileName; }
-	int getLineNumber() const { return mLineNumber; }
+  std::string const& getFileName() const { return mFileName; }
+  int getLineNumber() const { return mLineNumber; }
 
 private:
-	std::string		mWhereMsg;
-	std::string 	mFileName;
-	int				mLineNumber;
+  std::string    mWhereMsg;
+  std::string   mFileName;
+  int        mLineNumber;
 };
 
 #include <d3dx9.h>
 class EDXError : public EBaseError {
 public:
-	EDXError( HRESULT dxresult, std::string msg, std::string fileName, int lineNumber )
-	:	EBaseError( msg, fileName, lineNumber ),
-		mDXResult( dxresult )
-	{
-	};
+  EDXError( HRESULT dxresult, std::string msg, std::string fileName, int lineNumber )
+  :  EBaseError( msg, fileName, lineNumber ),
+    mDXResult( dxresult )
+  {
+  };
 
-	HRESULT const& getDXResult() const { return mDXResult; };
+  HRESULT const& getDXResult() const { return mDXResult; };
 
 private:
-	HRESULT			mDXResult;
+  HRESULT      mDXResult;
 };
 
 #endif // MUTALISK_ERRORS_H_

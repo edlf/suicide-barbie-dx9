@@ -6,23 +6,23 @@
 
 namespace mutant
 {
-	class mutant_plain_input : public binary_input
-	{
-	public:
-		mutant_plain_input( std::auto_ptr<binary_input>& input )
-		:	mInput(input) {
-		}
+  class mutant_plain_input : public binary_input
+  {
+  public:
+    mutant_plain_input( std::auto_ptr<binary_input>& input )
+    :  mInput(input) {
+    }
 
-		~mutant_plain_input() {
-		}
+    ~mutant_plain_input() {
+    }
 
-		virtual void read( void* dest, size_t n, int* wasRead ) {
-			mInput->read( dest, n, wasRead );
-		}
+    virtual void read( void* dest, size_t n, int* wasRead ) {
+      mInput->read( dest, n, wasRead );
+    }
 
-	private:
-		std::auto_ptr<binary_input>	mInput;
-	};
+  private:
+    std::auto_ptr<binary_input>  mInput;
+  };
 }
 
 #endif

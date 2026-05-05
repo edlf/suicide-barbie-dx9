@@ -22,7 +22,7 @@ class CDXUTMesh
 public:
     WCHAR                   m_strName[512];
     LPD3DXMESH              m_pMesh;   // Managed mesh
-    
+
     // Cache of data in m_pMesh for easy access
     IDirect3DVertexBuffer9* m_pVB;
     IDirect3DIndexBuffer9*  m_pIB;
@@ -33,13 +33,13 @@ public:
 
     DWORD                   m_dwNumMaterials; // Materials for the mesh
     D3DMATERIAL9*           m_pMaterials;
-    CHAR					(*m_strMaterials)[MAX_PATH];
+    CHAR          (*m_strMaterials)[MAX_PATH];
     IDirect3DBaseTexture9** m_pTextures;
     bool                    m_bUseMaterials;
 
 public:
     // Rendering
-    HRESULT Render( LPDIRECT3DDEVICE9 pd3dDevice, 
+    HRESULT Render( LPDIRECT3DDEVICE9 pd3dDevice,
                     bool bDrawOpaqueSubsets = true,
                     bool bDrawAlphaSubsets = true );
     HRESULT Render( ID3DXEffect *pEffect,
@@ -58,8 +58,8 @@ public:
     // Rendering options
     void    UseMeshMaterials( bool bFlag ) { m_bUseMaterials = bFlag; }
     HRESULT SetFVF( LPDIRECT3DDEVICE9 pd3dDevice, DWORD dwFVF );
-    HRESULT SetVertexDecl( LPDIRECT3DDEVICE9 pd3dDevice, const D3DVERTEXELEMENT9 *pDecl, 
-                           bool bAutoComputeNormals = true, bool bAutoComputeTangents = true, 
+    HRESULT SetVertexDecl( LPDIRECT3DDEVICE9 pd3dDevice, const D3DVERTEXELEMENT9 *pDecl,
+                           bool bAutoComputeNormals = true, bool bAutoComputeTangents = true,
                            bool bSplitVertexForOptimalTangents = false );
 
     // Initializing
@@ -69,7 +69,7 @@ public:
     // Creation/destruction
     HRESULT Create( LPDIRECT3DDEVICE9 pd3dDevice, LPCWSTR strFilename );
     HRESULT Create( LPDIRECT3DDEVICE9 pd3dDevice, LPD3DXFILEDATA pFileData );
-	HRESULT Create( LPDIRECT3DDEVICE9 pd3dDevice, ID3DXMesh* pInMesh, D3DXMATERIAL* pd3dxMaterials, DWORD dwMaterials );
+  HRESULT Create( LPDIRECT3DDEVICE9 pd3dDevice, ID3DXMesh* pInMesh, D3DXMATERIAL* pd3dxMaterials, DWORD dwMaterials );
     HRESULT CreateMaterials( LPCWSTR strPath, IDirect3DDevice9 *pd3dDevice, D3DXMATERIAL* d3dxMtrls, DWORD dwNumMaterials );
     HRESULT Destroy();
 
@@ -101,13 +101,13 @@ public:
 
     CDXUTMesh*   FindMesh( LPCWSTR strMeshName );
     CDXUTMeshFrame*  FindFrame( LPCWSTR strFrameName );
-    bool        EnumMeshes( bool (*EnumMeshCB)(CDXUTMesh*,void*), 
+    bool        EnumMeshes( bool (*EnumMeshCB)(CDXUTMesh*,void*),
                             void* pContext );
 
     HRESULT Destroy();
     HRESULT RestoreDeviceObjects( LPDIRECT3DDEVICE9 pd3dDevice );
     HRESULT InvalidateDeviceObjects();
-    HRESULT Render( LPDIRECT3DDEVICE9 pd3dDevice, 
+    HRESULT Render( LPDIRECT3DDEVICE9 pd3dDevice,
                     bool bDrawOpaqueSubsets = true,
                     bool bDrawAlphaSubsets = true,
                     D3DXMATRIX* pmatWorldMatrix = NULL);
@@ -125,9 +125,9 @@ public:
 //-----------------------------------------------------------------------------
 class CDXUTMeshFile : public CDXUTMeshFrame
 {
-    HRESULT LoadMesh( LPDIRECT3DDEVICE9 pd3dDevice, LPD3DXFILEDATA pFileData, 
+    HRESULT LoadMesh( LPDIRECT3DDEVICE9 pd3dDevice, LPD3DXFILEDATA pFileData,
                       CDXUTMeshFrame* pParentFrame );
-    HRESULT LoadFrame( LPDIRECT3DDEVICE9 pd3dDevice, LPD3DXFILEDATA pFileData, 
+    HRESULT LoadFrame( LPDIRECT3DDEVICE9 pd3dDevice, LPD3DXFILEDATA pFileData,
                        CDXUTMeshFrame* pParentFrame );
 public:
     HRESULT Create( LPDIRECT3DDEVICE9 pd3dDevice, LPCWSTR strFilename );
@@ -142,6 +142,3 @@ public:
 
 
 #endif
-
-
-

@@ -5,39 +5,39 @@
 
 namespace mutant
 {
-	enum eIoError
-	{
-		IO_ERROR,
-		IO_NOFILE
-	};
+  enum eIoError
+  {
+    IO_ERROR,
+    IO_NOFILE
+  };
 
-	class EIoError : public std::runtime_error {
-	public:
-		EIoError( eIoError error_code, std::string const& w = "Unspecified Mutant I/O error" ) : std::runtime_error( w ), mErrorCode( error_code ) {}
-		eIoError errorCode() const { return mErrorCode; }
-	private:
-		eIoError	mErrorCode;
-	};
+  class EIoError : public std::runtime_error {
+  public:
+    EIoError( eIoError error_code, std::string const& w = "Unspecified Mutant I/O error" ) : std::runtime_error( w ), mErrorCode( error_code ) {}
+    eIoError errorCode() const { return mErrorCode; }
+  private:
+    eIoError  mErrorCode;
+  };
 
-	class EIoEof : public std::runtime_error {
-	public:
-		EIoEof() : std::runtime_error( "Unexpected end of file" ) {
-		}
-	};
+  class EIoEof : public std::runtime_error {
+  public:
+    EIoEof() : std::runtime_error( "Unexpected end of file" ) {
+    }
+  };
 
-	class binary_input
-	{
-	public:
-		virtual ~binary_input() /*_ __gcc = 0*/ {}
-		virtual void read( void* dest, size_t n, int* wasRead ) = 0; // throws EIoError
-	};
+  class binary_input
+  {
+  public:
+    virtual ~binary_input() /*_ __gcc = 0*/ {}
+    virtual void read( void* dest, size_t n, int* wasRead ) = 0; // throws EIoError
+  };
 
-	class binary_output
-	{
-	public:
-		virtual ~binary_output() /*_ __gcc = 0*/ {}
-		virtual void write( void const* src, size_t n, int* wasWritten ) = 0;
-	};
+  class binary_output
+  {
+  public:
+    virtual ~binary_output() /*_ __gcc = 0*/ {}
+    virtual void write( void const* src, size_t n, int* wasWritten ) = 0;
+  };
 }
 
 #endif // MUTANT_BINARY_IO_H_

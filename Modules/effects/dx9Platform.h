@@ -9,19 +9,19 @@
 
 namespace mutalisk { namespace effects {
 
-	struct Context {
-		IDirect3DDevice9*	device;
-		ID3DXEffect*		uberShader;
-	};
-	extern Context gContext;
+  struct Context {
+    IDirect3DDevice9*  device;
+    ID3DXEffect*    uberShader;
+  };
+  extern Context gContext;
 
-	typedef mutalisk::data::scene::Light	LightT;
-	typedef IDirect3DBaseTexture9			TextureT;
-	typedef D3DXMATRIX						MatrixT;
-	typedef D3DXVECTOR4						VecT;
-	typedef D3DXCOLOR						ColorT;
+  typedef mutalisk::data::scene::Light  LightT;
+  typedef IDirect3DBaseTexture9      TextureT;
+  typedef D3DXMATRIX            MatrixT;
+  typedef D3DXVECTOR4            VecT;
+  typedef D3DXCOLOR            ColorT;
 
-} // namespace effects 
+} // namespace effects
 } // namespace mutalisk
 
 #endif // MUTALISK_EFFECTS__DX9_PLATFORM_H_

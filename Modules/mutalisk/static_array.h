@@ -53,53 +53,53 @@ namespace mutalisk {
         typedef const T&       const_reference;
         typedef std::size_t    size_type;
         typedef std::ptrdiff_t difference_type;
-    
+
         // iterator support
         iterator begin() { return elems; }
         const_iterator begin() const { return elems; }
         iterator end() { return elems+N; }
         const_iterator end() const { return elems+N; }
 
-		// @mutalisk
-		// NOTE: removed reverse iterators
-		// for compatibility reasons
+    // @mutalisk
+    // NOTE: removed reverse iterators
+    // for compatibility reasons
 
         // operator[]
-        reference operator[](size_type i) 
-        { 
-            assert( i < N && "out of range" ); 
+        reference operator[](size_type i)
+        {
+            assert( i < N && "out of range" );
             return elems[i];
         }
-        
-        const_reference operator[](size_type i) const 
-        {     
-            assert( i < N && "out of range" ); 
-            return elems[i]; 
+
+        const_reference operator[](size_type i) const
+        {
+            assert( i < N && "out of range" );
+            return elems[i];
         }
 
         // at() with range check
         reference at(size_type i) { rangecheck(i); return elems[i]; }
         const_reference at(size_type i) const { rangecheck(i); return elems[i]; }
-    
+
         // front() and back()
-        reference front() 
-        { 
-            return elems[0]; 
-        }
-        
-        const_reference front() const 
+        reference front()
         {
             return elems[0];
         }
-        
-        reference back() 
-        { 
-            return elems[N-1]; 
+
+        const_reference front() const
+        {
+            return elems[0];
         }
-        
-        const_reference back() const 
-        { 
-            return elems[N-1]; 
+
+        reference back()
+        {
+            return elems[N-1];
+        }
+
+        const_reference back() const
+        {
+            return elems[N-1];
         }
 
         // size is constant
@@ -134,7 +134,7 @@ namespace mutalisk {
 
         // check range (may be private because it is static)
         static void rangecheck (size_type i) {
-            if (i >= size()) { 
+            if (i >= size()) {
                 throw std::range_error("array<>: index out of range");
             }
         }

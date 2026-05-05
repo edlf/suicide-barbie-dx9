@@ -4,7 +4,8 @@
 #include "cfg.h"
 #include "array.h"
 
-namespace mutalisk { namespace data
+namespace mutalisk {
+namespace data
 {
 	typedef unsigned char byte;
 

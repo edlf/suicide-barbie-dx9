@@ -28,11 +28,11 @@ mutant_compressed_input::~mutant_compressed_input()
 	delete []mBuffer;
 }
 
-void mutant_compressed_input::read( void* dest, int len, int* wasRead )
+void mutant_compressed_input::read( void* dest, size_t len, int* wasRead )
 {
 	int err = Z_OK;
 
-	zstream.avail_out = len;
+	zstream.avail_out = (unsigned int) len;
 	zstream.next_out = (Bytef*)dest;
 
 	while( zstream.avail_out != 0 ) {
@@ -63,7 +63,7 @@ void mutant_compressed_input::read( void* dest, int len, int* wasRead )
 	}
 
 	if( wasRead )
-		*wasRead = len - zstream.avail_out;
+		*wasRead = ((unsigned int) len) - zstream.avail_out;
 }
 
 
@@ -90,4 +90,3 @@ void mutant_compressed_input::flush()
 	err = inflateEnd( &zstream );
 	CHECK_ERR( err, "inflateEnd" );
 }
-

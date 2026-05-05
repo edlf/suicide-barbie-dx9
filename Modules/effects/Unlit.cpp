@@ -29,12 +29,13 @@ Unlit::~Unlit()
 
 void Unlit::begin()
 {
-	mImpl->passIndex = ~0;
+	mImpl->passIndex = 0u;
 	mImpl->begin("Main");
 }
 
 unsigned Unlit::passCount(Input const& i)
 {
+	(void) i;
 	return 1;
 }
 

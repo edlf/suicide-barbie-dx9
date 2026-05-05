@@ -9,10 +9,10 @@ scene::scene()
 : meshIds(0)
 , lights(0)
 , cameras(0)
-, defaultCameraIndex(~0)
+, defaultCameraIndex(0u)
 , actors(0)
 , animCharId("")
-, defaultClipIndex(~0)
+, defaultClipIndex(0u)
 {
 }
 

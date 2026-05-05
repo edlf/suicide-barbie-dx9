@@ -49,6 +49,8 @@
 				MinimalRebuild="true"
 				BasicRuntimeChecks="0"
 				RuntimeLibrary="3"
+				EnableFunctionLevelLinking="true"
+				EnableEnhancedInstructionSet="2"
 				UsePrecompiledHeader="0"
 				PrecompiledHeaderThrough="dxstdafx.h"
 				WarningLevel="4"
@@ -132,9 +134,11 @@
 				AdditionalIncludeDirectories="&quot;$(SolutionDir)&quot;;&quot;C:\Program Files\Microsoft DirectX SDK (June 2010)\Include&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
 				StringPooling="true"
-				ExceptionHandling="0"
+				MinimalRebuild="true"
+				ExceptionHandling="1"
 				RuntimeLibrary="0"
-				EnableFunctionLevelLinking="true"
+				EnableFunctionLevelLinking="false"
+				EnableEnhancedInstructionSet="2"
 				UsePrecompiledHeader="0"
 				PrecompiledHeaderThrough="dxstdafx.h"
 				WarningLevel="4"
@@ -549,7 +553,31 @@
 			Name="Mutalisk"
 			>
 			<File
+				RelativePath=".\Modules\mutalisk\array.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Modules\mutalisk\cfg.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Modules\mutalisk\com_ptr.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Modules\mutalisk\common.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Modules\mutalisk\dx9.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Modules\mutalisk\dx9Helpers.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Modules\mutalisk\dx9Helpers.h"
 				>
 			</File>
 			<File
@@ -557,7 +585,51 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Modules\mutalisk\dx9Mesh.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Modules\mutalisk\dx9Mesh.inl"
+				>
+			</File>
+			<File
+				RelativePath=".\Modules\mutalisk\dx9Platform.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Modules\mutalisk\dx9Texture.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Modules\mutalisk\errors.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Modules\mutalisk\mesh.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Modules\mutalisk\mesh.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Modules\mutalisk\mesh.inl"
+				>
+			</File>
+			<File
+				RelativePath=".\Modules\mutalisk\metainfo.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Modules\mutalisk\mutalisk.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Modules\mutalisk\mutalisk_fwd.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Modules\mutalisk\platform.h"
 				>
 			</File>
 			<File
@@ -565,7 +637,35 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Modules\mutalisk\scene.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Modules\mutalisk\scene.inl"
+				>
+			</File>
+			<File
 				RelativePath=".\Modules\mutalisk\shader.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Modules\mutalisk\shader.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Modules\mutalisk\shader.inl"
+				>
+			</File>
+			<File
+				RelativePath=".\Modules\mutalisk\static_array.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Modules\mutalisk\types.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Modules\mutalisk\utility.h"
 				>
 			</File>
 		</Filter>
@@ -573,7 +673,19 @@
 			Name="Mutant"
 			>
 			<File
+				RelativePath=".\Modules\mutant\access_policy.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Modules\mutant\bezier.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Modules\mutant\binary_compressed_input.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Modules\mutant\binary_compressed_input.h"
 				>
 			</File>
 			<File
@@ -581,7 +693,131 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Modules\mutant\binary_compressed_output.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Modules\mutant\binary_input.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Modules\mutant\binary_io.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Modules\mutant\binary_io_platform.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Modules\mutant\binary_io_psp.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Modules\mutant\binary_io_win32.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Modules\mutant\binary_io_win32.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Modules\mutant\binary_output.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Modules\mutant\bundle.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Modules\mutant\catmullrom.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Modules\mutant\cfg.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Modules\mutant\character.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Modules\mutant\clip.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Modules\mutant\compose_algo.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Modules\mutant\composite_evaluator.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Modules\mutant\composite_interpolator.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Modules\mutant\constant_evaluator.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Modules\mutant\data.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Modules\mutant\errors.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Modules\mutant\event_algo.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Modules\mutant\hermite.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Modules\mutant\hierarchy.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Modules\mutant\interpolator.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Modules\mutant\io_factory.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Modules\mutant\iterator.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Modules\mutant\keysearch_algo.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Modules\mutant\knot_data.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Modules\mutant\linear.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Modules\mutant\meta.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Modules\mutant\mutant.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Modules\mutant\mutant_fwd.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Modules\mutant\quaternion_evaluator.h"
 				>
 			</File>
 			<File
@@ -589,11 +825,59 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Modules\mutant\reader.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Modules\mutant\sequence_interpolator.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Modules\mutant\sequencer.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Modules\mutant\simple_skinned.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Modules\mutant\special_evaluator.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Modules\mutant\time_algo.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Modules\mutant\type_names.cpp"
 				>
 			</File>
 			<File
+				RelativePath=".\Modules\mutant\type_names.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Modules\mutant\type_traits.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Modules\mutant\types.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Modules\mutant\types_ios.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Modules\mutant\util.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Modules\mutant\writer.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Modules\mutant\writer.h"
 				>
 			</File>
 		</Filter>

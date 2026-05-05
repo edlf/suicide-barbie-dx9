@@ -29,6 +29,12 @@ inline std::ostream& operator<<( std::ostream& out, D3DXMATRIX const& d ) {
 	return out;
 }*/
 
+std::string operator+( std::string const& str, size_t n ) {
+	std::stringstream ss;
+	ss << n;
+	return str + ss.str();
+}
+
 std::string operator+( std::string const& str, int n ) {
 	std::stringstream ss;
 	ss << n;

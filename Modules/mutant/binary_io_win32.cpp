@@ -1,4 +1,3 @@
-#if defined WIN32
 #include "binary_io_win32.h"
 #include "types_ios.h"
 
@@ -48,16 +47,17 @@ namespace mutant
 		}
 	}
 
-	void file_input::read( void* dest, int n, int* wasRead )
+	void file_input::read( void* dest, size_t n, int* wasRead )
 	{
 		DWORD rd = 0;
 
-		bool good = ReadFile( (HANDLE)mFile, dest, n, &rd, NULL ) != 0;
+		bool good = ReadFile( (HANDLE)mFile, dest, (DWORD) n, &rd, NULL ) != 0;
 
-		if( wasRead )
+		if( wasRead ) {
 			*wasRead = rd;
+		}
 
-		int err = GetLastError();
+		(void) GetLastError();
 
 		if( good && rd == 0 ) {
 			throw EIoEof();
@@ -81,44 +81,30 @@ namespace mutant
 			FILE_ATTRIBUTE_NORMAL,
 			NULL );
 
-		if( mFile == INVALID_HANDLE_VALUE )
+		if( mFile == INVALID_HANDLE_VALUE ) {
 			throw EIoError( IO_NOFILE, "Failed to open `" + name + "' for writing" );
+		}
 	}
 
-/*	file_output::file_output( std::wstring const& name ) {
-		mFile = CreateFileW(
-			name.c_str(),
-			GENERIC_WRITE,
-			FILE_SHARE_READ,
-			NULL,
-			CREATE_ALWAYS,
-			FILE_ATTRIBUTE_NORMAL,
-			NULL );
-
-		if( mFile == INVALID_HANDLE_VALUE )
-			throw EIoError( IO_NOFILE, "Failed to open `???' for writing" );
-	}
-*/
 	file_output::~file_output() {
 		if( mFile ) {
 			CloseHandle( (HANDLE)mFile );
 		}
 	}
 
-	void file_output::write( void const* src, int n, int* wasWritten ) {
+	void file_output::write( void const* src, size_t n, int* wasWritten ) {
 		DWORD wr = 0;
 
-		bool good = WriteFile( (HANDLE)mFile, src, n, &wr, NULL ) != 0;
+		bool good = WriteFile( (HANDLE)mFile, src, (DWORD) n, &wr, NULL ) != 0;
 
-		if( wasWritten  )
+		if( wasWritten  ) {
 			*wasWritten = wr;
+		}
 
-		int err = GetLastError();
+		(void) GetLastError();
 		if( !good ) {
 			throw EIoError( IO_ERROR, std::string("Failed to write `") + n + "' bytes to file" );
 		}
 	}
 
 }
-
-#endif

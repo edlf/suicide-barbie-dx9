@@ -41,7 +41,7 @@ Lambert::~Lambert()
 
 void Lambert::begin()
 {
-	mImpl->passIndex = ~0;
+	mImpl->passIndex = 0u;
 	mImpl->begin("Main");
 }
 

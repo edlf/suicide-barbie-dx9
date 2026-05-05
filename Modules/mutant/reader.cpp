@@ -2,6 +2,9 @@
 #include "clip.h"
 #include "bundle.h"
 
+#include <Modules/mutalisk/array.h>
+#include <Modules/mutalisk/mesh.h>
+
 namespace mutant
 {
 
@@ -17,7 +20,7 @@ std::string& binary_input_utils::readString( std::string& str )
 	int rd = 0;
 	unsigned size = readDword();
 
-	unsigned pos = str.size();
+	size_t pos = str.size();
 	str.resize( pos + size );
 	std::fill_n( str.begin() + pos, size, ' ' );
 	while( size-- ) {
@@ -63,8 +66,7 @@ void mutant_reader::read( anim_character_set& char_set )
 	}
 }
 
-/*
-void mutant_reader::read( data::base_mesh& mesh )
+void mutant_reader::read( mutalisk::data::base_mesh& mesh )
 {
 	try
 	{
@@ -86,7 +88,7 @@ void mutant_reader::read( data::base_mesh& mesh )
 	}
 }
 
-void mutant_reader::read( data::dx9_mesh& mesh )
+void mutant_reader::read( mutalisk::data::dx9_mesh& mesh )
 {
 	try
 	{
@@ -95,7 +97,7 @@ void mutant_reader::read( data::dx9_mesh& mesh )
 		mesh.primitiveType = static_cast<D3DPRIMITIVETYPE>(readDword());
 		if( readBool() )
 		{
-			mesh.skinInfo = new data::skin_info;
+			mesh.skinInfo = new mutalisk::data::skin_info;
 			read( *mesh.skinInfo );
 		}
 		else
@@ -108,14 +110,16 @@ void mutant_reader::read( data::dx9_mesh& mesh )
 	}
 }
 
-void mutant_reader::read( data::skin_info& skin )
+void mutant_reader::read( mutalisk::data::skin_info& skin )
 {
 	try
 	{
 		skin.weightsPerVertex = readDword();
-		skin.boneCount = readDword();
-		skin.bones = new data::skin_info::Bone[skin.boneCount];
-		for( size_t q = 0; q < skin.boneCount; ++q )
+		unsigned int boneCount = readDword();
+		mutalisk::array<mutalisk::data::skin_info::Bone> new_array;
+		new_array.resize(boneCount);
+		skin.bones = new_array;
+		for( size_t q = 0; q < boneCount; ++q )
 		{
 			readType( skin.bones[q].matrix );
 			readString( skin.bones[q].name );
@@ -126,8 +130,9 @@ void mutant_reader::read( data::skin_info& skin )
 		mutant_throw( "Read/write error" );
 	}
 }
-*/
-/*namespace {
+
+/*
+namespace {
 	bool autoRef( std::string const& names, simple_scene::Ref& ref, unsigned& refDataIt )
 	{
 		if(refDataIt >= names.size())
@@ -147,7 +152,7 @@ void mutant_reader::read( data::skin_info& skin )
 
 		for(size_t nullRefIt = refIt; nullRefIt < count; ++nullRefIt)
 			refs[nullRefIt].data = 0;
-		
+
 		assert(refIt == count);
 		return refIt;
 	}
@@ -164,7 +169,8 @@ void mutant_reader::read( data::skin_info& skin )
 			fixupRef( names, refs[q] );
 	}
 
-}*/
+}
+*/
 
 /*
 void mutant_reader::read( simple_scene& scene )
@@ -233,12 +239,13 @@ void mutant_reader::read( simple_scene& scene )
 	}
 }
 */
+
 std::string mutant_reader::readCharacter( anim_character& anim_char )
 {
 		std::string char_name = readString();
 
 	unsigned int hier_count = readDword();
-	unsigned int clip_count = readDword();	
+	unsigned int clip_count = readDword();
 
 	mutlog << "[mutant]: reading character `" << char_name << "' with " << clip_count << " clips, " << hier_count << " hierarchies\n";
 

@@ -4,7 +4,8 @@
 #include "common.h"
 #include <string>
 
-namespace mutalisk { namespace data
+namespace mutalisk {
+namespace data
 {
 
 	struct base_mesh
@@ -42,7 +43,8 @@ namespace mutalisk { namespace data
 		array<Bone> bones;
 
 		// memory management
-		skin_info(); ~skin_info();
+		skin_info();
+		~skin_info();
 	};
 
 	// I/O
@@ -56,7 +58,7 @@ namespace mutalisk { namespace data
 	void clear(base_mesh& mesh);
 	void clear(skin_info& skin);
 
-} // namespace data 
+} // namespace data
 } // namespace mutalisk
 
 #include "mesh.inl"

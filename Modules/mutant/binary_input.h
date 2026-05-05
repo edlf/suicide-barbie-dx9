@@ -16,10 +16,10 @@ namespace mutant
 		~mutant_plain_input() {
 		}
 
-		virtual void read( void* dest, int n, int* wasRead ) {
+		virtual void read( void* dest, size_t n, int* wasRead ) {
 			mInput->read( dest, n, wasRead );
 		}
-		
+
 	private:
 		std::auto_ptr<binary_input>	mInput;
 	};

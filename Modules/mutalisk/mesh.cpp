@@ -1,10 +1,9 @@
 #include "mesh.h"
 
-namespace mutalisk { namespace data
-{
+namespace mutalisk {
+namespace data {
 
 // base_mesh
-//
 base_mesh::base_mesh()
 : vertexCount(0)
 , vertexStride(0)
@@ -28,7 +27,6 @@ void clear(base_mesh& data)
 }
 
 // skin_info
-//
 skin_info::skin_info()
 : weightsPerVertex(0)
 , bones(0)
@@ -42,6 +40,8 @@ skin_info::~skin_info()
 
 void clear(skin_info& data)
 {
+	// nothing to destroy
+	(void) data;
 }
 
 } // namespace data 

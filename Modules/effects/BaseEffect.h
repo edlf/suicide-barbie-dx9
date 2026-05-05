@@ -51,7 +51,7 @@ public:
 //		IVertexTransformer const*	skinnedTransformer;
 		nPassType					passType;
 
-		PassInfo(IVertexTransformer const* v = 0, nPassType	p = GenericPass) 
+		PassInfo(IVertexTransformer const* v = 0, nPassType	p = GenericPass)
 			: rigidTransformer(v), passType(p) {}
 	};
 
@@ -82,10 +82,6 @@ public:
 
 			int				srcBlend;
 			int				dstBlend;
-		#if defined(MUTALISK_PSP)
-			unsigned int	srcFix;
-			unsigned int	dstFix;
-		#endif
 			int				xTexWrap;
 			int				yTexWrap;
 
@@ -109,7 +105,7 @@ public:
 	};
 };
 
-} // namespace effects 
+} // namespace effects
 } // namespace mutalisk
 
 #endif // MUTALISK_EFFECTS__BASE_EFFECT_H_

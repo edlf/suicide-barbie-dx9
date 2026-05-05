@@ -7,6 +7,10 @@
 #include "data.h"
 #include "types.h"
 
+#include "Modules/Mutalisk/scene.h"
+#include "Modules/Mutalisk/mesh.h"
+#include "Modules/Mutalisk/dx9Mesh.h"
+
 namespace mutant
 {
 	struct binary_input_utils
@@ -118,7 +122,7 @@ namespace mutant
 			return std::auto_ptr<binary_input>( mInput.release() );
 		}
 
-		void readOpaqueData( void* ptr, int size)
+		void readOpaqueData( void* ptr, size_t size)
 		{
 			mInput->read( ptr, size, 0 );
 		}
@@ -137,13 +141,14 @@ namespace mutant
 		virtual ~mutant_reader();
 
 		virtual void read( anim_character_set& char_set );
-		virtual void read( simple_skinned& data ) {}
+		virtual void read( simple_skinned& data ) {
+			(void) data;
+		}
 
-/*		virtual void read( simple_scene& scene );
-		virtual void read( data::base_mesh& mesh );
-		virtual void read( data::dx9_mesh& mesh );
-		virtual void read( data::skin_info& skin );
-*/
+		// virtual void read( simple_scene& scene );
+		virtual void read( mutalisk::data::base_mesh& mesh );
+		virtual void read( mutalisk::data::dx9_mesh& mesh );
+		virtual void read( mutalisk::data::skin_info& skin );
 
 		std::string readCharacter( anim_character& anim_char );
 		std::string readClip( anim_clip& clip );

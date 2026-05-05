@@ -18,8 +18,8 @@
 // scene_renderer(renderable_scene)
 
 
-namespace mutalisk { namespace data
-{
+namespace mutalisk {
+namespace data {
 
 	struct scene
 	{
@@ -89,7 +89,7 @@ namespace mutalisk { namespace data
 	template <typename In> In& operator>> (In& i, scene& data);
 	template <typename Out> Out& operator<< (Out& o, scene const& data);
 
-} // namespace data 
+} // namespace data
 } // namespace mutalisk
 
 #include "scene.inl"

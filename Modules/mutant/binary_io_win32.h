@@ -14,7 +14,7 @@ namespace mutant
 		file_input( std::string const& name );
 //		file_input( std::wstring const& name );
 		~file_input();
-		virtual void read( void* dest, int n, int* wasRead );
+		virtual void read( void* dest, size_t n, int* wasRead );
 
 	private:
 		void*	mFile;
@@ -26,7 +26,7 @@ namespace mutant
 		file_output( std::string const& name );
 //		file_output( std::wstring const& name );
 		~file_output();
-		virtual void write( void const* src, int n, int* wasWritten );
+		virtual void write( void const* src, size_t n, int* wasWritten );
 
 	private:
 		void*	mFile;

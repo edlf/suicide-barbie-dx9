@@ -18,7 +18,7 @@ namespace mutant
 		mutant_compressed_output( std::auto_ptr<binary_output>& output );
 		~mutant_compressed_output();
 
-		virtual void write( void const* src, int len, int* wasWritten );
+		virtual void write( void const* src, size_t len, int* wasWritten );
 
 	protected:
 		void initDeflate();

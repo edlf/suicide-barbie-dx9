@@ -115,6 +115,7 @@ unsigned Shiny::passCount(Input const& i)
 
 BaseEffect::PassInfo const& Shiny::passInfo(Input const& i, unsigned passIndex)
 {
+	(void) i;
 	return mImpl->passInfo;
 }
 

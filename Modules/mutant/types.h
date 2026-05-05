@@ -3,6 +3,7 @@
 
 #include "cfg.h"
 
+#include <iostream>
 //#include <utility>
 //#include <iosfwd>
 #include <functional>
@@ -84,9 +85,9 @@ namespace mutant
 
 		template<typename _T>
 			mutlog_t& operator<<( _T const& t ) {
-/*_				if( enabled() )
+				if( enabled() )
 					std::cout << t;
-*/				return *this;
+				return *this;
 			}
 
 		bool enabled() const { return mEnabled; }

@@ -17,7 +17,7 @@ namespace mutant
 		mutant_compressed_input( std::auto_ptr<binary_input>& input );
 		~mutant_compressed_input();
 
-		virtual void read( void* dest, int len, int* wasRead );
+		virtual void read( void* dest, size_t len, int* wasRead );
 
 	protected:
 		void initInflate();

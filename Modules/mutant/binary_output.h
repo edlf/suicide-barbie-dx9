@@ -13,10 +13,10 @@ namespace mutant
 		~mutant_plain_output() {
 		}
 
-		virtual void write( void const* src, int n, int* wasWritten ) {
+		virtual void write( void const* src, size_t n, int* wasWritten ) {
 			mOutput->write( src, n, wasWritten );
 		}
-		
+
 	private:
 		std::auto_ptr<binary_output> mOutput;
 	};

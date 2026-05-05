@@ -31,12 +31,12 @@ mutant_compressed_output::~mutant_compressed_output()
 	delete []mBuffer;
 }
 
-void mutant_compressed_output::write( void const* src, int len, int* wasWritten )
+void mutant_compressed_output::write( void const* src, size_t len, int* wasWritten )
 {
 	int err = 0;
 
 	zstream.next_in  = (Bytef*)src;
-	zstream.avail_in = len;
+	zstream.avail_in = (unsigned int) len;
 
 	while( zstream.avail_in != 0 ) {
 		if( zstream.avail_out == 0 ) {
@@ -53,8 +53,9 @@ void mutant_compressed_output::write( void const* src, int len, int* wasWritten 
 		CHECK_ERR( err, "deflate" );
 	}
 
-	if( wasWritten )
+	if( wasWritten ) {
 		*wasWritten = len;
+	}
 }
 
 void mutant_compressed_output::initDeflate()
@@ -79,7 +80,7 @@ void mutant_compressed_output::flush()
 	if( zstream.total_in != 0 ) {
 		bool done = false;
 
-		while(1) {
+		do {
 			int len = BUF_LEN - zstream.avail_out;
 			if( len != 0 ) {
 				mOutput->write( mBuffer, len, 0 );
@@ -87,21 +88,21 @@ void mutant_compressed_output::flush()
 				zstream.avail_out = BUF_LEN;
 			}
 
-			if( done )
+			if( done ) {
 				break;
+			}
 
 			err = deflate( &zstream, Z_FINISH);
 
-			if( len == 0 && err == Z_BUF_ERROR )
+			if( len == 0 && err == Z_BUF_ERROR ) {
 				err = Z_OK;
+			}
 
-			if( err != Z_STREAM_END )
+			if( err != Z_STREAM_END ) {
 				CHECK_ERR(err, "deflate");
+			}
 
 			done = (zstream.avail_out != 0 || err == Z_STREAM_END);
-
-			if( err != Z_OK && err != Z_STREAM_END)
-				break;
-		}
+		} while (err != Z_OK && err != Z_STREAM_END);
 	}
 }

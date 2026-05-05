@@ -2,9 +2,7 @@
 
 #include "Timeline.h"
 #include "ScenePlayer.h"
-#if defined(MUTALISK_DX9)
-#	include "dx9ScenePlayer.h"
-#endif
+#include "dx9ScenePlayer.h"
 
 using namespace mutalisk;
 namespace
@@ -30,24 +28,13 @@ namespace
 	}
 }
 
-#if defined(MUTALISK_DX9)
 void BaseDemoPlayer::platformSetup(IDirect3DDevice9& device, ID3DXEffect& defaultEffect)
 {
-	renderContext.device = &device;	
+	renderContext.device = &device;
 	renderContext.defaultEffect = &defaultEffect;
 	D3DXMatrixIdentity(&renderContext.viewProjMatrix);
 	D3DXMatrixIdentity(&renderContext.projMatrix);
 }
-#elif defined(MUTALISK_PSP)
-void BaseDemoPlayer::platformSetup()
-{
-	ScePspFMatrix4 identityMatrix;
-	gumLoadIdentity(&identityMatrix);
-
-	renderContext.viewProjMatrix = identityMatrix;
-	renderContext.projMatrix = identityMatrix;
-}
-#endif
 
 BaseDemoPlayer::Scene const& BaseDemoPlayer::load(Scene& scene, std::string const& sceneName)
 {
@@ -147,7 +134,7 @@ int BaseDemoPlayer::updateTextures()
 	{
 		QueueItem& item = m_texQueue.front();
 		std::string& name = item.first;
-		m_currentResource = item.second;	
+		m_currentResource = item.second;
 
 //		printf("trying to open file %s\n", name.c_str());
 		m_currentLoad = sceIoOpen(name.c_str(), PSP_O_RDONLY, 0777);
@@ -173,7 +160,7 @@ int BaseDemoPlayer::updateTextures()
 
 		m_texQueue.pop_front();
 	}
-	return m_texQueue.size();	
+	return m_texQueue.size();
 }
 #endif
 
@@ -231,13 +218,8 @@ void BaseDemoPlayer::draw(Scene const& scene, OnDrawT onDraw, float timeScale)
 			scene.startTime = time();
 
 		ASSERT(scene.renderable);
-#if defined(MUTALISK_DX9)
 		mutalisk::update(*scene.renderable, (time() - scene.startTime) * timeScale);
 		mutalisk::process(*scene.renderable);
-#elif defined(MUTALISK_PSP)
-		scene.renderable->update((time() - scene.startTime) * timeScale);
-		scene.renderable->process();
-#endif
 		//renderContext.znear = scene.znear;
 		//renderContext.zfar = scene.zfar;
 
@@ -271,14 +253,9 @@ struct ClearZJob : public BaseDemoPlayer::IJob
 	RenderContextT*					renderContext;
 	void process()
 	{
-	#if defined(MUTALISK_DX9)
 		ASSERT(renderContext);
-		DX_MSG("Depth clear") = 
+		DX_MSG("Depth clear") =
 			renderContext->device->Clear(0, NULL, D3DCLEAR_ZBUFFER, D3DXCOLOR(0.0f,0.0f,0.0f,0.0f), 1.0f, 0);
-	#elif defined(MUTALISK_PSP)
-		sceGuClearDepth(0xffff);
-		sceGuClear(GU_DEPTH_BUFFER_BIT);
-	#endif
 	}
 };
 ClearZJob gClearZJob[JobCacheSize];
@@ -291,13 +268,8 @@ void BaseDemoPlayer::clearZ()
 	}
 	else if(mPhase == RenderPhase)
 	{
-#if defined(MUTALISK_DX9)
-		DX_MSG("Depth clear") = 
+		DX_MSG("Depth clear") =
 			renderContext.device->Clear(0, NULL, D3DCLEAR_ZBUFFER, D3DXCOLOR(0.0f,0.0f,0.0f,0.0f), 1.0f, 0);
-#elif defined(MUTALISK_PSP)
-		sceGuClearDepth(0xffff);
-		sceGuClear(GU_DEPTH_BUFFER_BIT);
-#endif
 
 	/*
 		ClearZJob* job = &gClearZJob[gClearZJobIndex]; gClearZJobIndex = (gClearZJobIndex+1)%JobCacheSize;

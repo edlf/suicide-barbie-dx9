@@ -7,7 +7,7 @@ namespace mutalisk { namespace data
 
 // base_mesh
 //
-inline template <typename In> In& operator>> (In& i, base_mesh& mesh)
+template <typename In> In& operator>> (In& i, base_mesh& mesh)
 {
 	clear(mesh);
 
@@ -39,7 +39,7 @@ inline template <typename In> In& operator>> (In& i, base_mesh& mesh)
 	return i;
 }
 
-inline template <typename Out> Out& operator<< (Out& o, base_mesh const& mesh)
+template <typename Out> Out& operator<< (Out& o, base_mesh const& mesh)
 {
 	try
 	{
@@ -69,7 +69,7 @@ inline template <typename Out> Out& operator<< (Out& o, base_mesh const& mesh)
 
 // skin_info
 //
-inline template <typename In> In& operator>> (In& i, skin_info& skin)
+template <typename In> In& operator>> (In& i, skin_info& skin)
 {
 	clear(skin);
 
@@ -90,7 +90,7 @@ inline template <typename In> In& operator>> (In& i, skin_info& skin)
 	return i;
 }
 
-inline template <typename Out> Out& operator<< (Out& o, skin_info const& skin)
+template <typename Out> Out& operator<< (Out& o, skin_info const& skin)
 {
 	try
 	{
@@ -110,5 +110,5 @@ inline template <typename Out> Out& operator<< (Out& o, skin_info const& skin)
 	return o;
 }
 
-} // namespace data 
+} // namespace data
 } // namespace mutalisk

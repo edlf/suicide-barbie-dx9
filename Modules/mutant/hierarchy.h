@@ -226,6 +226,7 @@ namespace mutant
 
 		template<class OutputStreamT, class HierarchyT>
 		void info( OutputStreamT& os, HierarchyT& hier, std::string const& pre, int verbose ) {
+			(void) verbose;
 			os	<< pre << name << ", "
 				<< (int)children.size() << " child(s), parent: "
 				<< parent << " `" << (parent == -1 ? "none" : hier[ parent ].name) << "'"

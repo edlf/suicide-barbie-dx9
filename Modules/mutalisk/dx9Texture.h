@@ -7,7 +7,7 @@ namespace mutalisk { namespace data
 	{
 	};
 
-inline template <typename In> In& operator>> (In& i, dx9_texture& texture)
+template <typename In> In& operator>> (In& i, dx9_texture& texture)
 {
 	try
 	{
@@ -19,7 +19,7 @@ inline template <typename In> In& operator>> (In& i, dx9_texture& texture)
 	return i;
 }
 
-} // namespace data 
+} // namespace data
 } // namespace mutalisk
 
 #endif // MUTALISK_DX9_TEXTURE_H_

@@ -26,14 +26,11 @@
 #endif
 
 #define THROW_ERROR(msg)				THROW(EBaseError(msg, BASE_ERROR_PARAMS))
-#if defined MUTALISK_DX9
 #define THROW_DXERROR(result,msg)		THROW(EDXError(result, msg, BASE_ERROR_PARAMS))
-#elif defined MUTALISK_PSP
-#endif
 
-class EBaseError 
+class EBaseError
 #if defined USE_EXCEPTIONS
-	: public std::runtime_error 
+	: public std::runtime_error
 #endif
 {
 public:
@@ -43,7 +40,7 @@ public:
 #endif
 		mFileName( fileName ),
 		mLineNumber( lineNumber )
-	{	
+	{
 		mWhereMsg = "file: " + mFileName;
 	};
 
@@ -59,22 +56,19 @@ private:
 	int				mLineNumber;
 };
 
-#if defined MUTALISK_DX9
-	#include <d3dx9.h>
-	class EDXError : public EBaseError {
-	public:
-		EDXError( HRESULT dxresult, std::string msg, std::string fileName, int lineNumber )
-		:	EBaseError( msg, fileName, lineNumber ),
-			mDXResult( dxresult )
-		{
-		};
-
-		HRESULT const& getDXResult() const { return mDXResult; };
-
-	private:
-		HRESULT			mDXResult;
+#include <d3dx9.h>
+class EDXError : public EBaseError {
+public:
+	EDXError( HRESULT dxresult, std::string msg, std::string fileName, int lineNumber )
+	:	EBaseError( msg, fileName, lineNumber ),
+		mDXResult( dxresult )
+	{
 	};
-#elif defined MUTALISK_PSP
-#endif
+
+	HRESULT const& getDXResult() const { return mDXResult; };
+
+private:
+	HRESULT			mDXResult;
+};
 
 #endif // MUTALISK_ERRORS_H_

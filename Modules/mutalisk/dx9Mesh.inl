@@ -2,12 +2,11 @@
 
 using namespace mutant;
 
-namespace mutalisk { namespace data
-{
+namespace mutalisk {
+namespace data {
 
 // dx9_mesh
-//
-inline template <typename In> In& operator>> (In& i, dx9_mesh& data)
+template <typename In> In& operator>> (In& i, dx9_mesh& data)
 {
 	clear(data);
 
@@ -37,7 +36,7 @@ inline template <typename In> In& operator>> (In& i, dx9_mesh& data)
 	return i;
 }
 
-inline template <typename Out> Out& operator<< (Out& o, dx9_mesh& data)
+template <typename Out> Out& operator<< (Out& o, dx9_mesh& data)
 {
 	try
 	{
@@ -45,7 +44,7 @@ inline template <typename Out> Out& operator<< (Out& o, dx9_mesh& data)
 
 		// base_mesh
 		o << data.base();
-		
+
 		// dx9_mesh
 		o.writeDword( data.fvfVertexDecl );
 		o.writeDword( data.primitiveType );
@@ -62,5 +61,5 @@ inline template <typename Out> Out& operator<< (Out& o, dx9_mesh& data)
 	return o;
 }
 
-} // namespace data 
+} // namespace data
 } // namespace mutalisk

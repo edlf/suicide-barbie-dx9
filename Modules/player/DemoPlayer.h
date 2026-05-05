@@ -65,11 +65,7 @@ namespace mutalisk
 		void setPhase(nPhase phase);
 		void setTime(float t);
 		void setPath(std::string const& pathPrefix);
-#if defined(MUTALISK_DX9)
 		void platformSetup(IDirect3DDevice9& device, ID3DXEffect& defaultEffect);
-#elif defined(MUTALISK_PSP)
-		void platformSetup();
-#endif
 		void start() { onStart(); }
 		void processJobQueue();
 

@@ -7,13 +7,13 @@ namespace mutalisk { namespace data
 
 // helper functions
 // @TBD: move to utility file
-inline template <typename In, typename T> In& operator>> (In& i, mutalisk::array<T>& c)
+template <typename In, typename T> In& operator>> (In& i, mutalisk::array<T>& c)
 {
 	c.resize(i.readDword());
 	i.readArray(c.begin(), c.end());
 
 }
-inline template <typename Out, typename T> Out& operator<< (Out& o, mutalisk::array<T> const& c)
+template <typename Out, typename T> Out& operator<< (Out& o, mutalisk::array<T> const& c)
 {
 	o.writeDword(c.size());
 	o.writeData(c.begin(), c.end());
@@ -21,7 +21,7 @@ inline template <typename Out, typename T> Out& operator<< (Out& o, mutalisk::ar
 
 // shader
 //
-inline template <typename In> In& operator>> (In& i, shader_fixed& data)
+template <typename In> In& operator>> (In& i, shader_fixed& data)
 {
 	try
 	{
@@ -56,7 +56,7 @@ inline template <typename In> In& operator>> (In& i, shader_fixed& data)
 	return i;
 }
 
-inline template <typename Out> Out& operator<< (Out& o, shader_fixed const& data)
+template <typename Out> Out& operator<< (Out& o, shader_fixed const& data)
 {
 	try
 	{
@@ -94,7 +94,7 @@ inline template <typename Out> Out& operator<< (Out& o, shader_fixed const& data
 
 // shader
 //
-inline template <typename In> In& operator>> (In& i, shader& data)
+template <typename In> In& operator>> (In& i, shader& data)
 {
 	try
 	{
@@ -121,7 +121,7 @@ inline template <typename In> In& operator>> (In& i, shader& data)
 	return i;
 }
 
-inline template <typename Out> Out& operator<< (Out& o, shader const& data)
+template <typename Out> Out& operator<< (Out& o, shader const& data)
 {
 	try
 	{
@@ -149,5 +149,5 @@ inline template <typename Out> Out& operator<< (Out& o, shader const& data)
 	return o;
 }
 
-} // namespace data 
+} // namespace data
 } // namespace mutalisk

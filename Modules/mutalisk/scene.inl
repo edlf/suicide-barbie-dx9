@@ -7,7 +7,7 @@ namespace mutalisk { namespace data
 
 // scene::Node
 //
-inline template <typename In> In& operator>> (In& i, scene::Node& data)
+template <typename In> In& operator>> (In& i, scene::Node& data)
 {
 	try
 	{
@@ -23,7 +23,7 @@ inline template <typename In> In& operator>> (In& i, scene::Node& data)
 	return i;
 }
 
-inline template <typename Out> Out& operator<< (Out& o, scene::Node const& data)
+template <typename Out> Out& operator<< (Out& o, scene::Node const& data)
 {
 	try
 	{
@@ -41,7 +41,7 @@ inline template <typename Out> Out& operator<< (Out& o, scene::Node const& data)
 
 // scene
 //
-inline template <typename In> In& operator>> (In& i, scene& data)
+template <typename In> In& operator>> (In& i, scene& data)
 {
 	try
 	{
@@ -115,7 +115,7 @@ inline template <typename In> In& operator>> (In& i, scene& data)
 	return i;
 }
 
-inline template <typename Out> Out& operator<< (Out& o, scene const& data)
+template <typename Out> Out& operator<< (Out& o, scene const& data)
 {
 	try
 	{
@@ -128,12 +128,12 @@ inline template <typename Out> Out& operator<< (Out& o, scene const& data)
 		// textures
 		o.writeDword(data.textureIds.size());
 		o.writeData(data.textureIds.begin(), data.textureIds.end());
-		
+
 		// shaders
 		// o.writeDword(data.shaderInputs.size());
 		// o.writeData(data.shaderInputs.begin(), data.shaderInputs.end());
 		o.writeDword(data.shaderLibraryVersion);
-		
+
 		// lights
 		o.writeDword(data.lights.size());
 		for( size_t q = 0; q < data.lights.size(); ++q )
@@ -173,7 +173,7 @@ inline template <typename Out> Out& operator<< (Out& o, scene const& data)
 				o.writeDword(data.actors[q].materials[w].shaderIndex);
 				//o.writeDword(data.actors[q].materials[w].inputIndex);
 				o << data.actors[q].materials[w].shaderInput;
-			}	
+			}
 			o.writeDword(data.actors[q].slice);
 		}
 
@@ -189,5 +189,5 @@ inline template <typename Out> Out& operator<< (Out& o, scene const& data)
 	return o;
 }
 
-} // namespace data 
+} // namespace data
 } // namespace mutalisk

@@ -559,7 +559,7 @@
 /* On a Microsoft compiler, use assembler */
 #if defined(_MSC_VER)
 
-#define lua_number2int(i,d)   __asm fld d   __asm fistp i
+#define lua_number2int(i,d)   fld d   fistp i
 #define lua_number2integer(i,n)		lua_number2int(i, n)
 
 /* the next trick should work on any Pentium, but sometimes clashes
@@ -759,4 +759,3 @@ union luai_Cast { double l_d; long l_l; };
 
 
 #endif
-

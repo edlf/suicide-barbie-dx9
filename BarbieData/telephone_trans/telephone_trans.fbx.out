@@ -1,0 +1,2079 @@
+
+
+Platform: dx9
+Target dir: dx9\
+File: telephone_trans.fbx
+
+FBX version number for this FBX SDK is 6.1.0
+FBX version number for file telephone_trans.fbx is 6.1.0
+
+Take Information
+    Number of takes: 1
+    Current take: "Take 001"
+
+    Take 0
+         Name: "Take 001"
+         Description: ""
+         Import Name: "Take 001"
+         Import State: true
+
+moo
+moo1
+moo2
+
+
+---------------------
+Global Light Settings
+---------------------
+
+Ambient Color: 0.400000 (red), 0.400000 (green), 0.400000 (blue)
+Fog Options
+    Fog Enable: false
+    Fog Mode: Linear
+    Fog Start: 0.300000
+    Fog End: 1000.000000
+    Fog Color: 1.000000 (red), 1.000000 (green), 1.000000 (blue)
+
+
+
+----------------------
+Global Camera Settings
+----------------------
+
+Default Camera: Producer Perspective
+Default Viewing Mode: Standard
+Camera Name: Producer Perspective
+    Camera Position and Orientation
+        Position: 0.000000, 71.300003, 287.500000
+        Default Camera Interest Position: 0.000000, 0.000000, 0.000000
+        Up Vector: 0.000000, 1.000000, 0.000000
+        Roll: 0.000000
+    Projection Type: Perspective
+    Viewing Area Controls
+        Format: Custom
+        Aspect Ratio Mode: Window Size
+        Pixel Ratio: 1.000000
+        Near Plane: 10.000000
+        Far Plane: 4000.000000
+        Mouse Lock: false
+    Aperture and Film Controls
+        Aperture Format: 35mm TV Projection
+        Aperture Width: 0.816000 inches
+        Aperture Height: 0.612000 inches
+        Squeeze Ratio: 1.000000
+        Focal Length: 21.354494mm
+        Field of View: 40.000000 degrees
+    Background Properties
+        Background Display Mode: When Media
+        Background Drawing Mode: Background
+        Foreground Matte Threshold Enable: true
+        Background Placement Options:  Center, Keep Ratio
+        Background Distance: 100.000000
+        Background Distance Mode: Relative to Interest
+    Camera View Options
+        View Camera Interest: true
+        View Near Far Planes: false
+        Show Grid: true
+        Show Axis: true
+        Show Name: true
+        Show Info on Moving: true
+        Show Time Code: false
+        Display Safe Area: false
+        Safe Area Style: Square
+        Show Audio: false
+        Background Color: 0.630000 (red), 0.630000 (green), 0.630000 (blue)
+        Audio Color: 0.000000 (red), 1.000000 (green), 0.000000 (blue)
+        Use Frame Color: false
+        Frame Color: 0.300000 (red), 0.300000 (green), 0.300000 (blue)
+    Render Options
+        Render Options Usage Time: At Render
+        Use Antialiasing: false
+        Antialiasing Intensity: 0.777770
+        Antialiasing Method: Oversampling Antialiasing
+        Number of Samples: 7
+        Sampling Type: Stochastic
+        Use Accumulation Buffer: false
+        Use Depth of Field: false
+        Focus Distance Source: Camera Interest
+        Focus Angle: 3.500000 degrees
+    Default Animation Values
+        Default Field of View: 40.000000
+        Default Field of View X: 1.000000
+        Default Field of View Y: 1.000000
+        Default Optical Center X: 0.000000
+        Default Optical Center Y: 0.000000
+        Default Roll: 0.000000
+Camera Name: Producer Top
+    Camera Position and Orientation
+        Position: 0.000000, 4000.000000, 0.000000
+        Default Camera Interest Position: 0.000000, 0.000000, 0.000000
+        Up Vector: 0.000000, 0.000000, -1.000000
+        Roll: 0.000000
+    Projection Type: Orthogonal
+    Viewing Area Controls
+        Format: Custom
+        Aspect Ratio Mode: Window Size
+        Pixel Ratio: 1.000000
+        Near Plane: 1.000000
+        Far Plane: 30000.000000
+        Mouse Lock: false
+    Background Properties
+        Background Display Mode: When Media
+        Background Drawing Mode: Background
+        Foreground Matte Threshold Enable: true
+        Background Placement Options:  Center, Keep Ratio
+        Background Distance: 100.000000
+        Background Distance Mode: Relative to Interest
+    Camera View Options
+        View Camera Interest: true
+        View Near Far Planes: false
+        Show Grid: true
+        Show Axis: true
+        Show Name: true
+        Show Info on Moving: true
+        Show Time Code: false
+        Display Safe Area: false
+        Safe Area Style: Square
+        Show Audio: false
+        Background Color: 0.630000 (red), 0.630000 (green), 0.630000 (blue)
+        Audio Color: 0.000000 (red), 1.000000 (green), 0.000000 (blue)
+        Use Frame Color: false
+        Frame Color: 0.300000 (red), 0.300000 (green), 0.300000 (blue)
+    Render Options
+        Render Options Usage Time: At Render
+        Use Antialiasing: false
+        Antialiasing Intensity: 0.777770
+        Antialiasing Method: Oversampling Antialiasing
+        Number of Samples: 7
+        Sampling Type: Stochastic
+        Use Accumulation Buffer: false
+        Use Depth of Field: false
+        Focus Distance Source: Camera Interest
+        Focus Angle: 3.500000 degrees
+    Default Animation Values
+        Default Field of View: 40.000000
+        Default Field of View X: 1.000000
+        Default Field of View Y: 1.000000
+        Default Optical Center X: 0.000000
+        Default Optical Center Y: 0.000000
+        Default Roll: 0.000000
+Camera Name: Producer Front
+    Camera Position and Orientation
+        Position: 0.000000, 0.000000, 4000.000000
+        Default Camera Interest Position: 0.000000, 0.000000, 0.000000
+        Up Vector: 0.000000, 1.000000, 0.000000
+        Roll: 0.000000
+    Projection Type: Orthogonal
+    Viewing Area Controls
+        Format: Custom
+        Aspect Ratio Mode: Window Size
+        Pixel Ratio: 1.000000
+        Near Plane: 1.000000
+        Far Plane: 30000.000000
+        Mouse Lock: false
+    Background Properties
+        Background Display Mode: When Media
+        Background Drawing Mode: Background
+        Foreground Matte Threshold Enable: true
+        Background Placement Options:  Center, Keep Ratio
+        Background Distance: 100.000000
+        Background Distance Mode: Relative to Interest
+    Camera View Options
+        View Camera Interest: true
+        View Near Far Planes: false
+        Show Grid: true
+        Show Axis: true
+        Show Name: true
+        Show Info on Moving: true
+        Show Time Code: false
+        Display Safe Area: false
+        Safe Area Style: Square
+        Show Audio: false
+        Background Color: 0.630000 (red), 0.630000 (green), 0.630000 (blue)
+        Audio Color: 0.000000 (red), 1.000000 (green), 0.000000 (blue)
+        Use Frame Color: false
+        Frame Color: 0.300000 (red), 0.300000 (green), 0.300000 (blue)
+    Render Options
+        Render Options Usage Time: At Render
+        Use Antialiasing: false
+        Antialiasing Intensity: 0.777770
+        Antialiasing Method: Oversampling Antialiasing
+        Number of Samples: 7
+        Sampling Type: Stochastic
+        Use Accumulation Buffer: false
+        Use Depth of Field: false
+        Focus Distance Source: Camera Interest
+        Focus Angle: 3.500000 degrees
+    Default Animation Values
+        Default Field of View: 40.000000
+        Default Field of View X: 1.000000
+        Default Field of View Y: 1.000000
+        Default Optical Center X: 0.000000
+        Default Optical Center Y: 0.000000
+        Default Roll: 0.000000
+Camera Name: Producer Right
+    Camera Position and Orientation
+        Position: 4000.000000, 0.000000, 0.000000
+        Default Camera Interest Position: 0.000000, 0.000000, 0.000000
+        Up Vector: 0.000000, 1.000000, 0.000000
+        Roll: 0.000000
+    Projection Type: Orthogonal
+    Viewing Area Controls
+        Format: Custom
+        Aspect Ratio Mode: Window Size
+        Pixel Ratio: 1.000000
+        Near Plane: 1.000000
+        Far Plane: 30000.000000
+        Mouse Lock: false
+    Background Properties
+        Background Display Mode: When Media
+        Background Drawing Mode: Background
+        Foreground Matte Threshold Enable: true
+        Background Placement Options:  Center, Keep Ratio
+        Background Distance: 100.000000
+        Background Distance Mode: Relative to Interest
+    Camera View Options
+        View Camera Interest: true
+        View Near Far Planes: false
+        Show Grid: true
+        Show Axis: true
+        Show Name: true
+        Show Info on Moving: true
+        Show Time Code: false
+        Display Safe Area: false
+        Safe Area Style: Square
+        Show Audio: false
+        Background Color: 0.630000 (red), 0.630000 (green), 0.630000 (blue)
+        Audio Color: 0.000000 (red), 1.000000 (green), 0.000000 (blue)
+        Use Frame Color: false
+        Frame Color: 0.300000 (red), 0.300000 (green), 0.300000 (blue)
+    Render Options
+        Render Options Usage Time: At Render
+        Use Antialiasing: false
+        Antialiasing Intensity: 0.777770
+        Antialiasing Method: Oversampling Antialiasing
+        Number of Samples: 7
+        Sampling Type: Stochastic
+        Use Accumulation Buffer: false
+        Use Depth of Field: false
+        Focus Distance Source: Camera Interest
+        Focus Angle: 3.500000 degrees
+    Default Animation Values
+        Default Field of View: 40.000000
+        Default Field of View X: 1.000000
+        Default Field of View Y: 1.000000
+        Default Optical Center X: 0.000000
+        Default Optical Center Y: 0.000000
+        Default Roll: 0.000000
+
+
+
+--------------------
+Global Time Settings
+--------------------
+
+Time Mode: Frames 60
+Time Protocol: Frame
+Snap On Frame: false
+
+
+
+---------
+Hierarchy
+---------
+
+pPlane1
+Camera1
+
+
+------------
+Node Content
+------------
+
+Mesh Name: pPlane1
+    Control Points
+        Control Point 0
+            Coordinates: -22.423525, -44.758160, -0.000000
+        Control Point 1
+            Coordinates: 22.423525, -44.758160, -0.000000
+        Control Point 2
+            Coordinates: -22.423525, -9.128078, 0.000000
+        Control Point 3
+            Coordinates: 22.423525, -9.128078, 0.000000
+        Control Point 4
+            Coordinates: 0.000000, -26.943117, 0.000000
+        Control Point 5
+            Coordinates: 0.000000, -44.758160, -0.000000
+        Control Point 6
+            Coordinates: 22.423525, -26.943117, 0.000000
+        Control Point 7
+            Coordinates: 0.000000, -9.128078, 0.000000
+        Control Point 8
+            Coordinates: -22.423525, -26.943117, 0.000000
+        Control Point 9
+            Coordinates: -11.211762, -35.850636, -0.000000
+        Control Point 10
+            Coordinates: -22.423525, -35.850636, -0.000000
+        Control Point 11
+            Coordinates: -11.211762, -44.758160, -0.000000
+        Control Point 12
+            Coordinates: 0.000000, -35.850636, -0.000000
+        Control Point 13
+            Coordinates: -11.211762, -26.943117, 0.000000
+        Control Point 14
+            Coordinates: 11.211762, -35.850636, -0.000000
+        Control Point 15
+            Coordinates: 11.211762, -44.758160, -0.000000
+        Control Point 16
+            Coordinates: 22.423525, -35.850636, -0.000000
+        Control Point 17
+            Coordinates: 11.211762, -26.943117, 0.000000
+        Control Point 18
+            Coordinates: 11.211762, -18.035599, 0.000000
+        Control Point 19
+            Coordinates: 22.423525, -18.035599, 0.000000
+        Control Point 20
+            Coordinates: 11.211762, -9.128078, 0.000000
+        Control Point 21
+            Coordinates: 0.000000, -18.035599, 0.000000
+        Control Point 22
+            Coordinates: -11.211762, -18.035599, 0.000000
+        Control Point 23
+            Coordinates: -11.211762, -9.128078, 0.000000
+        Control Point 24
+            Coordinates: -22.423525, -18.035599, 0.000000
+
+    Polygons
+        Polygon 0
+            Coordinates: -11.211762, -26.943117, 0.000000
+            Texture UV (on layer 0): 0.500000, 1.000000
+            Coordinates: -22.423525, -26.943117, 0.000000
+            Texture UV (on layer 0): 0.750000, 0.500000
+            Coordinates: -22.423525, -35.850636, -0.000000
+            Texture UV (on layer 0): 1.000000, 0.750000
+            Coordinates: -11.211762, -35.850636, -0.000000
+            Texture UV (on layer 0): 1.000000, 0.500000
+        Polygon 1
+            Coordinates: 0.000000, -35.850636, -0.000000
+            Texture UV (on layer 0): 0.500000, 0.750000
+            Coordinates: 0.000000, -44.758160, -0.000000
+            Texture UV (on layer 0): 0.500000, 0.000000
+            Coordinates: 11.211762, -44.758160, -0.000000
+            Texture UV (on layer 0): 0.250000, 0.750000
+            Coordinates: 11.211762, -35.850636, -0.000000
+            Texture UV (on layer 0): 0.250000, 1.000000
+        Polygon 2
+            Coordinates: 11.211762, -26.943117, 0.000000
+            Texture UV (on layer 0): 0.000000, 0.000000
+            Coordinates: 22.423525, -26.943117, 0.000000
+            Texture UV (on layer 0): 0.750000, 0.000000
+            Coordinates: 22.423525, -18.035599, 0.000000
+            Texture UV (on layer 0): 0.250000, 0.250000
+            Coordinates: 11.211762, -18.035599, 0.000000
+            Texture UV (on layer 0): 0.250000, 0.000000
+        Polygon 3
+            Coordinates: 0.000000, -18.035599, 0.000000
+            Texture UV (on layer 0): 0.500000, 0.000000
+            Coordinates: 0.000000, -9.128078, 0.000000
+            Texture UV (on layer 0): 0.750000, 0.250000
+            Coordinates: -11.211762, -9.128078, 0.000000
+            Texture UV (on layer 0): 0.250000, 0.250000
+            Coordinates: -11.211762, -18.035599, 0.000000
+            Texture UV (on layer 0): 0.500000, 0.250000
+        Polygon 4
+            Coordinates: -22.423525, -35.850636, -0.000000
+            Texture UV (on layer 0): 1.000000, 0.750000
+            Coordinates: -22.423525, -44.758160, -0.000000
+            Texture UV (on layer 0): 0.250000, 0.500000
+            Coordinates: -11.211762, -44.758160, -0.000000
+            Texture UV (on layer 0): 0.750000, 0.750000
+            Coordinates: -11.211762, -35.850636, -0.000000
+            Texture UV (on layer 0): 1.000000, 0.500000
+        Polygon 5
+            Coordinates: -11.211762, -44.758160, -0.000000
+            Texture UV (on layer 0): 0.750000, 0.750000
+            Coordinates: 0.000000, -44.758160, -0.000000
+            Texture UV (on layer 0): 0.500000, 0.000000
+            Coordinates: 0.000000, -35.850636, -0.000000
+            Texture UV (on layer 0): 0.500000, 0.750000
+            Coordinates: -11.211762, -35.850636, -0.000000
+            Texture UV (on layer 0): 1.000000, 0.500000
+        Polygon 6
+            Coordinates: 0.000000, -35.850636, -0.000000
+            Texture UV (on layer 0): 0.500000, 0.750000
+            Coordinates: 0.000000, -26.943117, 0.000000
+            Texture UV (on layer 0): 0.500000, 0.250000
+            Coordinates: -11.211762, -26.943117, 0.000000
+            Texture UV (on layer 0): 0.500000, 1.000000
+            Coordinates: -11.211762, -35.850636, -0.000000
+            Texture UV (on layer 0): 1.000000, 0.500000
+        Polygon 7
+            Coordinates: 11.211762, -44.758160, -0.000000
+            Texture UV (on layer 0): 0.250000, 0.750000
+            Coordinates: 22.423525, -44.758160, -0.000000
+            Texture UV (on layer 0): 0.000000, 0.500000
+            Coordinates: 22.423525, -35.850636, -0.000000
+            Texture UV (on layer 0): 0.000000, 0.250000
+            Coordinates: 11.211762, -35.850636, -0.000000
+            Texture UV (on layer 0): 0.250000, 1.000000
+        Polygon 8
+            Coordinates: 22.423525, -35.850636, -0.000000
+            Texture UV (on layer 0): 0.000000, 0.250000
+            Coordinates: 22.423525, -26.943117, 0.000000
+            Texture UV (on layer 0): 0.750000, 0.000000
+            Coordinates: 11.211762, -26.943117, 0.000000
+            Texture UV (on layer 0): 0.000000, 0.000000
+            Coordinates: 11.211762, -35.850636, -0.000000
+            Texture UV (on layer 0): 0.250000, 1.000000
+        Polygon 9
+            Coordinates: 11.211762, -26.943117, 0.000000
+            Texture UV (on layer 0): 0.000000, 0.000000
+            Coordinates: 0.000000, -26.943117, 0.000000
+            Texture UV (on layer 0): 0.500000, 0.250000
+            Coordinates: 0.000000, -35.850636, -0.000000
+            Texture UV (on layer 0): 0.500000, 0.750000
+            Coordinates: 11.211762, -35.850636, -0.000000
+            Texture UV (on layer 0): 0.250000, 1.000000
+        Polygon 10
+            Coordinates: 22.423525, -18.035599, 0.000000
+            Texture UV (on layer 0): 0.250000, 0.250000
+            Coordinates: 22.423525, -9.128078, 0.000000
+            Texture UV (on layer 0): 0.250000, 0.250000
+            Coordinates: 11.211762, -9.128078, 0.000000
+            Texture UV (on layer 0): 0.250000, 0.000000
+            Coordinates: 11.211762, -18.035599, 0.000000
+            Texture UV (on layer 0): 0.250000, 0.000000
+        Polygon 11
+            Coordinates: 11.211762, -9.128078, 0.000000
+            Texture UV (on layer 0): 0.250000, 0.000000
+            Coordinates: 0.000000, -9.128078, 0.000000
+            Texture UV (on layer 0): 0.750000, 0.250000
+            Coordinates: 0.000000, -18.035599, 0.000000
+            Texture UV (on layer 0): 0.500000, 0.000000
+            Coordinates: 11.211762, -18.035599, 0.000000
+            Texture UV (on layer 0): 0.250000, 0.000000
+        Polygon 12
+            Coordinates: 0.000000, -18.035599, 0.000000
+            Texture UV (on layer 0): 0.500000, 0.000000
+            Coordinates: 0.000000, -26.943117, 0.000000
+            Texture UV (on layer 0): 0.500000, 0.250000
+            Coordinates: 11.211762, -26.943117, 0.000000
+            Texture UV (on layer 0): 0.000000, 0.000000
+            Coordinates: 11.211762, -18.035599, 0.000000
+            Texture UV (on layer 0): 0.250000, 0.000000
+        Polygon 13
+            Coordinates: -11.211762, -9.128078, 0.000000
+            Texture UV (on layer 0): 0.250000, 0.250000
+            Coordinates: -22.423525, -9.128078, 0.000000
+            Texture UV (on layer 0): 0.000000, 0.250000
+            Coordinates: -22.423525, -18.035599, 0.000000
+            Texture UV (on layer 0): 0.500000, 0.250000
+            Coordinates: -11.211762, -18.035599, 0.000000
+            Texture UV (on layer 0): 0.500000, 0.250000
+        Polygon 14
+            Coordinates: -22.423525, -18.035599, 0.000000
+            Texture UV (on layer 0): 0.500000, 0.250000
+            Coordinates: -22.423525, -26.943117, 0.000000
+            Texture UV (on layer 0): 0.750000, 0.500000
+            Coordinates: -11.211762, -26.943117, 0.000000
+            Texture UV (on layer 0): 0.500000, 1.000000
+            Coordinates: -11.211762, -18.035599, 0.000000
+            Texture UV (on layer 0): 0.500000, 0.250000
+        Polygon 15
+            Coordinates: -11.211762, -26.943117, 0.000000
+            Texture UV (on layer 0): 0.500000, 1.000000
+            Coordinates: 0.000000, -26.943117, 0.000000
+            Texture UV (on layer 0): 0.500000, 0.250000
+            Coordinates: 0.000000, -18.035599, 0.000000
+            Texture UV (on layer 0): 0.500000, 0.000000
+            Coordinates: -11.211762, -18.035599, 0.000000
+            Texture UV (on layer 0): 0.500000, 0.250000
+
+    Material layer 0: 
+           Mapping: All Same
+           Indices: 0
+
+    Materials on layer 0: 
+        Material 0
+            Name: "lambert2"
+            Ambient: 0.000000 (red), 0.000000 (green), 0.000000 (blue)
+            Diffuse: 1.000000 (red), 1.000000 (green), 1.000000 (blue)
+            Diffuse: 1.000000 (red), 1.000000 (green), 1.000000 (blue)
+            Opacity: 0.000000
+            Shading Model: Lambert
+
+    Texture layer 0: 
+           Mapping: By Polygon
+           Indices: 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        Blend Mode: Translucent
+             Alpha: 1.000000
+
+    Texture layer 0: 
+           Mapping: By Polygon
+           Indices: 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        Blend Mode: Translucent
+             Alpha: 1.000000
+
+
+    Textures on layer 0: 
+        Texture 0
+            Name: "file1"
+            File Name: "C:/psp/ReJ/Data/DemoTest/telephone_trans/floor.tga"
+            Scale U: 1.000000
+            Scale V: 1.000000
+            Translation U: 0.000000
+            Translation V: 0.000000
+            Swap UV: false
+            Rotation U: 0.000000
+            Rotation V: 0.000000
+            Rotation W: 0.000000
+            Alpha Source: None
+            Cropping Left: 0.000000
+            Cropping Top: 0.000000
+            Cropping Right: 0.000000
+            Cropping Bottom: 0.000000
+            Mapping Type: UV
+            Material Use: Model Material
+            Texture Use: Standard
+
+    Textures on layer 0: 
+        Texture 0
+            Name: "file1"
+            File Name: "C:/psp/ReJ/Data/DemoTest/telephone_trans/floor.tga"
+            Scale U: 1.000000
+            Scale V: 1.000000
+            Translation U: 0.000000
+            Translation V: 0.000000
+            Swap UV: false
+            Rotation U: 0.000000
+            Rotation V: 0.000000
+            Rotation W: 0.000000
+            Alpha Source: None
+            Cropping Left: 0.000000
+            Cropping Top: 0.000000
+            Cropping Right: 0.000000
+            Cropping Bottom: 0.000000
+            Mapping Type: UV
+            Material Use: Model Material
+            Texture Use: Standard
+
+    Property Count: 68
+    Pivot Information
+        Pivot State: Active
+        Pre-Rotation: 0.000000 0.000000 0.000000
+        Post-Rotation: -0.000000 -0.000000 -0.000000
+        Rotation Pivot: 0.000000 -26.943117 0.000000
+        Rotation Offset: 0.000000 0.000000 0.000000
+        Scaling Pivot: 0.000000 -26.943117 0.000000
+        Scaling Offset: 0.000000 0.000000 0.000000
+    Limits Information
+        Translation limits: Inactive
+            X
+                Min Limit: Inactive
+                Min Limit Value: 0.000000
+                Max Limit: Inactive
+                Max Limit Value: 0.000000
+            Y
+                Min Limit: Inactive
+                Min Limit Value: 0.000000
+                Max Limit: Inactive
+                Max Limit Value: 0.000000
+            Z
+                Min Limit: Inactive
+                Min Limit Value: 0.000000
+                Max Limit: Inactive
+                Max Limit Value: 0.000000
+        Rotation limits: Active
+            X
+                Min Limit: Inactive
+                Min Limit Value: 0.000000
+                Max Limit: Inactive
+                Max Limit Value: 0.000000
+            Y
+                Min Limit: Inactive
+                Min Limit Value: 0.000000
+                Max Limit: Inactive
+                Max Limit Value: 0.000000
+            Z
+                Min Limit: Inactive
+                Min Limit Value: 0.000000
+                Max Limit: Inactive
+                Max Limit Value: 0.000000
+        Scaling limits: Inactive
+            X
+                Min Limit: Inactive
+                Min Limit Value: 0.000000
+                Max Limit: Inactive
+                Max Limit Value: 0.000000
+            Y
+                Min Limit: Inactive
+                Min Limit Value: 0.000000
+                Max Limit: Inactive
+                Max Limit Value: 0.000000
+            Z
+                Min Limit: Inactive
+                Min Limit Value: 0.000000
+                Max Limit: Inactive
+                Max Limit Value: 0.000000
+    Transformation Propagation
+        Rotation Space: Euler XYZ
+        Use the Rotation Space for Limit specification only: No
+        Transformation Inheritance: RSrs
+    Geometric Transformations
+        Translation: 0.000000 0.000000 0.000000
+        Rotation:    0.000000 0.000000 0.000000
+        Scaling:     1.000000 1.000000 1.000000
+    Default Animation
+        TX
+            Default Value: 0.000000
+        TY
+            Default Value: 14.356652
+        TZ
+            Default Value: 0.000000
+        RX
+            Default Value: 0.000000
+        RY
+            Default Value: 0.000000
+        RZ
+            Default Value: 0.000000
+        SX
+            Default Value: 1.000000
+        SY
+            Default Value: 1.000000
+        SZ
+            Default Value: 1.000000
+        Property Visibility (Label: Visibility)
+            Default Value: 1.000000
+
+Camera Name: Camera1
+    Camera Position and Orientation
+        Position: 0.000000, 0.000000, 40.000000
+        Default Camera Interest Position: 0.000000, 0.000000, -1.000000
+        Up Vector: 0.000000, 1.000000, 0.000000
+        Roll: 0.000000
+    Projection Type: Perspective
+    Viewing Area Controls
+        Format: Custom
+        Aspect Ratio Mode: Window Size
+        Pixel Ratio: 1.000000
+        Near Plane: 0.100000
+        Far Plane: 1000.000000
+        Mouse Lock: false
+    Aperture and Film Controls
+        Aperture Format: Custom
+        Aperture Width: 1.417320 inches
+        Aperture Height: 0.944880 inches
+        Squeeze Ratio: 1.000000
+        Focal Length: 35.000000mm
+        Field of View: 0.000000 degrees
+    Background Properties
+        Background Display Mode: When Media
+        Background Drawing Mode: Background
+        Foreground Matte Threshold Enable: true
+        Background Placement Options:  Center, Keep Ratio
+        Background Distance: 100.000000
+        Background Distance Mode: Relative to Interest
+    Camera View Options
+        View Camera Interest: true
+        View Near Far Planes: false
+        Show Grid: true
+        Show Axis: true
+        Show Name: true
+        Show Info on Moving: true
+        Show Time Code: false
+        Display Safe Area: false
+        Safe Area Style: Square
+        Show Audio: false
+        Background Color: 0.000000 (red), 0.000000 (green), 0.000000 (blue)
+        Audio Color: 0.000000 (red), 1.000000 (green), 0.000000 (blue)
+        Use Frame Color: false
+        Frame Color: 0.300000 (red), 0.300000 (green), 0.300000 (blue)
+    Render Options
+        Render Options Usage Time: At Render
+        Use Antialiasing: false
+        Antialiasing Intensity: 0.777770
+        Antialiasing Method: Oversampling Antialiasing
+        Number of Samples: 7
+        Sampling Type: Stochastic
+        Use Accumulation Buffer: false
+        Use Depth of Field: false
+        Focus Distance Source: Camera Interest
+        Focus Angle: 3.500000 degrees
+    Default Animation Values
+        Default Field of View: 0.000000
+        Default Field of View X: 1.000000
+        Default Field of View Y: 1.000000
+        Default Optical Center X: 0.000000
+        Default Optical Center Y: 0.000000
+        Default Roll: 0.000000
+    Property Count: 68
+    Pivot Information
+        Pivot State: Active
+        Pre-Rotation: 0.000000 0.000000 0.000000
+        Post-Rotation: -0.000000 -90.000000 0.000000
+        Rotation Pivot: 0.000000 0.000000 0.000000
+        Rotation Offset: 0.000000 0.000000 0.000000
+        Scaling Pivot: 0.000000 0.000000 0.000000
+        Scaling Offset: 0.000000 0.000000 0.000000
+    Limits Information
+        Translation limits: Inactive
+            X
+                Min Limit: Inactive
+                Min Limit Value: 0.000000
+                Max Limit: Inactive
+                Max Limit Value: 0.000000
+            Y
+                Min Limit: Inactive
+                Min Limit Value: 0.000000
+                Max Limit: Inactive
+                Max Limit Value: 0.000000
+            Z
+                Min Limit: Inactive
+                Min Limit Value: 0.000000
+                Max Limit: Inactive
+                Max Limit Value: 0.000000
+        Rotation limits: Active
+            X
+                Min Limit: Inactive
+                Min Limit Value: 0.000000
+                Max Limit: Inactive
+                Max Limit Value: 0.000000
+            Y
+                Min Limit: Inactive
+                Min Limit Value: 0.000000
+                Max Limit: Inactive
+                Max Limit Value: 0.000000
+            Z
+                Min Limit: Inactive
+                Min Limit Value: 0.000000
+                Max Limit: Inactive
+                Max Limit Value: 0.000000
+        Scaling limits: Inactive
+            X
+                Min Limit: Inactive
+                Min Limit Value: 0.000000
+                Max Limit: Inactive
+                Max Limit Value: 0.000000
+            Y
+                Min Limit: Inactive
+                Min Limit Value: 0.000000
+                Max Limit: Inactive
+                Max Limit Value: 0.000000
+            Z
+                Min Limit: Inactive
+                Min Limit Value: 0.000000
+                Max Limit: Inactive
+                Max Limit Value: 0.000000
+    Transformation Propagation
+        Rotation Space: Euler XYZ
+        Use the Rotation Space for Limit specification only: No
+        Transformation Inheritance: RSrs
+    Geometric Transformations
+        Translation: 0.000000 0.000000 0.000000
+        Rotation:    0.000000 0.000000 0.000000
+        Scaling:     1.000000 1.000000 1.000000
+    Default Animation
+        TX
+            Default Value: 0.000000
+        TY
+            Default Value: 0.000000
+        TZ
+            Default Value: 40.000000
+        RX
+            Default Value: 0.000000
+        RY
+            Default Value: 0.000000
+        RZ
+            Default Value: -0.000000
+        SX
+            Default Value: 1.000000
+        SY
+            Default Value: 1.000000
+        SZ
+            Default Value: 1.000000
+        Field of View
+            Default Value: 0.000000
+        Field of View X
+            Default Value: 1.000000
+        Field of View Y
+            Default Value: 1.000000
+        Optical Center X
+            Default Value: 0.000000
+        Optical Center Y
+            Default Value: 0.000000
+        Roll
+            Default Value: 0.000000
+        Property Visibility (Label: Visibility)
+            Default Value: 1.000000
+
+
+
+----
+Pose
+----
+
+
+
+---------
+Animation
+---------
+
+Take Name: Take 001
+
+     Node Name: pPlane1
+
+        TX
+            Key Time: 0.... Key Value: 0.000000 [ cubic | User | None | None ]
+        TY
+            Key Time: 0.... Key Value: 0.000000 [ cubic | User | None | None ]
+            Key Time: 30.... Key Value: 53.837444 [ cubic | User | None | None ]
+        TZ
+            Key Time: 0.... Key Value: 0.000000 [ cubic | User | None | None ]
+        RX
+        RY
+        RZ
+        SX
+        SY
+        SZ
+        Property Visibility (Label: Visibility)
+
+
+
+---------
+Generic Information
+---------
+
+pPlane1
+
+Name: pPlane1
+    Property Count: 68
+        Property 0
+            Display Name: QuaternionInterpolate
+            Internal Name: QuaternionInterpolate
+            Type: Bool
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: false
+        Property 1
+            Display Name: RotationOffset
+            Internal Name: RotationOffset
+            Type: Vector
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: X=0.000000, Y=0.000000, Z=0.000000
+        Property 2
+            Display Name: RotationPivot
+            Internal Name: RotationPivot
+            Type: Vector
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: X=0.000000, Y=-26.943117, Z=0.000000
+        Property 3
+            Display Name: ScalingOffset
+            Internal Name: ScalingOffset
+            Type: Vector
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: X=0.000000, Y=0.000000, Z=0.000000
+        Property 4
+            Display Name: ScalingPivot
+            Internal Name: ScalingPivot
+            Type: Vector
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: X=0.000000, Y=-26.943117, Z=0.000000
+        Property 5
+            Display Name: TranslationActive
+            Internal Name: TranslationActive
+            Type: Bool
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: false
+        Property 6
+            Display Name: TranslationMin
+            Internal Name: TranslationMin
+            Type: Vector
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: X=0.000000, Y=0.000000, Z=0.000000
+        Property 7
+            Display Name: TranslationMax
+            Internal Name: TranslationMax
+            Type: Vector
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: X=0.000000, Y=0.000000, Z=0.000000
+        Property 8
+            Display Name: TranslationMinX
+            Internal Name: TranslationMinX
+            Type: Bool
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: false
+        Property 9
+            Display Name: TranslationMinY
+            Internal Name: TranslationMinY
+            Type: Bool
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: false
+        Property 10
+            Display Name: TranslationMinZ
+            Internal Name: TranslationMinZ
+            Type: Bool
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: false
+        Property 11
+            Display Name: TranslationMaxX
+            Internal Name: TranslationMaxX
+            Type: Bool
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: false
+        Property 12
+            Display Name: TranslationMaxY
+            Internal Name: TranslationMaxY
+            Type: Bool
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: false
+        Property 13
+            Display Name: TranslationMaxZ
+            Internal Name: TranslationMaxZ
+            Type: Bool
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: false
+        Property 14
+            Display Name: RotationOrder
+            Internal Name: RotationOrder
+            Type: Enum
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: UNIDENTIFIED
+        Property 15
+            Display Name: RotationSpaceForLimitOnly
+            Internal Name: RotationSpaceForLimitOnly
+            Type: Bool
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: false
+        Property 16
+            Display Name: RotationStiffnessX
+            Internal Name: RotationStiffnessX
+            Type: Number
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: 0.000000
+        Property 17
+            Display Name: RotationStiffnessY
+            Internal Name: RotationStiffnessY
+            Type: Number
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: 0.000000
+        Property 18
+            Display Name: RotationStiffnessZ
+            Internal Name: RotationStiffnessZ
+            Type: Number
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: 0.000000
+        Property 19
+            Display Name: AxisLen
+            Internal Name: AxisLen
+            Type: Number
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: 10.000000
+        Property 20
+            Display Name: PreRotation
+            Internal Name: PreRotation
+            Type: Vector
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: X=0.000000, Y=0.000000, Z=0.000000
+        Property 21
+            Display Name: PostRotation
+            Internal Name: PostRotation
+            Type: Vector
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: X=-0.000000, Y=-0.000000, Z=-0.000000
+        Property 22
+            Display Name: RotationActive
+            Internal Name: RotationActive
+            Type: Bool
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: true
+        Property 23
+            Display Name: RotationMin
+            Internal Name: RotationMin
+            Type: Vector
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: X=0.000000, Y=0.000000, Z=0.000000
+        Property 24
+            Display Name: RotationMax
+            Internal Name: RotationMax
+            Type: Vector
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: X=0.000000, Y=0.000000, Z=0.000000
+        Property 25
+            Display Name: RotationMinX
+            Internal Name: RotationMinX
+            Type: Bool
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: false
+        Property 26
+            Display Name: RotationMinY
+            Internal Name: RotationMinY
+            Type: Bool
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: false
+        Property 27
+            Display Name: RotationMinZ
+            Internal Name: RotationMinZ
+            Type: Bool
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: false
+        Property 28
+            Display Name: RotationMaxX
+            Internal Name: RotationMaxX
+            Type: Bool
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: false
+        Property 29
+            Display Name: RotationMaxY
+            Internal Name: RotationMaxY
+            Type: Bool
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: false
+        Property 30
+            Display Name: RotationMaxZ
+            Internal Name: RotationMaxZ
+            Type: Bool
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: false
+        Property 31
+            Display Name: InheritType
+            Internal Name: InheritType
+            Type: Enum
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: UNIDENTIFIED
+        Property 32
+            Display Name: ScalingActive
+            Internal Name: ScalingActive
+            Type: Bool
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: false
+        Property 33
+            Display Name: ScalingMin
+            Internal Name: ScalingMin
+            Type: Vector
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: X=0.000000, Y=0.000000, Z=0.000000
+        Property 34
+            Display Name: ScalingMax
+            Internal Name: ScalingMax
+            Type: Vector
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: X=0.000000, Y=0.000000, Z=0.000000
+        Property 35
+            Display Name: ScalingMinX
+            Internal Name: ScalingMinX
+            Type: Bool
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: false
+        Property 36
+            Display Name: ScalingMinY
+            Internal Name: ScalingMinY
+            Type: Bool
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: false
+        Property 37
+            Display Name: ScalingMinZ
+            Internal Name: ScalingMinZ
+            Type: Bool
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: false
+        Property 38
+            Display Name: ScalingMaxX
+            Internal Name: ScalingMaxX
+            Type: Bool
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: false
+        Property 39
+            Display Name: ScalingMaxY
+            Internal Name: ScalingMaxY
+            Type: Bool
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: false
+        Property 40
+            Display Name: ScalingMaxZ
+            Internal Name: ScalingMaxZ
+            Type: Bool
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: false
+        Property 41
+            Display Name: GeometricTranslation
+            Internal Name: GeometricTranslation
+            Type: Vector
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: X=0.000000, Y=0.000000, Z=0.000000
+        Property 42
+            Display Name: GeometricRotation
+            Internal Name: GeometricRotation
+            Type: Vector
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: X=0.000000, Y=0.000000, Z=0.000000
+        Property 43
+            Display Name: GeometricScaling
+            Internal Name: GeometricScaling
+            Type: Vector
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: X=1.000000, Y=1.000000, Z=1.000000
+        Property 44
+            Display Name: MinDampRangeX
+            Internal Name: MinDampRangeX
+            Type: Number
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: 0.000000
+        Property 45
+            Display Name: MinDampRangeY
+            Internal Name: MinDampRangeY
+            Type: Number
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: 0.000000
+        Property 46
+            Display Name: MinDampRangeZ
+            Internal Name: MinDampRangeZ
+            Type: Number
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: 0.000000
+        Property 47
+            Display Name: MaxDampRangeX
+            Internal Name: MaxDampRangeX
+            Type: Number
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: 0.000000
+        Property 48
+            Display Name: MaxDampRangeY
+            Internal Name: MaxDampRangeY
+            Type: Number
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: 0.000000
+        Property 49
+            Display Name: MaxDampRangeZ
+            Internal Name: MaxDampRangeZ
+            Type: Number
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: 0.000000
+        Property 50
+            Display Name: MinDampStrengthX
+            Internal Name: MinDampStrengthX
+            Type: Number
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: 0.000000
+        Property 51
+            Display Name: MinDampStrengthY
+            Internal Name: MinDampStrengthY
+            Type: Number
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: 0.000000
+        Property 52
+            Display Name: MinDampStrengthZ
+            Internal Name: MinDampStrengthZ
+            Type: Number
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: 0.000000
+        Property 53
+            Display Name: MaxDampStrengthX
+            Internal Name: MaxDampStrengthX
+            Type: Number
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: 0.000000
+        Property 54
+            Display Name: MaxDampStrengthY
+            Internal Name: MaxDampStrengthY
+            Type: Number
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: 0.000000
+        Property 55
+            Display Name: MaxDampStrengthZ
+            Internal Name: MaxDampStrengthZ
+            Type: Number
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: 0.000000
+        Property 56
+            Display Name: PreferedAngleX
+            Internal Name: PreferedAngleX
+            Type: Number
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: 0.000000
+        Property 57
+            Display Name: PreferedAngleY
+            Internal Name: PreferedAngleY
+            Type: Number
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: 0.000000
+        Property 58
+            Display Name: PreferedAngleZ
+            Internal Name: PreferedAngleZ
+            Type: Number
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: 0.000000
+        Property 59
+            Display Name: LookAtProperty
+            Internal Name: LookAtProperty
+            Type: object
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: UNIDENTIFIED
+        Property 60
+            Display Name: UpVectorProperty
+            Internal Name: UpVectorProperty
+            Type: object
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: UNIDENTIFIED
+        Property 61
+            Display Name: Show
+            Internal Name: Show
+            Type: Bool
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: true
+        Property 62
+            Display Name: NegativePercentShapeSupport
+            Internal Name: NegativePercentShapeSupport
+            Type: Bool
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: true
+        Property 63
+            Display Name: DefaultAttributeIndex
+            Internal Name: DefaultAttributeIndex
+            Type: Integer
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: 0
+        Property 64
+            Display Name: Lcl Translation
+            Internal Name: Lcl Translation
+            Type: Lcl Translation
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: true
+            Is Temporary: false
+            Default Value: X=0.000000, Y=14.356652, Z=0.000000
+        Property 65
+            Display Name: Lcl Rotation
+            Internal Name: Lcl Rotation
+            Type: Lcl Rotation
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: true
+            Is Temporary: false
+            Default Value: X=0.000000, Y=0.000000, Z=0.000000
+        Property 66
+            Display Name: Lcl Scaling
+            Internal Name: Lcl Scaling
+            Type: Lcl Scaling
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: true
+            Is Temporary: false
+            Default Value: X=1.000000, Y=1.000000, Z=1.000000
+        Property 67
+            Display Name: Visibility
+            Internal Name: Visibility
+            Type: Visibility
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: true
+            Is Temporary: false
+            Default Value: 1.000000
+
+Camera1
+
+Name: Camera1
+    Property Count: 68
+        Property 0
+            Display Name: QuaternionInterpolate
+            Internal Name: QuaternionInterpolate
+            Type: Bool
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: false
+        Property 1
+            Display Name: RotationOffset
+            Internal Name: RotationOffset
+            Type: Vector
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: X=0.000000, Y=0.000000, Z=0.000000
+        Property 2
+            Display Name: RotationPivot
+            Internal Name: RotationPivot
+            Type: Vector
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: X=0.000000, Y=0.000000, Z=0.000000
+        Property 3
+            Display Name: ScalingOffset
+            Internal Name: ScalingOffset
+            Type: Vector
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: X=0.000000, Y=0.000000, Z=0.000000
+        Property 4
+            Display Name: ScalingPivot
+            Internal Name: ScalingPivot
+            Type: Vector
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: X=0.000000, Y=0.000000, Z=0.000000
+        Property 5
+            Display Name: TranslationActive
+            Internal Name: TranslationActive
+            Type: Bool
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: false
+        Property 6
+            Display Name: TranslationMin
+            Internal Name: TranslationMin
+            Type: Vector
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: X=0.000000, Y=0.000000, Z=0.000000
+        Property 7
+            Display Name: TranslationMax
+            Internal Name: TranslationMax
+            Type: Vector
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: X=0.000000, Y=0.000000, Z=0.000000
+        Property 8
+            Display Name: TranslationMinX
+            Internal Name: TranslationMinX
+            Type: Bool
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: false
+        Property 9
+            Display Name: TranslationMinY
+            Internal Name: TranslationMinY
+            Type: Bool
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: false
+        Property 10
+            Display Name: TranslationMinZ
+            Internal Name: TranslationMinZ
+            Type: Bool
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: false
+        Property 11
+            Display Name: TranslationMaxX
+            Internal Name: TranslationMaxX
+            Type: Bool
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: false
+        Property 12
+            Display Name: TranslationMaxY
+            Internal Name: TranslationMaxY
+            Type: Bool
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: false
+        Property 13
+            Display Name: TranslationMaxZ
+            Internal Name: TranslationMaxZ
+            Type: Bool
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: false
+        Property 14
+            Display Name: RotationOrder
+            Internal Name: RotationOrder
+            Type: Enum
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: UNIDENTIFIED
+        Property 15
+            Display Name: RotationSpaceForLimitOnly
+            Internal Name: RotationSpaceForLimitOnly
+            Type: Bool
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: false
+        Property 16
+            Display Name: RotationStiffnessX
+            Internal Name: RotationStiffnessX
+            Type: Number
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: 0.000000
+        Property 17
+            Display Name: RotationStiffnessY
+            Internal Name: RotationStiffnessY
+            Type: Number
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: 0.000000
+        Property 18
+            Display Name: RotationStiffnessZ
+            Internal Name: RotationStiffnessZ
+            Type: Number
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: 0.000000
+        Property 19
+            Display Name: AxisLen
+            Internal Name: AxisLen
+            Type: Number
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: 10.000000
+        Property 20
+            Display Name: PreRotation
+            Internal Name: PreRotation
+            Type: Vector
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: X=0.000000, Y=0.000000, Z=0.000000
+        Property 21
+            Display Name: PostRotation
+            Internal Name: PostRotation
+            Type: Vector
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: X=-0.000000, Y=-90.000000, Z=0.000000
+        Property 22
+            Display Name: RotationActive
+            Internal Name: RotationActive
+            Type: Bool
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: true
+        Property 23
+            Display Name: RotationMin
+            Internal Name: RotationMin
+            Type: Vector
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: X=0.000000, Y=0.000000, Z=0.000000
+        Property 24
+            Display Name: RotationMax
+            Internal Name: RotationMax
+            Type: Vector
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: X=0.000000, Y=0.000000, Z=0.000000
+        Property 25
+            Display Name: RotationMinX
+            Internal Name: RotationMinX
+            Type: Bool
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: false
+        Property 26
+            Display Name: RotationMinY
+            Internal Name: RotationMinY
+            Type: Bool
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: false
+        Property 27
+            Display Name: RotationMinZ
+            Internal Name: RotationMinZ
+            Type: Bool
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: false
+        Property 28
+            Display Name: RotationMaxX
+            Internal Name: RotationMaxX
+            Type: Bool
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: false
+        Property 29
+            Display Name: RotationMaxY
+            Internal Name: RotationMaxY
+            Type: Bool
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: false
+        Property 30
+            Display Name: RotationMaxZ
+            Internal Name: RotationMaxZ
+            Type: Bool
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: false
+        Property 31
+            Display Name: InheritType
+            Internal Name: InheritType
+            Type: Enum
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: UNIDENTIFIED
+        Property 32
+            Display Name: ScalingActive
+            Internal Name: ScalingActive
+            Type: Bool
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: false
+        Property 33
+            Display Name: ScalingMin
+            Internal Name: ScalingMin
+            Type: Vector
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: X=0.000000, Y=0.000000, Z=0.000000
+        Property 34
+            Display Name: ScalingMax
+            Internal Name: ScalingMax
+            Type: Vector
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: X=0.000000, Y=0.000000, Z=0.000000
+        Property 35
+            Display Name: ScalingMinX
+            Internal Name: ScalingMinX
+            Type: Bool
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: false
+        Property 36
+            Display Name: ScalingMinY
+            Internal Name: ScalingMinY
+            Type: Bool
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: false
+        Property 37
+            Display Name: ScalingMinZ
+            Internal Name: ScalingMinZ
+            Type: Bool
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: false
+        Property 38
+            Display Name: ScalingMaxX
+            Internal Name: ScalingMaxX
+            Type: Bool
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: false
+        Property 39
+            Display Name: ScalingMaxY
+            Internal Name: ScalingMaxY
+            Type: Bool
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: false
+        Property 40
+            Display Name: ScalingMaxZ
+            Internal Name: ScalingMaxZ
+            Type: Bool
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: false
+        Property 41
+            Display Name: GeometricTranslation
+            Internal Name: GeometricTranslation
+            Type: Vector
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: X=0.000000, Y=0.000000, Z=0.000000
+        Property 42
+            Display Name: GeometricRotation
+            Internal Name: GeometricRotation
+            Type: Vector
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: X=0.000000, Y=0.000000, Z=0.000000
+        Property 43
+            Display Name: GeometricScaling
+            Internal Name: GeometricScaling
+            Type: Vector
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: X=1.000000, Y=1.000000, Z=1.000000
+        Property 44
+            Display Name: MinDampRangeX
+            Internal Name: MinDampRangeX
+            Type: Number
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: 0.000000
+        Property 45
+            Display Name: MinDampRangeY
+            Internal Name: MinDampRangeY
+            Type: Number
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: 0.000000
+        Property 46
+            Display Name: MinDampRangeZ
+            Internal Name: MinDampRangeZ
+            Type: Number
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: 0.000000
+        Property 47
+            Display Name: MaxDampRangeX
+            Internal Name: MaxDampRangeX
+            Type: Number
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: 0.000000
+        Property 48
+            Display Name: MaxDampRangeY
+            Internal Name: MaxDampRangeY
+            Type: Number
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: 0.000000
+        Property 49
+            Display Name: MaxDampRangeZ
+            Internal Name: MaxDampRangeZ
+            Type: Number
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: 0.000000
+        Property 50
+            Display Name: MinDampStrengthX
+            Internal Name: MinDampStrengthX
+            Type: Number
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: 0.000000
+        Property 51
+            Display Name: MinDampStrengthY
+            Internal Name: MinDampStrengthY
+            Type: Number
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: 0.000000
+        Property 52
+            Display Name: MinDampStrengthZ
+            Internal Name: MinDampStrengthZ
+            Type: Number
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: 0.000000
+        Property 53
+            Display Name: MaxDampStrengthX
+            Internal Name: MaxDampStrengthX
+            Type: Number
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: 0.000000
+        Property 54
+            Display Name: MaxDampStrengthY
+            Internal Name: MaxDampStrengthY
+            Type: Number
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: 0.000000
+        Property 55
+            Display Name: MaxDampStrengthZ
+            Internal Name: MaxDampStrengthZ
+            Type: Number
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: 0.000000
+        Property 56
+            Display Name: PreferedAngleX
+            Internal Name: PreferedAngleX
+            Type: Number
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: 0.000000
+        Property 57
+            Display Name: PreferedAngleY
+            Internal Name: PreferedAngleY
+            Type: Number
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: 0.000000
+        Property 58
+            Display Name: PreferedAngleZ
+            Internal Name: PreferedAngleZ
+            Type: Number
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: 0.000000
+        Property 59
+            Display Name: LookAtProperty
+            Internal Name: LookAtProperty
+            Type: object
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: UNIDENTIFIED
+        Property 60
+            Display Name: UpVectorProperty
+            Internal Name: UpVectorProperty
+            Type: object
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: UNIDENTIFIED
+        Property 61
+            Display Name: Show
+            Internal Name: Show
+            Type: Bool
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: true
+        Property 62
+            Display Name: NegativePercentShapeSupport
+            Internal Name: NegativePercentShapeSupport
+            Type: Bool
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: true
+        Property 63
+            Display Name: DefaultAttributeIndex
+            Internal Name: DefaultAttributeIndex
+            Type: Integer
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: false
+            Is Temporary: false
+            Default Value: 0
+        Property 64
+            Display Name: Lcl Translation
+            Internal Name: Lcl Translation
+            Type: Lcl Translation
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: true
+            Is Temporary: false
+            Default Value: X=0.000000, Y=0.000000, Z=40.000000
+        Property 65
+            Display Name: Lcl Rotation
+            Internal Name: Lcl Rotation
+            Type: Lcl Rotation
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: true
+            Is Temporary: false
+            Default Value: X=0.000000, Y=0.000000, Z=-0.000000
+        Property 66
+            Display Name: Lcl Scaling
+            Internal Name: Lcl Scaling
+            Type: Lcl Scaling
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: true
+            Is Temporary: false
+            Default Value: X=1.000000, Y=1.000000, Z=1.000000
+        Property 67
+            Display Name: Visibility
+            Internal Name: Visibility
+            Type: Visibility
+            Min Limit: 0.000000
+            Max Limit: 100.000000
+            Is Animatable: true
+            Is Temporary: false
+            Default Value: 1.000000
+

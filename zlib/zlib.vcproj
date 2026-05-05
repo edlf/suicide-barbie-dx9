@@ -36,7 +36,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				PreprocessorDefinitions="ZLIB_WINAPI"
+				PreprocessorDefinitions="_CRT_SECURE_NO_DEPRECATE;ZLIB_WINAPI"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -89,6 +89,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				PreprocessorDefinitions="_CRT_SECURE_NO_DEPRECATE;ZLIB_WINAPI"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"

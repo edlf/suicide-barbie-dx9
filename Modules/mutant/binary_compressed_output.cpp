@@ -54,7 +54,7 @@ void mutant_compressed_output::write( void const* src, size_t len, int* wasWritt
 	}
 
 	if( wasWritten ) {
-		*wasWritten = len;
+		*wasWritten = (int) len;
 	}
 }
 

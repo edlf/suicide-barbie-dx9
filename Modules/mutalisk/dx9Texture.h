@@ -11,6 +11,8 @@ template <typename In> In& operator>> (In& i, dx9_texture& texture)
 {
 	try
 	{
+		// TODO
+		(void) texture;
 	} catch( EIoEof& ) {
 		mutant_throw( "Unexpected end-of-file (file may be corrupted)" );
 	} catch( EIoError& ) {

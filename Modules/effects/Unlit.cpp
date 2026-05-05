@@ -29,7 +29,7 @@ Unlit::~Unlit()
 
 void Unlit::begin()
 {
-	mImpl->passIndex = 0u;
+	mImpl->passIndex = ~0U;
 	mImpl->begin("Main");
 }
 
@@ -41,6 +41,8 @@ unsigned Unlit::passCount(Input const& i)
 
 BaseEffect::PassInfo const& Unlit::passInfo(Input const& i, unsigned passIndex)
 {
+	(void) i;
+	(void) passIndex;
 	return mImpl->passInfo;
 }
 

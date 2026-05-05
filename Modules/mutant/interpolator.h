@@ -155,6 +155,7 @@ namespace mutant
 			:	mValue( value ) {}
 
 		result_type value( float t ) const {
+			(void) t;
 			return mValue;
 		}
 

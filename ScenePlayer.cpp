@@ -40,8 +40,10 @@ void splitFilename(std::string const& fullPath, std::string& path, std::string& 
 	size_t offset1 = fullPath.find_last_of('\\');
 
 	size_t offset = max(offset0, offset1);
-	if(offset == std::string::npos)
+
+	if(offset == std::string::npos){
 		offset = min(offset0, offset1);
+	}
 
 	path = "";
 	fileName = fullPath;
@@ -473,7 +475,7 @@ INT WINAPI WinMain( HINSTANCE, HINSTANCE, LPSTR cmdLine, int )
     DXUTInit( true, true, true ); // Parse the command line, handle the default hotkeys, and show msgboxes
     DXUTCreateWindow( L"BasicHLSL" );
 	float const screenScaler = 2;
-    DXUTCreateDevice( D3DADAPTER_DEFAULT, true, 480*screenScaler, 272*screenScaler, (LPDXUTCALLBACKISDEVICEACCEPTABLE)IsDeviceAcceptable, (LPDXUTCALLBACKMODIFYDEVICESETTINGS)ModifyDeviceSettings );
+    DXUTCreateDevice( D3DADAPTER_DEFAULT, true, (int) (480*screenScaler), (int) (272*screenScaler), (LPDXUTCALLBACKISDEVICEACCEPTABLE)IsDeviceAcceptable, (LPDXUTCALLBACKMODIFYDEVICESETTINGS)ModifyDeviceSettings );
 
     // Pass control to DXUT for handling the message pump and 
     // dispatching render calls. DXUT will call your FrameMove 
@@ -494,8 +496,9 @@ void InitApp()
 {
     g_bEnablePreshader = true;
 
-    for( int i=0; i<MAX_LIGHTS; i++ )
-        g_LightControl[i].SetLightDirection( D3DXVECTOR3( sinf(D3DX_PI*2*i/MAX_LIGHTS-D3DX_PI/6), 0, -cosf(D3DX_PI*2*i/MAX_LIGHTS-D3DX_PI/6) ) );
+	for( int i=0; i<MAX_LIGHTS; i++ ){
+		g_LightControl[i].SetLightDirection( D3DXVECTOR3( sinf(D3DX_PI*2*i/MAX_LIGHTS-D3DX_PI/6), 0, -cosf(D3DX_PI*2*i/MAX_LIGHTS-D3DX_PI/6) ) );
+	}
 
     g_nActiveLight = 0;
     g_nNumActiveLights = 1;
@@ -539,15 +542,17 @@ bool CALLBACK IsDeviceAcceptable( D3DCAPS9* pCaps, D3DFORMAT AdapterFormat,
 {
     // No fallback defined by this app, so reject any device that 
     // doesn't support at least ps1.1
-    if( pCaps->PixelShaderVersion < D3DPS_VERSION(1,1) )
-        return false;
+	if( pCaps->PixelShaderVersion < D3DPS_VERSION(1,1) ){
+		return false;
+	}
 
     // Skip backbuffer formats that don't support alpha blending
     IDirect3D9* pD3D = DXUTGetD3DObject(); 
     if( FAILED( pD3D->CheckDeviceFormat( pCaps->AdapterOrdinal, pCaps->DeviceType,
                     AdapterFormat, D3DUSAGE_QUERY_POSTPIXELSHADER_BLENDING, 
-                    D3DRTYPE_TEXTURE, BackBufferFormat ) ) )
-        return false;
+					D3DRTYPE_TEXTURE, BackBufferFormat ) ) ) {
+		return false;
+	}
 
     return true;
 }
@@ -641,10 +646,11 @@ HRESULT CALLBACK OnCreateDevice( IDirect3DDevice9* pd3dDevice, const D3DSURFACE_
     g_mCenterWorld *= m;
 
     V_RETURN( CDXUTDirectionWidget::StaticOnCreateDevice( pd3dDevice ) );
-    for( int i=0; i<MAX_LIGHTS; i++ )
-        g_LightControl[i].SetRadius( fObjectRadius );
+	for( int i=0; i<MAX_LIGHTS; i++ ) {
+		g_LightControl[i].SetRadius( fObjectRadius );
+	}
 
-//	g_pMesh->Release();
+	g_pMesh->Release();
 	g_pMesh = 0;
 	static float radius = 10.0f;
 	V_RETURN( D3DXCreateSphere( pd3dDevice, radius, 6, 6, &g_pMesh, 0 ) );

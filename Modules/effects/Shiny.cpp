@@ -103,7 +103,7 @@ Shiny::~Shiny()
 
 void Shiny::begin()
 {
-	mImpl->passIndex = ~0;
+	mImpl->passIndex = ~0U;
 	mImpl->begin("Main");
 }
 
@@ -116,6 +116,7 @@ unsigned Shiny::passCount(Input const& i)
 BaseEffect::PassInfo const& Shiny::passInfo(Input const& i, unsigned passIndex)
 {
 	(void) i;
+	(void) passIndex;
 	return mImpl->passInfo;
 }
 

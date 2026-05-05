@@ -128,6 +128,7 @@ struct RenderableScene
 
 		void update(mutalisk::data::scene const& scene, float time)
 		{
+			(void) scene;
 			this->time = time;
 			this->xformArrayAnimator.updateTransforms(this->time,
 				this->transforms.begin(), this->transforms.end());

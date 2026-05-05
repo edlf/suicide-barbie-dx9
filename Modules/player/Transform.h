@@ -111,7 +111,7 @@ public:
 //	t_matrix operator*( t_matrix const& mat ) const;
 	t_vector transformCoord( t_vector const& vec ) const;
 	t_vector transformNormal( t_vector const& vec ) const;
-	
+
 	operator t_matrix() const { return matrix(); }
 
 	friend t_matrix operator*( CTransform::t_matrix const& lh, CTransform const& rh );
@@ -130,5 +130,9 @@ private:
 
 CTransform::t_matrix operator*(
 	CTransform::t_matrix const& lh, CTransform const& rh );
+
+std::ostream& operator<<( std::ostream& os, CTransform const& rh );
+std::ostream& operator<<( std::ostream& os, CTransform::t_vector const& rh );
+std::ostream& operator<<( std::ostream& os, CTransform::t_quaternion const& rh );
 
 #endif // NEWAGE_TRANSFORM_H_

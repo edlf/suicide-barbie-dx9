@@ -510,10 +510,6 @@
 			</File>
 		</Filter>
 		<Filter
-			Name="Animator"
-			>
-		</Filter>
-		<Filter
 			Name="Effects"
 			>
 			<File
@@ -992,14 +988,6 @@
 			</Filter>
 		</Filter>
 		<File
-			RelativePath=".\cfg.h"
-			>
-		</File>
-		<File
-			RelativePath="..\fbx_scene.txt"
-			>
-		</File>
-		<File
 			RelativePath=".\MutaliskUberShader.fx"
 			>
 		</File>
@@ -1024,10 +1012,6 @@
 					PrecompiledHeaderThrough="dxstdafx.h"
 				/>
 			</FileConfiguration>
-		</File>
-		<File
-			RelativePath="ScenePlayer.fx"
-			>
 		</File>
 	</Files>
 	<Globals>

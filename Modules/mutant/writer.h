@@ -86,7 +86,7 @@ namespace mutant
 			writeByte( elementType );
 			writeByte( data.componentSize() );
 			writeString( typeName );
-			writeDword( data.size() );
+			writeDword((unsigned int) data.size() );
 
 			writeData( data.iterate_keys() );
 			writeData( data.iterate_values() );

@@ -65,9 +65,9 @@ void CSkinnedAlgos::processSkinMesh(Vec3 const* srcPositions, Vec3 const* srcNor
 		worldMatrices[i] = am * itm;
 	}
 
-	unsigned lastI = i;
-	while( i < worldMatrices.size() )
+	while( i < worldMatrices.size() ) {
 		Mat34_setIdentity( &worldMatrices[i++] );
+	}
 
 	Mat34 identityM;
 	Mat34_setIdentity( &identityM );

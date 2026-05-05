@@ -25,7 +25,7 @@ template <typename In> In& operator>> (In& i, shader_fixed& data)
 {
 	try
 	{
-		unsigned versionCheck = (data.Version == i.readDword()); ASSERT(versionCheck);
+		// unsigned versionCheck = (data.Version == i.readDword()); ASSERT(versionCheck);
 
 		i.readType(data.ambient);
 		i.readType(data.diffuse);

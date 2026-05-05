@@ -19,7 +19,7 @@ void mutant_writer::write( anim_character_set& char_set )
 	try
 	{
 		// write char count
-		writeDword( char_set.size() );
+		writeDword((unsigned int) char_set.size() );
 
 		anim_character_set::char_it_t it = char_set.iterate();
 		for( ; it; ++it )
@@ -174,8 +174,8 @@ void mutant_writer::writeCharacterData( std::string const& char_name, anim_chara
 {
 	writeString( char_name );
 
-	writeDword( anim_char.size_hierarchy() ); // hierarchy count
-	writeDword( anim_char.size() ); // clip count
+	writeDword((unsigned int) anim_char.size_hierarchy() ); // hierarchy count
+	writeDword((unsigned int) anim_char.size() ); // clip count
 
 	for( anim_character::hierarchy_it_t it = anim_char.iterate_hierarchies(); it; ++it )
 	{
@@ -200,12 +200,12 @@ void mutant_writer::writeCharacterData( std::string const& char_name, anim_chara
 void mutant_writer::writeHierarchyData( anim_hierarchy& hier )
 {
 	writeString( hier.name() );
-	writeDword( hier.size() );
+	writeDword((unsigned int) hier.size() );
 
 	for( anim_hierarchy::node_it_t it = hier.iterate(); it; ++it )
 	{
 		writeString( it->name );
-		writeDword( it->children.size() );
+		writeDword((unsigned int) it->children.size() );
 		writeData( anim_hierarchy::node::children_it_t( it->children.begin(), it->children.end() ) );
 	}
 }
@@ -215,7 +215,7 @@ void mutant_writer::writeClipData( std::string const& clip_name, anim_clip& clip
 	writeString( clip_name );
 	writeDword( clip.flags() );
 	writeType<float>( clip.clip_length() );
-	writeDword( clip.size() ); // bundle count
+	writeDword((unsigned int) clip.size() ); // bundle count
 
 	for( anim_clip::iterator_t it = clip.iterate(); it; ++it )
 	{
@@ -230,14 +230,16 @@ void mutant_writer::writeBundleData( std::string const& bundle_name, anim_bundle
 {
 	writeString( bundle_name );
 
-	unsigned anim_count = bundle.size_ff() + bundle.size_fs();
+	unsigned anim_count = (unsigned int) (bundle.size_ff() + bundle.size_fs());
 	writeDword( anim_count );
 
-	for( anim_bundle::iterator_ff_t it = bundle.iterate_ff(); it; ++it )
+	for( anim_bundle::iterator_ff_t it = bundle.iterate_ff(); it; ++it ) {
 		writeAnimationData( it->first, it->second, ANIM_FLOAT );
+	}
 
-	for( anim_bundle::iterator_fs_t it = bundle.iterate_fs(); it; ++it )
+	for( anim_bundle::iterator_fs_t it = bundle.iterate_fs(); it; ++it ) {
 		writeAnimationData( it->first, it->second, ANIM_STRING );
+	}
 }
 
 }

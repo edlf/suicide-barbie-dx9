@@ -1,4 +1,5 @@
 #include <cmath>
+#include <iostream>
 
 #include "Transform.h"
 
@@ -165,14 +166,14 @@ CTransform const& CTransform::operator=( t_matrix const& m )
 		W = 0.25f * S;
 	} else
 	{
-		if( mat34_ij( rotM, 0, 0 ) > mat34_ij( rotM, 1, 1 ) && 
-			mat34_ij( rotM, 0, 0 ) > mat34_ij( rotM, 2, 2 ) )  {	// Column 0: 
+		if( mat34_ij( rotM, 0, 0 ) > mat34_ij( rotM, 1, 1 ) &&
+			mat34_ij( rotM, 0, 0 ) > mat34_ij( rotM, 2, 2 ) )  {	// Column 0:
 			S  = sqrtf( 1.0f + mat34_ij( rotM, 0, 0 ) - mat34_ij( rotM, 1, 1 ) - mat34_ij( rotM, 2, 2 ) ) * 2;
 			X = 0.25f * S;
 			Y = (mat34_ij( rotM, 0, 1 ) + mat34_ij( rotM, 1, 0 ) ) / S;
 			Z = (mat34_ij( rotM, 2, 0 ) + mat34_ij( rotM, 0, 2 ) ) / S;
 			W = (mat34_ij( rotM, 1, 2 ) - mat34_ij( rotM, 2, 1 ) ) / S;
-		} else if ( mat34_ij( rotM, 1, 1 ) > mat34_ij( rotM, 2, 2 ) ) {			// Column 1: 
+		} else if ( mat34_ij( rotM, 1, 1 ) > mat34_ij( rotM, 2, 2 ) ) {			// Column 1:
 			S  = sqrtf( 1.0f + mat34_ij( rotM, 1, 1 ) - mat34_ij( rotM, 0, 0 ) - mat34_ij( rotM, 2, 2 ) ) * 2;
 			X = (mat34_ij( rotM, 0, 1 ) + mat34_ij( rotM, 1, 0 ) ) / S;
 			Y = 0.25f * S;
@@ -339,4 +340,22 @@ CTransform::t_quaternion CTransform::rotationAxisAngle( CTransform::t_vector con
 	t_quaternion q;
 	QuatSetFromAxisAngle( &q, (t_vector*)&vec, angle );
 	return q;
+}
+
+std::ostream& operator<<( std::ostream& os, CTransform const& rh )
+{
+	os << rh.translation() << rh.rotation() << rh.scale();
+	return os;
+}
+
+std::ostream& operator<<( std::ostream& os, CTransform::t_vector const& rh )
+{
+	os << "(" << rh.x << " " << rh.y << " " << rh.z << ")";
+	return os;
+}
+
+std::ostream& operator<<( std::ostream& os, CTransform::t_quaternion const& rh )
+{
+	os << "(" << rh.x << " " << rh.y << " " << rh.z << " " << rh.w << ")";
+	return os;
 }

@@ -693,6 +693,8 @@ struct drawRenderBlocks
 */
 void render(RenderContext& rc, Dx9RenderableScene const& scene, int maxActors)
 {
+	(void) maxActors;
+
 	bool animatedActors = gSettings.forceAnimatedActors;
 	bool animatedCamera = gSettings.forceAnimatedCamera;
 

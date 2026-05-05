@@ -36,6 +36,7 @@ struct RenderContext
 struct RenderableMesh
 {
 	RenderableMesh(mutalisk::data::mesh const& blueprint) : mBlueprint(blueprint) {}
+	~RenderableMesh() {}
 	mutalisk::data::mesh const&			mBlueprint;
 	com_ptr<ID3DXMesh>					mNative;
 
@@ -50,6 +51,8 @@ struct RenderableTexture
 	: mBlueprint(blueprint)
 	{
 	}
+
+	~RenderableTexture() {}
 
 	mutalisk::data::texture const& mBlueprint;
 

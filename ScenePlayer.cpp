@@ -86,9 +86,15 @@ struct ScenePlayerApp
   }
 
 
-  void update(float time) { mutalisk::update(*scene.renderable, time); }
-  void process() { mutalisk::process(*scene.renderable); }
-  void render(int maxActors = -1) { mutalisk::render(renderContext, *scene.renderable, maxActors); }
+  void update(float time) {
+    mutalisk::update(*scene.renderable, time);
+  }
+  void process() {
+    mutalisk::process(*scene.renderable);
+  }
+  void render(int maxActors = -1) {
+    mutalisk::render(renderContext, *scene.renderable, maxActors);
+  }
 
   struct Scene
   {
@@ -111,7 +117,7 @@ static bool gRenderSkin = true;
 static bool gEnableAnimations = true;
 static bool gRenderDebugSkeleton = true;
 
-
+std::wstring gSceneFileNameW;
 std::string gSceneFileName = "logo\\dx9\\logo.msk";
 
 //--------------------------------------------------------------------------------------
@@ -140,8 +146,9 @@ public:
   void addScript(Item items[])
   {
     unsigned itemCount = 0;
-    for(int q = 0; items[q].startFrame != ~0U; ++q)
+    for(int q = 0; items[q].startFrame != ~0U; ++q) {
       ++itemCount;
+    }
 
     ASSERT(itemCount > 0);
 
@@ -224,7 +231,9 @@ public:
   float time() const { return mCurrTime; }
 
 protected:
-  void setTime(float t) { mCurrTime = t; mCurrFrame = timeToFrame(t); }
+  void setTime(float t) {
+    mCurrTime = t; mCurrFrame = timeToFrame(t);
+  }
 
 private:
   //  typedef std::map<mutalisk::data::scene const*, RenderableScene*>  ScenesT;
@@ -383,7 +392,7 @@ std::auto_ptr<TestDemo> gDemo;
 //--------------------------------------------------------------------------------------
 ID3DXFont*              g_pFont = NULL;         // Font for drawing text
 ID3DXSprite*            g_pSprite = NULL;       // Sprite for batching draw text calls
-bool                    g_bShowHelp = true;     // If true, it renders the UI control text
+bool                    g_bShowHelp = false;    // If true, it renders the UI control text
 CModelViewerCamera      g_Camera;               // A model viewing camera
 ID3DXEffect*            g_pEffect = NULL;       // D3DX effect interface
 CDXUTDialogResourceManager g_DialogResourceManager; // manager for shared resources of dialogs
@@ -450,6 +459,10 @@ INT WINAPI WinMain( HINSTANCE, HINSTANCE, LPSTR cmdLine, int )
   if(*cmdLine) {
     gSceneFileName = cmdLine;
   }
+
+  gSceneFileNameW = std::wstring(gSceneFileName.size(), L'#');
+  mbstowcs(&gSceneFileNameW[0], gSceneFileName.c_str(), gSceneFileName.size());
+
 
   // Set the callback functions. These functions allow DXUT to notify
   // the application about device changes, user input, and windows messages.  The
@@ -833,12 +846,25 @@ void CALLBACK OnFrameRender( IDirect3DDevice9* pd3dDevice, double fTime, float f
   D3DXMATRIXA16 mProj;
 
   // Clear the render target and the zbuffer
-  //    V( pd3dDevice->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DXCOLOR(0.0f,0.25f,0.25f,0.55f), 1.0f, 0) );
-  V( pd3dDevice->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DXCOLOR(0.0f,0.0f,0.0f,0.0f), 1.0f, 0) );
+  V( pd3dDevice->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DXCOLOR(0.0f,0.25f,0.25f,0.55f), 1.0f, 0) );
+  //V( pd3dDevice->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DXCOLOR(0.0f,0.0f,0.0f,0.0f), 1.0f, 0) );
 
   // Render the scene
   if( SUCCEEDED( pd3dDevice->BeginScene() ) )
   {
+    scenePlayerTime += fElapsedTime;
+    if(scenePlayerTime - fElapsedTime < scenePlayerKey[1] && scenePlayerTime >= scenePlayerKey[1]) {
+      scenePlayerTime = scenePlayerKey[0];
+    }
+
+    scenePlayerApp->setViewMatrix(mView);
+    scenePlayerApp->setProjMatrix(mProj);
+    scenePlayerApp->update(static_cast<float>(scenePlayerTime));
+    scenePlayerApp->process();
+    static int maxActors = -1;
+    scenePlayerApp->render(maxActors);
+
+    /*
     D3DXMATRIX cameraInvMatrix;
     D3DXMatrixInverse(&cameraInvMatrix, 0, g_Camera.GetWorldMatrix());
     // Get the projection & view matrix from the camera class
@@ -846,8 +872,10 @@ void CALLBACK OnFrameRender( IDirect3DDevice9* pd3dDevice, double fTime, float f
     mProj = *g_Camera.GetProjMatrix();
     mView = *g_Camera.GetViewMatrix();
 
-
     mWorldViewProjection = mWorld * mView * mProj;
+    */
+
+    /*
     for( int i=0; i<g_nNumActiveLights; i++ )
     {
       vLightDir[i] = g_LightControl[i].GetLightDirection();
@@ -869,21 +897,11 @@ void CALLBACK OnFrameRender( IDirect3DDevice9* pd3dDevice, double fTime, float f
       V( g_pEffect->SetValue( "vLightAmbient", ambientColor, sizeof(ambientColor) ) );
     }
 
-    scenePlayerTime += fElapsedTime;
-    if(scenePlayerTime - fElapsedTime < scenePlayerKey[1] && scenePlayerTime >= scenePlayerKey[1]) {
-      scenePlayerTime = scenePlayerKey[0];
-    }
+    */
 
-    scenePlayerApp->setViewMatrix(mView);
-    scenePlayerApp->setProjMatrix(mProj);
-    scenePlayerApp->update(static_cast<float>(scenePlayerTime));
-    scenePlayerApp->process();
-    static int maxActors = -1;
-    scenePlayerApp->render(maxActors);
-
+    // GUI Stuff
     g_HUD.OnRender( fElapsedTime );
     g_SampleUI.OnRender( fElapsedTime );
-
     RenderText( fTime );
 
     V( pd3dDevice->EndScene() );
@@ -913,6 +931,7 @@ void RenderText( double fTime )
   txtHelper.SetForegroundColor( D3DXCOLOR( 1.0f, 1.0f, 1.0f, 1.0f ) );
   txtHelper.DrawFormattedTextLine( L"fTime: %0.1f  sin(fTime): %0.4f", fTime, sin(fTime) );
   txtHelper.DrawFormattedTextLine( L"demoTime: %0.1f ", scenePlayerTime );
+  txtHelper.DrawFormattedTextLine( L"scene: %s ", gSceneFileNameW.c_str() );
 
   // Draw help
   if( g_bShowHelp )

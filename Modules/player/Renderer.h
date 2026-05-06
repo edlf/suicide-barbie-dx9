@@ -68,6 +68,10 @@ struct blastInstanceInputs
       ASSERT(actor.id >= 0 && actor.id < this->scene.mState.actor2XformIndex.size());
       toNative(nativeMatrix, this->scene.mState.matrices[this->scene.mState.actor2XformIndex[actor.id]]);
 
+      if(gSettings.forceIdentityActorsMatrix) {
+         D3DXMatrixIdentity(&nativeMatrix);
+      }
+
       setWorldMatrix(instanceInput.geometryMatrices, rc, nativeMatrix);
     }
   }

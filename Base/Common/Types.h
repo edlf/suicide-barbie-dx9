@@ -2,8 +2,6 @@
 #ifndef NEWAGE_BASE_COMMON_TYPES_H
 #define NEWAGE_BASE_COMMON_TYPES_H
 
-typedef unsigned int uint;
-
 #if !defined(__use_system_types)
 typedef char               int8_t;
 typedef short              int16_t;

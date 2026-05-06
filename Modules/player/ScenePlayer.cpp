@@ -36,7 +36,7 @@ void setMatrix(CTransform::t_matrix& matrix, float const* matrixData)
   );
 }
 
-void CSkinnedAlgos::processSkinMesh(Vec3 const* srcPositions, Vec3 const* srcNormals, float const* srcWeights, unsigned char const* srcBoneIndices,
+void CSkinnedAlgos::processSkinMesh(Vec3 const* srcPositions, Vec3 const* srcNormals, float const* srcWeights, uint8_t const* srcBoneIndices,
   Vec3 *dstPositions, Vec3* dstNormals, size_t srcVertexStride, size_t srcWeightStride, size_t srcBoneIndexStride,
   size_t dstVertexStride, size_t vertexCount,
   mutalisk::data::skin_info const& skinInfo, BoneMapT const& boneMap, CTransform::t_matrix const* matrices)
@@ -73,25 +73,25 @@ void CSkinnedAlgos::processSkinMesh(Vec3 const* srcPositions, Vec3 const* srcNor
   Mat34 identityM;
   Mat34_setIdentity( &identityM );
 
-  unsigned char const* srcPositionsRaw = reinterpret_cast<unsigned char const*>(srcPositions);
-  unsigned char const* srcNormalsRaw = reinterpret_cast<unsigned char const*>(srcNormals);
-  unsigned char const* srcWeightsRaw = reinterpret_cast<unsigned char const*>(srcWeights);
-  unsigned char const* srcBoneIndicesRaw = reinterpret_cast<unsigned char const*>(srcBoneIndices);
+  uint8_t const* srcPositionsRaw = reinterpret_cast<uint8_t const*>(srcPositions);
+  uint8_t const* srcNormalsRaw = reinterpret_cast<uint8_t const*>(srcNormals);
+  uint8_t const* srcWeightsRaw = reinterpret_cast<uint8_t const*>(srcWeights);
+  uint8_t const* srcBoneIndicesRaw = reinterpret_cast<uint8_t const*>(srcBoneIndices);
 
-  unsigned char* dstPositionsRaw = reinterpret_cast<unsigned char*>(dstPositions);
-  unsigned char* dstNormalsRaw = reinterpret_cast<unsigned char*>(dstNormals);
+  uint8_t* dstPositionsRaw = reinterpret_cast<uint8_t*>(dstPositions);
+  uint8_t* dstNormalsRaw = reinterpret_cast<uint8_t*>(dstNormals);
   for( size_t q = 0; q < vertexCount; ++q )
   {
     CTransform::t_vector pos3 = *reinterpret_cast<CTransform::t_vector const*>(srcPositionsRaw + q * srcVertexStride);
     CTransform::t_vector nrm3 = *reinterpret_cast<CTransform::t_vector const*>(srcNormalsRaw + q * srcVertexStride);
     float const* weights = reinterpret_cast<float const*>(srcWeightsRaw + q * srcWeightStride);
-    unsigned char const* boneIndices = srcBoneIndicesRaw + q * srcBoneIndexStride;
+    uint8_t const* boneIndices = srcBoneIndicesRaw + q * srcBoneIndexStride;
     CTransform::t_vector accumP3( 0.0f, 0.0f, 0.0f ), accumN3( 0.0f, 0.0f, 0.0f );
     float accumWeight = 0.0f;
 
     for( size_t w = 0; w < skinInfo.weightsPerVertex; ++w )
     {
-      unsigned char boneId = boneIndices[w];
+      uint8_t boneId = boneIndices[w];
       ASSERT(boneId < worldMatrices.size());
       // ASSERT(boneId <= lastI);
       float boneWeight = weights[w];

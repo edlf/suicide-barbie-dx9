@@ -16,7 +16,7 @@ std::string binary_input_utils::readString()
 
 std::string& binary_input_utils::readString( std::string& str )
 {
-  unsigned char c;
+  uint8_t c;
   int rd = 0;
   unsigned size = readDword();
 
@@ -81,12 +81,12 @@ void mutant_reader::read( mutalisk::data::base_mesh& mesh )
     mesh.vertexCount = readDword();
     mesh.vertexDataSize = readDword();
     mesh.vertexStride = readDword();
-    mesh.vertexData = new unsigned char[mesh.vertexDataSize];
+    mesh.vertexData = new uint8_t[mesh.vertexDataSize];
     readArray( mesh.vertexData, mesh.vertexDataSize );
 
     mesh.indexCount = readDword();
     mesh.indexSize = readDword();
-    mesh.indexData = new unsigned char[mesh.indexCount * mesh.indexSize];
+    mesh.indexData = new uint8_t[mesh.indexCount * mesh.indexSize];
     readArray( mesh.indexData, mesh.indexCount * mesh.indexSize );
 
   } catch( EIoEof& ) {
@@ -348,7 +348,7 @@ void mutant_reader::readAnimation( anim_bundle& bundle, anim_clip& clip )
   typedef std::vector<std::string> string_values_vec_t;
 
   eAnimType element_type = (eAnimType)readByte();
-  unsigned char component_size = readByte();
+  uint8_t component_size = readByte();
   std::string anim_type;
   readString(anim_type);
   unsigned int key_count = readDword();

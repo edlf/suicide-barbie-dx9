@@ -27,13 +27,13 @@ namespace mutant
       mOutput->write( str.c_str(), (int)str.size(), 0 );
     }
 
-    void writeDword( unsigned int dw )
+    void writeDword( uint32_t dw )
     {  mOutput->write( &dw, sizeof(dw), 0 ); }
 
-    void writeWord( unsigned short int w )
+    void writeWord( uint16_t w )
     {  mOutput->write( &w, sizeof(w), 0 ); }
 
-    void writeByte( unsigned char c )
+    void writeByte( uint8_t c )
     {  mOutput->write( &c, sizeof(c), 0 ); }
 
     void writeBool( bool b )

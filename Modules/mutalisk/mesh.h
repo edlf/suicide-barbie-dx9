@@ -13,11 +13,11 @@ namespace data
     unsigned int vertexCount;
     unsigned int vertexStride;
     unsigned int vertexDataSize;
-    byte* vertexData;
+    uint8_t* vertexData;
 
     unsigned int indexCount;
     unsigned int indexSize;
-    byte* indexData;
+    uint8_t* indexData;
 
     struct Subset
     {

@@ -17,7 +17,7 @@ void CHECK_ERR( int e, _A const& a )
 mutant_compressed_output::mutant_compressed_output( std::auto_ptr<binary_output>& output )
 :  mOutput( output )
 {
-  mBuffer = new unsigned char[BUF_LEN];
+  mBuffer = new uint8_t[BUF_LEN];
   initDeflate();
 }
 

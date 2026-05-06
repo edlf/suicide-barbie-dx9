@@ -28,7 +28,7 @@ struct CSkinnedAlgos
 {
   typedef std::vector<std::pair<int, int> > BoneMapT;
   static void processSkinMesh(RenderableMesh& mesh, BoneMapT const& boneMap, CTransform::t_matrix const* data);
-  static void processSkinMesh(Vec3 const* srcPositions, Vec3 const* srcNormals, float const* srcWeights, unsigned char const* srcBoneIndices,
+  static void processSkinMesh(Vec3 const* srcPositions, Vec3 const* srcNormals, float const* srcWeights, uint8_t const* srcBoneIndices,
     Vec3 *dstPositions, Vec3* dstNormals,
     size_t srcVertexStride, size_t srcWeightStride, size_t srcBoneIndexStride, size_t dstVertexStride, size_t vertexCount,
     mutalisk::data::skin_info const& skinInfo, BoneMapT const& boneMap, CTransform::t_matrix const* matrixData);

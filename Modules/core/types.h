@@ -5,12 +5,10 @@
 
 namespace mutalisk {
 namespace data {
-
-  typedef unsigned char byte;
-
   struct Color {
     float r, g, b, a;
   };
+
   struct Vec3 {
     float const& operator[](unsigned int index) const { return data[index]; }
     float & operator[](unsigned int index) { return data[index]; }

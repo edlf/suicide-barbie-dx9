@@ -27,7 +27,7 @@ namespace mutant
   private:
     std::auto_ptr<binary_output>  mOutput;
     z_stream            zstream;
-    unsigned char*          mBuffer;
+    uint8_t*          mBuffer;
   };
 }
 

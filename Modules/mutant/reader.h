@@ -28,23 +28,23 @@ namespace mutant
     std::string readString();
     std::string& readString( std::string& str );
 
-    unsigned int readDword()
+    uint32_t readDword()
     {
-      unsigned int i = 0;
+      uint32_t i = 0;
       mInput->read( &i, sizeof(i), 0 );
       return i;
     }
 
-    unsigned short int readWord()
+    uint16_t readWord()
     {
-      unsigned short int i = 0;
+      uint16_t i = 0;
       mInput->read( &i, sizeof(i), 0 );
       return i;
     }
 
-    unsigned char readByte()
+    uint8_t readByte()
     {
-      unsigned char c = 0;
+      uint8_t c = 0;
       mInput->read( &c, sizeof(c), 0 );
       return c;
     }

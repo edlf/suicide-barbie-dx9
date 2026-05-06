@@ -28,7 +28,7 @@ namespace mutant
     std::auto_ptr<binary_input>  mInput;
 
     z_stream    zstream;
-    unsigned char*  mBuffer;
+    uint8_t*  mBuffer;
   };
 }
 

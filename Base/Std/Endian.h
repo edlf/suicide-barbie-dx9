@@ -6,46 +6,48 @@
   #pragma warning(disable:4505)
 #endif
 
-static inline unsigned short swap16(unsigned short i)
+#include "Base/Common/Types.h"
+
+static inline uint16_t swap16(uint16_t i)
 {
-  return (unsigned short)(((((unsigned int) i) & 0xff00) >> 8)
-    | ((((unsigned int) i) & 0xff) << 8));
+  return (uint16_t)(((((uint32_t) i) & 0xff00) >> 8)
+    | ((((uint32_t) i) & 0xff) << 8));
 }
 
-static inline unsigned int swap32(unsigned int i)
+static inline uint32_t swap32(uint32_t i)
 {
-  return (unsigned int)(((((unsigned int) i) & 0xff000000) >> 24)
-    | ((((unsigned int) i) & 0xff0000) >> 8)
-    | ((((unsigned int) i) & 0xff00) << 8)
-    | ((((unsigned int) i) & 0xff) << 24));
+  return (uint32_t)(((((uint32_t) i) & 0xff000000) >> 24)
+    | ((((uint32_t) i) & 0xff0000) >> 8)
+    | ((((uint32_t) i) & 0xff00) << 8)
+    | ((((uint32_t) i) & 0xff) << 24));
 }
 
-static inline unsigned long long swap64(unsigned long long i)
+static inline uint64_t swap64(uint64_t i)
 {
-  return (((unsigned long long) ( swap32((unsigned int) i))) << 32) | ((unsigned long long) (swap32((unsigned int) (i >> 32))));
+  return (((uint64_t) ( swap32((uint32_t) i))) << 32) | ((uint64_t) (swap32((uint32_t) (i >> 32))));
 }
 
-static inline unsigned int endianReadU8Little(unsigned char* mem)
-{
-  return *mem;
-}
-
-static inline unsigned int endianReadU8Big(unsigned char* mem)
+static inline uint32_t endianReadU8Little(uint8_t* mem)
 {
   return *mem;
 }
 
-static inline int endianReadS8Little(char* mem)
+static inline uint32_t endianReadU8Big(uint8_t* mem)
 {
   return *mem;
 }
 
-static inline int endianReadS8Big(char* mem)
+static inline int endianReadS8Little(int8_t* mem)
 {
   return *mem;
 }
 
-static inline unsigned int endianReadU16Little(unsigned short* mem)
+static inline int endianReadS8Big(int8_t* mem)
+{
+  return *mem;
+}
+
+static inline uint32_t endianReadU16Little(uint16_t* mem)
 {
 #ifdef NEWAGE_BIG_ENDIAN
   return swap16(*mem);
@@ -54,7 +56,7 @@ static inline unsigned int endianReadU16Little(unsigned short* mem)
 #endif
 }
 
-static inline unsigned int endianReadU16Big(unsigned short* mem)
+static inline uint32_t endianReadU16Big(uint16_t* mem)
 {
 #ifdef NEWAGE_BIG_ENDIAN
   return *mem;
@@ -63,7 +65,7 @@ static inline unsigned int endianReadU16Big(unsigned short* mem)
 #endif
 }
 
-static inline int endianReadS16Little(short* mem)
+static inline int endianReadS16Little(int16_t* mem)
 {
 #ifdef NEWAGE_BIG_ENDIAN
   return swap16(*mem);
@@ -72,7 +74,7 @@ static inline int endianReadS16Little(short* mem)
 #endif
 }
 
-static inline int endianReadS16Big(short* mem)
+static inline int endianReadS16Big(int16_t* mem)
 {
 #ifdef NEWAGE_BIG_ENDIAN
   return *mem;
@@ -81,7 +83,7 @@ static inline int endianReadS16Big(short* mem)
 #endif
 }
 
-static inline unsigned int endianReadU32Little(unsigned int* mem)
+static inline uint32_t endianReadU32Little(uint32_t* mem)
 {
 #ifdef NEWAGE_BIG_ENDIAN
   return swap32(*mem);
@@ -90,7 +92,7 @@ static inline unsigned int endianReadU32Little(unsigned int* mem)
 #endif
 }
 
-static inline unsigned int endianReadU32Big(unsigned int* mem)
+static inline uint32_t endianReadU32Big(uint32_t* mem)
 {
 #ifdef NEWAGE_BIG_ENDIAN
   return *mem;
@@ -99,7 +101,7 @@ static inline unsigned int endianReadU32Big(unsigned int* mem)
 #endif
 }
 
-static inline int endianReadS32Little(int* mem)
+static inline int endianReadS32Little(int32_t* mem)
 {
 #ifdef NEWAGE_BIG_ENDIAN
   return swap32(*mem);
@@ -108,7 +110,7 @@ static inline int endianReadS32Little(int* mem)
 #endif
 }
 
-static inline int endianReadS32Big(int* mem)
+static inline int endianReadS32Big(int32_t* mem)
 {
 #ifdef NEWAGE_BIG_ENDIAN
   return *mem;
@@ -122,10 +124,10 @@ static inline float endianReadFloat32Little(float* mem)
 #ifdef NEWAGE_BIG_ENDIAN
   union
   {
-    unsigned int i;
+    uint32_t i;
     float f;
   } x;
-  x.i = swap32(*((unsigned int*) mem));
+  x.i = swap32(*((uint32_t*) mem));
   return x.f;
 #else
   return *mem;
@@ -139,10 +141,10 @@ static inline float endianReadFloat32Big(float* mem)
 #else
   union
   {
-    unsigned int i;
+    uint32_t i;
     float f;
   } x;
-  x.i = swap32(*((unsigned int*) mem));
+  x.i = swap32(*((uint32_t*) mem));
   return x.f;
 #endif
 }
@@ -152,10 +154,10 @@ static inline double endianReadFloat64Little(double* mem)
 #ifdef NEWAGE_BIG_ENDIAN
   union
   {
-    unsigned long long i;
+    uint64_t i;
     double d;
   } x;
-  x.i = swap64(*((unsigned long long*) mem));
+  x.i = swap64(*((uint64_t*) mem));
   return x.d;
 #else
   return *mem;
@@ -169,10 +171,10 @@ static inline double endianReadFloat64Big(double* mem)
 #else
   union
   {
-    unsigned long long i;
+    uint64_t i;
     double d;
   } x;
-  x.i = swap64(*((unsigned long long*) mem));
+  x.i = swap64(*((uint64_t*) mem));
   return x.d;
 #endif
 }
@@ -198,27 +200,27 @@ static inline double endianReadDoubleBig(double* mem)
 }
 
 
-static inline void endianWriteU8Little(unsigned char* mem, unsigned char data)
+static inline void endianWriteU8Little(uint8_t* mem, uint8_t data)
 {
   *mem = data;
 }
 
-static inline void endianWriteU8Big(unsigned char* mem, unsigned char data)
+static inline void endianWriteU8Big(uint8_t* mem, uint8_t data)
 {
   *mem = data;
 }
 
-static inline void endianWriteS8Little(char* mem, char data)
+static inline void endianWriteS8Little(int8_t* mem, int8_t data)
 {
   *mem = data;
 }
 
-static inline void endianWriteS8Big(char* mem, char data)
+static inline void endianWriteS8Big(int8_t* mem, int8_t data)
 {
   *mem = data;
 }
 
-static inline void endianWriteU16Little(unsigned short* mem, unsigned short data)
+static inline void endianWriteU16Little(uint16_t* mem, uint16_t data)
 {
 #ifdef NEWAGE_BIG_ENDIAN
   *mem = swap16(data);
@@ -227,7 +229,7 @@ static inline void endianWriteU16Little(unsigned short* mem, unsigned short data
 #endif
 }
 
-static inline void endianWriteU16Big(unsigned short* mem, unsigned short data)
+static inline void endianWriteU16Big(uint16_t* mem, uint16_t data)
 {
 #ifdef NEWAGE_BIG_ENDIAN
   *mem = data;
@@ -236,26 +238,26 @@ static inline void endianWriteU16Big(unsigned short* mem, unsigned short data)
 #endif
 }
 
-static inline void endianWriteS16Little(short* mem, short data)
+static inline void endianWriteS16Little(int16_t* mem, int16_t data)
 {
-  endianWriteU16Little((unsigned short*) mem, (unsigned short) data);
+  endianWriteU16Little((uint16_t*) mem, (uint16_t) data);
 }
 
-static inline void endianWriteS16Big(short* mem, short data)
+static inline void endianWriteS16Big(int16_t* mem, int16_t data)
 {
-  endianWriteU16Big((unsigned short*) mem, (unsigned short) data);
+  endianWriteU16Big((uint16_t*) mem, (uint16_t) data);
 }
 
-static inline void endianWriteU32Little(unsigned int* mem, unsigned int data)
+static inline void endianWriteU32Little(uint32_t* mem, uint32_t data)
 {
 #ifdef NEWAGE_BIG_ENDIAN
-  *((unsigned int*) mem) = swap32(data);
+  *((uint32_t*) mem) = swap32(data);
 #else
-  *((unsigned int*) mem) = data;
+  *((uint32_t*) mem) = data;
 #endif
 }
 
-static inline void endianWriteU32Big(unsigned int* mem, unsigned int data)
+static inline void endianWriteU32Big(uint32_t* mem, uint32_t data)
 {
 #ifdef NEWAGE_BIG_ENDIAN
   *mem = data;
@@ -264,14 +266,14 @@ static inline void endianWriteU32Big(unsigned int* mem, unsigned int data)
 #endif
 }
 
-static inline void endianWriteS32Little(int* mem, int data)
+static inline void endianWriteS32Little(int32_t* mem, int32_t data)
 {
-  endianWriteU32Little((unsigned int*) mem, (unsigned int) data);
+  endianWriteU32Little((uint32_t*) mem, (uint32_t) data);
 }
 
-static inline void endianWriteS32Big(int* mem, int data)
+static inline void endianWriteS32Big(int32_t* mem, int32_t data)
 {
-  endianWriteU32Big((unsigned int*) mem, (unsigned int) data);
+  endianWriteU32Big((uint32_t*) mem, (uint32_t) data);
 }
 
 static inline void endianWriteFloat32Little(float* mem, float data)
@@ -279,7 +281,7 @@ static inline void endianWriteFloat32Little(float* mem, float data)
 #ifdef NEWAGE_BIG_ENDIAN
   union
   {
-    unsigned int i;
+    uint32_t i;
     float f;
   } x;
   x.f = data;
@@ -297,7 +299,7 @@ static inline void endianWriteFloat32Big(float* mem, float data)
 #else
   union
   {
-    unsigned int i;
+    uint32_t i;
     float f;
   } x;
   x.f = data;
@@ -311,7 +313,7 @@ static inline void endianWriteFloat64Little(double* mem, double data)
 #ifdef NEWAGE_BIG_ENDIAN
   union
   {
-    unsigned long long i;
+    uint64_t i;
     double d;
   } x;
   x.d = data;
@@ -329,7 +331,7 @@ static inline void endianWriteFloat64Big(double* mem, double data)
 #else
   union
   {
-    unsigned long long i;
+    uint64_t i;
     double d;
   } x;
   x.d = data;
@@ -357,5 +359,4 @@ static inline void endianWriteDoubleBig(double* mem, double data)
 {
   endianWriteFloat64Big(mem, data);
 }
-
 #endif

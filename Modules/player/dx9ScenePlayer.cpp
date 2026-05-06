@@ -128,14 +128,14 @@ std::auto_ptr<RenderableMesh> prepare(RenderContext& rc, mutalisk::data::mesh co
     &mesh->mNative);
 
   {
-    unsigned char* data = 0;
+    uint8_t* data = 0;
     DX_MSG("lock vertex buffer for writing") = mesh->mNative->LockVertexBuffer(0, (void**)&data);
     memcpy(data, mesh->mBlueprint.vertexData, mesh->mBlueprint.vertexDataSize);
     DX_MSG("unlock vertex buffer") = mesh->mNative->UnlockVertexBuffer();
   }
 
   {
-    unsigned char* data = 0;
+    uint8_t* data = 0;
     DX_MSG("lock index buffer for writing") = mesh->mNative->LockIndexBuffer(0, (void**)&data);
     memcpy(data, mesh->mBlueprint.indexData, mesh->mBlueprint.indexCount * mesh->mBlueprint.indexSize);
     DX_MSG("unlock index buffer") = mesh->mNative->UnlockIndexBuffer();
@@ -167,14 +167,14 @@ std::auto_ptr<RenderableMesh> prepare(RenderContext& rc, mutalisk::data::mesh co
   }
 
   {
-    unsigned char* data = 0;
+    uint8_t* data = 0;
     DX_MSG("lock vertex buffer for reading") = mesh->mNative->LockVertexBuffer(0, (void**)&data);
     memcpy(mesh->mBlueprint.vertexData, data, mesh->mBlueprint.vertexDataSize);
     DX_MSG("unlock vertex buffer") = mesh->mNative->UnlockVertexBuffer();
   }
 
   {
-    unsigned char* data = 0;
+    uint8_t* data = 0;
     DX_MSG("lock index buffer for reading") = mesh->mNative->LockIndexBuffer(0, (void**)&data);
     memcpy(mesh->mBlueprint.indexData, data, mesh->mBlueprint.indexCount * mesh->mBlueprint.indexSize);
     DX_MSG("unlock index buffer") = mesh->mNative->UnlockIndexBuffer();
@@ -886,16 +886,16 @@ void CSkinnedAlgos::processSkinMesh(RenderableMesh& mesh, BoneMapT const& boneMa
   ASSERT(weightsOffset != ~0);
   ASSERT(boneIndicesOffset != ~0);
 
-  unsigned char* dstRaw = 0;
+  uint8_t* dstRaw = 0;
   DX_MSG("lock vertex buffer for writing") = mesh.mNative->LockVertexBuffer(0, (void**)&dstRaw);
-  unsigned char const* srcRaw = mesh.mBlueprint.vertexData;
+  uint8_t const* srcRaw = mesh.mBlueprint.vertexData;
   memcpy(dstRaw, srcRaw, mesh.mBlueprint.vertexDataSize);
 
   processSkinMesh(
     reinterpret_cast<Vec3 const*>(srcRaw + positionsOffset),
     reinterpret_cast<Vec3 const*>(srcRaw + normalsOffset),
     reinterpret_cast<float const*>(srcRaw + weightsOffset),
-    reinterpret_cast<unsigned char const*>(srcRaw + boneIndicesOffset),
+    reinterpret_cast<uint8_t const*>(srcRaw + boneIndicesOffset),
 
     reinterpret_cast<Vec3*>(dstRaw + positionsOffset),
     reinterpret_cast<Vec3*>(dstRaw + normalsOffset),

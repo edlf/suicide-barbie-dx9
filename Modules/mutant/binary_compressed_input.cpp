@@ -18,7 +18,7 @@ void CHECK_ERR( int e, _A const& a )  {
 mutant_compressed_input::mutant_compressed_input( std::auto_ptr<binary_input>& input )
 :  mInput( input )
 {
-  mBuffer = new unsigned char[BUF_SIZE];
+  mBuffer = new uint8_t[BUF_SIZE];
   initInflate();
 }
 

@@ -1,6 +1,7 @@
 #ifndef MUTANT_SIMPLE_SKINNED_H_
 #define MUTANT_SIMPLE_SKINNED_H_
 
+#include "Base/Common/Types.h"
 
 namespace mutant
 {
@@ -24,10 +25,10 @@ namespace mutant
 
     unsigned int weightsPerVertex;
     float* weights;
-    unsigned short* boneIndices;
+    uint16_t* boneIndices;
 
     unsigned int indexCount;
-    unsigned short* indices;
+    uint16_t* indices;
 
     unsigned int boneCount;
     Bone* bones;

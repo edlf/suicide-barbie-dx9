@@ -1,12 +1,14 @@
 ###  Suicide Barbie by The Black Lotus
 ####      DX9 buildable project for VS 2005
 
-This currently doesn't work properly. But all the available windows code builds and runs.
+This currently doesn't work properly. But all the available windows code builds and runs part of the demo.
 
 
 #### Missing stuff
 * Mirror effect code
-* Likely the whole demo logic that plays scenes in proper order
+* Audio
+* Textures
+* Lighting
 
 
 #### Requirements

@@ -34,6 +34,8 @@
 
 #include "guicon.h"
 
+#include "TestDemo.h"
+
 namespace {
   void splitFilename(std::string const& fullPath, std::string& path, std::string& fileName)
   {
@@ -58,55 +60,6 @@ namespace {
   }
 }
 
-struct ScenePlayerApp
-{
-  ScenePlayerApp(std::string const& sceneName, IDirect3DDevice9& device, ID3DXEffect& defaultEffect)
-  {
-    renderContext.device = &device;
-    renderContext.defaultEffect = &defaultEffect;
-    D3DXMatrixIdentity(&renderContext.viewProjMatrix);
-    D3DXMatrixIdentity(&renderContext.projMatrix);
-
-    std::string path, fileName;
-    splitFilename(sceneName, path, fileName);
-    mutalisk::setResourcePath(path);
-
-    std::cout << "Resource path: " << path << std::endl;
-    std::cout << "Loading scene: " << fileName << std::endl;
-    scene.blueprint = mutalisk::loadResource<mutalisk::data::scene>(fileName);
-    scene.renderable = prepare(renderContext, *scene.blueprint);
-  }
-
-  void setViewMatrix(D3DXMATRIX const& viewMatrix) {
-    renderContext.viewMatrix = viewMatrix;
-  }
-
-  void setProjMatrix(D3DXMATRIX const& projMatrix){
-    renderContext.projMatrix = projMatrix;
-  }
-
-
-  void update(float time) {
-    mutalisk::update(*scene.renderable, time);
-  }
-  void process() {
-    mutalisk::process(*scene.renderable);
-  }
-  void render(int maxActors = -1) {
-    mutalisk::render(renderContext, *scene.renderable, maxActors);
-  }
-
-  struct Scene
-  {
-    std::auto_ptr<mutalisk::data::scene> blueprint;
-    std::auto_ptr<mutalisk::Dx9RenderableScene> renderable;
-  };
-
-  mutalisk::RenderContext  renderContext;
-  Scene      scene;
-};
-
-std::auto_ptr<ScenePlayerApp> scenePlayerApp;
 double scenePlayerTime;
 double scenePlayerKey[2] = {0.0, -1.0f};
 bool scenePlayerNoLoop = false;
@@ -117,8 +70,7 @@ static bool gRenderSkin = true;
 static bool gEnableAnimations = true;
 static bool gRenderDebugSkeleton = true;
 
-std::wstring gSceneFileNameW;
-std::string gSceneFileName = "logo\\dx9\\logo.msk";
+std::wstring gSceneFileNameW = L"TODO";
 
 //--------------------------------------------------------------------------------------
 //
@@ -275,7 +227,6 @@ float BaseDemoPlayer::sceneTime(Scene const& scene)
 
 void BaseDemoPlayer::draw(Scene const& scene)
 {
-  std::cout << "BaseDemoPlayer::draw" << std::endl;
   if(scene.startTime <= 0.0f) {
     scene.startTime = time();
   }
@@ -291,99 +242,6 @@ void BaseDemoPlayer::clearZ()
   DX_MSG("Depth clear") =
     renderContext.device->Clear(0, NULL, D3DCLEAR_ZBUFFER, D3DXCOLOR(0.0f,0.0f,0.0f,0.0f), 1.0f, 0);
 }
-
-
-
-#ifndef AP
-#define AP_DEFINED_LOCALY
-#define AP std::auto_ptr
-#endif
-
-#define S_FUNC(f) (&SelfT::f)
-
-class TestDemo : public BaseDemoPlayer
-{
-  typedef TestDemo        SelfT;
-  typedef mutalisk::data::scene  SceneT;
-  typedef Timeline<SelfT>      TimelineT;
-  typedef TimelineT::Item      Item;
-  struct Scenes
-  {
-    Scene  logo;
-    Scene  flower;
-    Scene  phone0;
-    Scene  walk;
-  };
-  Scenes              scn;
-  TimelineT            timeline;
-
-public:
-  void doFrame(float t)
-  {
-    std::cout << "TestDemo::doFrame" << std::endl;
-    setTime(t);
-    timeline.update(*this, frame());
-  }
-
-protected:
-  virtual void onStart()
-  {
-    std::cout << "TestDemo::onStart" << std::endl;
-    {Item items[] = {
-      Item(0,    0,  S_FUNC(logo)),
-      Item(9,    20,  S_FUNC(logo_to_flower)),
-      Item(12,  15,  S_FUNC(flower)),
-      Item(26,  18,  S_FUNC(flower_to_phone0)),
-      Item(32,  0,  S_FUNC(phone0)),
-      Item(34,  12,  S_FUNC(walk)),
-      Item()
-    };
-    timeline.addScript(items);}
-
-    scn.logo = load("logo\\dx9\\logo.msk");
-    scn.flower = load("flower\\dx9\\flower.msk");
-    scn.phone0 = load("telephone_s1\\dx9\\telephone_s1.msk");
-    scn.walk = load("walk01\\dx9\\walk01.msk");
-  }
-
-  void logo()
-  {
-    draw(scn.logo);
-  }
-
-  void logo_to_flower()
-  {
-    draw(scn.logo);
-    clearZ();
-    draw(scn.flower);
-  }
-
-  void flower()
-  {
-    draw(scn.flower);
-  }
-
-  void flower_to_phone0()
-  {
-    draw(scn.phone0);
-    clearZ();
-    draw(scn.flower);
-  }
-
-  void phone0()
-  {
-    draw(scn.phone0);
-  }
-
-  void walk()
-  {
-    draw(scn.walk);
-  }
-};
-
-#ifdef AP_DEFINED_LOCALY
-#undef AP
-#endif
 
 std::auto_ptr<TestDemo> gDemo;
 
@@ -455,14 +313,6 @@ INT WINAPI WinMain( HINSTANCE, HINSTANCE, LPSTR cmdLine, int )
 #if defined(DEBUG) | defined(_DEBUG)
   _CrtSetDbgFlag( _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF );
 #endif
-
-  if(*cmdLine) {
-    gSceneFileName = cmdLine;
-  }
-
-  gSceneFileNameW = std::wstring(gSceneFileName.size(), L'#');
-  mbstowcs(&gSceneFileNameW[0], gSceneFileName.c_str(), gSceneFileName.size());
-
 
   // Set the callback functions. These functions allow DXUT to notify
   // the application about device changes, user input, and windows messages.  The
@@ -706,7 +556,9 @@ HRESULT CALLBACK OnCreateDevice( IDirect3DDevice9* pd3dDevice, const D3DSURFACE_
   g_Camera.SetViewParams( &vecEye, &vecAt );
   g_Camera.SetRadius( fObjectRadius*3.0f, fObjectRadius*0.5f, fObjectRadius*10.0f );
 
-  scenePlayerApp.reset(new ScenePlayerApp(gSceneFileName, *pd3dDevice, *g_pEffect));
+  gDemo.reset(new TestDemo());
+  gDemo->platformSetup(*pd3dDevice, *g_pEffect);
+  gDemo->start();
   scenePlayerTime = 0.0;
 
   return S_OK;
@@ -857,12 +709,8 @@ void CALLBACK OnFrameRender( IDirect3DDevice9* pd3dDevice, double fTime, float f
       scenePlayerTime = scenePlayerKey[0];
     }
 
-    scenePlayerApp->setViewMatrix(mView);
-    scenePlayerApp->setProjMatrix(mProj);
-    scenePlayerApp->update(static_cast<float>(scenePlayerTime));
-    scenePlayerApp->process();
-    static int maxActors = -1;
-    scenePlayerApp->render(maxActors);
+    gDemo->updateFrame(scenePlayerTime);
+    gDemo->renderFrame();
 
     /*
     D3DXMATRIX cameraInvMatrix;

@@ -1189,6 +1189,14 @@
 				/>
 			</FileConfiguration>
 		</File>
+		<File
+			RelativePath=".\TestDemo.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\TestDemo.h"
+			>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>

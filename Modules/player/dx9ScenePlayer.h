@@ -16,10 +16,6 @@
 
 namespace mutalisk
 {
-#ifndef AP
-#define AP_DEFINED_LOCALY
-#define AP std::auto_ptr
-#endif
 
 struct RenderContext
 {
@@ -73,16 +69,13 @@ struct Dx9RenderableScene : public RenderableScene
   NativeSharedResources  mNativeResources;
 };
 
-AP<Dx9RenderableScene> prepare(RenderContext& rc, mutalisk::data::scene const& data);
-AP<RenderableMesh> prepare(RenderContext& rc, mutalisk::data::mesh const& data);
-//AP<RenderableTexture> prepare(RenderContext& rc, mutalisk::data::texture const& data);
+std::auto_ptr<Dx9RenderableScene> prepare(RenderContext& rc, mutalisk::data::scene const& data);
+std::auto_ptr<RenderableMesh> prepare(RenderContext& rc, mutalisk::data::mesh const& data);
+//std::auto_ptr<RenderableTexture> prepare(RenderContext& rc, mutalisk::data::texture const& data);
 void update(Dx9RenderableScene& scene, float deltaTime);
 void process(Dx9RenderableScene& scene);
 void render(RenderContext& rc, Dx9RenderableScene const& scene, int maxActors = -1);
 
-#ifdef AP_DEFINED_LOCALY
-#undef AP
-#endif
 } // namespace mutalisk
 
 #endif // NEWAGE_DX9_SCENEPLAYER_H_

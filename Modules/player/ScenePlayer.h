@@ -16,10 +16,6 @@
 
 namespace mutalisk
 {
-#ifndef AP
-#define AP_DEFINED_LOCALY
-#define AP std::auto_ptr
-#endif
 void setMatrix(CTransform::t_matrix& matrix, float const* worldMatrixData);
 
 struct RenderableMesh;
@@ -38,16 +34,16 @@ struct RenderableScene
 {
   struct SharedResources {
     struct Mesh {
-      AP<mutalisk::data::mesh>  blueprint;
-      AP<RenderableMesh>      renderable;
+      std::auto_ptr<mutalisk::data::mesh>  blueprint;
+      std::auto_ptr<RenderableMesh>      renderable;
     };
     struct Texture {
-      AP<mutalisk::data::texture>  blueprint;
-      AP<RenderableTexture>    renderable;
+      std::auto_ptr<mutalisk::data::texture>  blueprint;
+      std::auto_ptr<RenderableTexture>    renderable;
     };
     mutalisk::array<Mesh>      meshes;
     mutalisk::array<Texture>    textures;
-    AP<mutant::anim_character_set>  animCharSet;
+    std::auto_ptr<mutant::anim_character_set>  animCharSet;
   };
   struct State {
     float              time;
@@ -283,14 +279,14 @@ struct RenderableScene
 
 void setResourcePath(std::string const& path);
 std::string getResourcePath();
-AP<mutant::mutant_reader> createFileReader(std::string const& fileName);
+std::auto_ptr<mutant::mutant_reader> createFileReader(std::string const& fileName);
 
 template <typename ResourceType>
-static AP<ResourceType> loadResource(std::string fileName)
+static std::auto_ptr<ResourceType> loadResource(std::string fileName)
 {
   printf("loadResource<>: $ %s\n", fileName.c_str());
-  AP<mutant::mutant_reader> reader = createFileReader(fileName);
-  AP<ResourceType> resource(new ResourceType);
+  std::auto_ptr<mutant::mutant_reader> reader = createFileReader(fileName);
+  std::auto_ptr<ResourceType> resource(new ResourceType);
   *reader >> *resource;
   ;;printf("loadResource<>: ! %s\n", fileName.c_str());
   return resource;
@@ -305,25 +301,25 @@ static AP<ResourceType> loadResource(std::string fileName)
 #endif
 
 template <>
-INLINE AP<mutant::anim_character_set> loadResource(std::string fileName)
+INLINE std::auto_ptr<mutant::anim_character_set> loadResource(std::string fileName)
 {
   ;;printf("loadResource<anim_character_set>: $ %s\n", fileName.c_str());
-  AP<mutant::mutant_reader> reader = createFileReader(fileName);
-  AP<mutant::anim_character_set> resource(new mutant::anim_character_set);
+  std::auto_ptr<mutant::mutant_reader> reader = createFileReader(fileName);
+  std::auto_ptr<mutant::anim_character_set> resource(new mutant::anim_character_set);
   reader->read(*resource);
   ;;printf("loadResource<anim_character_set>: ! %s\n", fileName.c_str());
   return resource;
 }
 
 template <>
-INLINE AP<mutalisk::data::texture> loadResource(std::string fileName)
+INLINE std::auto_ptr<mutalisk::data::texture> loadResource(std::string fileName)
 {
   ;;printf("loadResource<mutalisk::data::texture>: $ %s\n", fileName.c_str());
-  AP<mutant::binary_input> input = AP<mutant::binary_input>(new file_input(getResourcePath() + fileName));
-  AP<mutant::mutant_reader> reader(new mutant::mutant_reader(input));
+  std::auto_ptr<mutant::binary_input> input = std::auto_ptr<mutant::binary_input>(new file_input(getResourcePath() + fileName));
+  std::auto_ptr<mutant::mutant_reader> reader(new mutant::mutant_reader(input));
   reader->enableLog(false);
 
-  AP<mutalisk::data::texture> resource(new mutalisk::data::texture);
+  std::auto_ptr<mutalisk::data::texture> resource(new mutalisk::data::texture);
   *reader >> *resource;
   ;;printf("loadResource<mutalisk::data::texture>: ! %s\n", fileName.c_str());
   return resource;
@@ -331,9 +327,6 @@ INLINE AP<mutalisk::data::texture> loadResource(std::string fileName)
 
 #undef INLINE
 
-#ifdef AP_DEFINED_LOCALY
-#undef AP
-#endif
 } // namespace mutalisk
 
 #endif // NEWAGE_SCENEPLAYER_H_

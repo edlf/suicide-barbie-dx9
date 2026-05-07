@@ -4,12 +4,6 @@
 #include "cfg.h"
 #include "platform.h"
 #include <Modules/mutalisk/mutalisk.h>
-#if defined(MUTALISK_PSP)
-#include <pspkernel.h>
-#include <list>
-#include "ScenePlayer.h"
-#include "psp/pspScenePlayer.h"
-#endif
 
 namespace mutalisk
 {
@@ -25,7 +19,7 @@ namespace mutalisk
       float                  znear;
       float                  zfar;
     };
-    typedef void(*OnDrawT)(RenderableSceneT const&);
+    typedef void(*OnDrawT)(mutalisk::RenderableSceneT const&);
 
     struct PostProcessSettings {
       PostProcessSettings() : strength(0), threshold(0), srcModifier(0), dstModifier(255), quality(3) {}
@@ -47,7 +41,9 @@ namespace mutalisk
     Scene const& load(Scene& scene, std::string const& sceneName);
     void draw(Scene const& scene, OnDrawT onDraw, float timeScale = 1.0f);
     void draw(Scene const& scene, float timeScale = 1.0f);
-    void pause(Scene const& scene) {}
+    void pause(Scene const& scene) {
+        (void) scene;
+    }
     void restart(Scene const& scene);
     float sceneTime(Scene const& scene);
 

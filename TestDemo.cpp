@@ -852,8 +852,7 @@ void TestDemo::loadWindowScenes()
   load(scn.window, "window\\dx9\\window.msk");
 }
 
-void TestDemo::loadEndScenes()
-{
+void TestDemo::loadEndScenes() {
   scn.bullet1.renderable->mResources.animCharSet.reset();
   scn.expGirl1BG.renderable->mResources.animCharSet.reset();
   scn.expGirl1.renderable->mResources.animCharSet.reset();
@@ -892,7 +891,9 @@ void TestDemo::loadEnd()
   //  scn.expGirl2.renderable->mResources.meshes.resize(0);
 }
 
-void TestDemo::quitDemo()
-{
+void TestDemo::quitDemo() {
+}
 
+std::wstring TestDemo::getSceneName() {
+  return std::wstring(L"TestDemo: TODO");
 }

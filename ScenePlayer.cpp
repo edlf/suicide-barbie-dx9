@@ -60,17 +60,10 @@ namespace {
   }
 }
 
-double scenePlayerTime;
-double scenePlayerKey[2] = {0.0, -1.0f};
-bool scenePlayerNoLoop = false;
-
-
-static bool gLoadSkin = true;
-static bool gRenderSkin = true;
-static bool gEnableAnimations = true;
-static bool gRenderDebugSkeleton = true;
-
-std::wstring gSceneFileNameW = L"TODO";
+bool   scenePlayerTimePause = false;
+double scenePlayerTime = 0.0;
+double scenePlayerTimeModifier = 1.0;
+const double scenePlayerTimeModifierStep = 0.02;
 
 //--------------------------------------------------------------------------------------
 //
@@ -556,11 +549,10 @@ HRESULT CALLBACK OnCreateDevice( IDirect3DDevice9* pd3dDevice, const D3DSURFACE_
   g_Camera.SetViewParams( &vecEye, &vecAt );
   g_Camera.SetRadius( fObjectRadius*3.0f, fObjectRadius*0.5f, fObjectRadius*10.0f );
 
+  scenePlayerTime = 0.0;
   gDemo.reset(new TestDemo());
   gDemo->platformSetup(*pd3dDevice, *g_pEffect);
   gDemo->start();
-  scenePlayerTime = 0.0;
-
   return S_OK;
 }
 
@@ -704,11 +696,9 @@ void CALLBACK OnFrameRender( IDirect3DDevice9* pd3dDevice, double fTime, float f
   // Render the scene
   if( SUCCEEDED( pd3dDevice->BeginScene() ) )
   {
-    scenePlayerTime += fElapsedTime;
-    if(scenePlayerTime - fElapsedTime < scenePlayerKey[1] && scenePlayerTime >= scenePlayerKey[1]) {
-      scenePlayerTime = scenePlayerKey[0];
+    if (!scenePlayerTimePause) {
+      scenePlayerTime += fElapsedTime * scenePlayerTimeModifier;
     }
-
     gDemo->updateFrame(scenePlayerTime);
     gDemo->renderFrame();
 
@@ -778,8 +768,15 @@ void RenderText( double fTime )
 
   txtHelper.SetForegroundColor( D3DXCOLOR( 1.0f, 1.0f, 1.0f, 1.0f ) );
   txtHelper.DrawFormattedTextLine( L"fTime: %0.1f  sin(fTime): %0.4f", fTime, sin(fTime) );
-  txtHelper.DrawFormattedTextLine( L"demoTime: %0.1f ", scenePlayerTime );
-  txtHelper.DrawFormattedTextLine( L"scene: %s ", gSceneFileNameW.c_str() );
+  txtHelper.DrawFormattedTextLine( L"demoTime: %0.2f @ %0.2f", scenePlayerTime, scenePlayerTimeModifier );
+
+  std::wstring scene = L"None";
+
+  if (gDemo.get() != NULL) {
+    scene = gDemo->getSceneName();
+  }
+
+  txtHelper.DrawFormattedTextLine( L"scene: %s", scene.c_str() );
 
   // Draw help
   if( g_bShowHelp )
@@ -857,19 +854,46 @@ void CALLBACK KeyboardProc( UINT nChar, bool bKeyDown, bool bAltDown, void* pUse
   if( bKeyDown )
   {
     double speedModifier = 1.0;
-    if(bAltDown) speedModifier = 0.5;
+    if(bAltDown) {
+      speedModifier = 0.01;
+    }
+
     switch( nChar )
     {
-    case VK_F1: g_bShowHelp = !g_bShowHelp; break;
-    case VK_UP: scenePlayerTime = 0.0; break;
-    case VK_LEFT: scenePlayerTime -= 0.5 * speedModifier; scenePlayerTime = max(scenePlayerTime, 0); break;
-    case VK_RIGHT: scenePlayerTime += 0.5 * speedModifier; break;
-    case VK_NUMPAD3: scenePlayerTime -= 5.0 * speedModifier; scenePlayerTime = max(scenePlayerTime, 0); break;
-    case VK_NUMPAD9: scenePlayerTime += 5.0 * speedModifier; break;
-    case 'Q': scenePlayerKey[0] = 0.0; scenePlayerKey[1] = -1.0; break;
-    case 'S': scenePlayerKey[0] = scenePlayerTime; break;
-    case 'D': scenePlayerKey[1] = scenePlayerTime; break;
-    case ' ': scenePlayerTime = scenePlayerKey[0]; break;
+    case VK_F1:
+      g_bShowHelp = !g_bShowHelp;
+      break;
+    case VK_UP:
+      if (scenePlayerTimeModifier <= 4.0) {
+        scenePlayerTimeModifier += scenePlayerTimeModifierStep;
+      }
+      break;
+    case VK_DOWN:
+      if (scenePlayerTimeModifier >= scenePlayerTimeModifierStep) {
+        scenePlayerTimeModifier -= scenePlayerTimeModifierStep;
+      }
+      break;
+    case VK_LEFT:
+      if (scenePlayerTime > 1.0) {
+        scenePlayerTime -= 1.0 * speedModifier;
+      } else {
+        scenePlayerTime = 0.0 * speedModifier;
+      }
+      break;
+    case VK_RIGHT:
+      scenePlayerTime += 1.0 * speedModifier;
+      break;
+    case VK_SPACE:
+      scenePlayerTimePause = !scenePlayerTimePause;
+      break;
+    case VK_NUMPAD3:
+      break;
+    case VK_NUMPAD9: 
+      break;
+    case 'R':
+      scenePlayerTimeModifier = 1.0;
+      scenePlayerTime = 0.0;
+      break;
     }
   }
 }

@@ -71,6 +71,7 @@ public:
   void renderFrame();
   void drawMirrorFrame(Scene const& scene, unsigned mirrorActorId, unsigned reflectedActorId);
   bool hasMirror() const { return frameContainsMirror; }
+  std::wstring getSceneName();
 
 protected:
   virtual void onStart();

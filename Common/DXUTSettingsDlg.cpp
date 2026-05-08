@@ -550,13 +550,17 @@ HRESULT CD3DSettingsDlg::OnWindowedFullScreenChanged()
     if( g_DeviceSettings.pp.Windowed )
     {
         IDirect3D9* pD3D = DXUTGetD3DObject();
-        if( pD3D == NULL )
-            return DXTRACE_ERR( L"DXUTGetD3DObject", E_FAIL );
+        if( pD3D == NULL ) {
+          std::cerr << "DXUTGetD3DObject" << std::endl;
+            return E_FAIL;
+        }
 
         D3DDISPLAYMODE mode;
         hr = pD3D->GetAdapterDisplayMode( g_DeviceSettings.AdapterOrdinal, &mode );
-        if( FAILED(hr) )
-            return DXTRACE_ERR( L"GetAdapterDisplayMode", hr );
+        if( FAILED(hr) ){
+          std::cerr << "GetAdapterDisplayMode" << std::endl;
+          return hr;
+        }
 
         // Default resolution to the fullscreen res that was last used
         RECT rc = DXUTGetFullsceenClientRectAtModeChange();

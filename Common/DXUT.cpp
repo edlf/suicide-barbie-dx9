@@ -4855,10 +4855,13 @@ HRESULT WINAPI DXUTTrace( const CHAR* strFile, DWORD dwLine, HRESULT hr,
                          const WCHAR* strMsg, bool bPopMsgBox )
 {
   bool bShowMsgBoxOnError = GetDXUTState().GetShowMsgBoxOnError();
-  if( bPopMsgBox && bShowMsgBoxOnError == false )
+  if( bPopMsgBox && bShowMsgBoxOnError == false ) {
     bPopMsgBox = false;
+  }
 
-  return DXTrace( strFile, dwLine, hr, strMsg, bPopMsgBox );
+  std::cerr << strFile << ":" << dwLine << " " << strMsg << std::endl;
+
+  return 0;
 }
 
 

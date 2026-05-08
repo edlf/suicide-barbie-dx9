@@ -69,7 +69,6 @@
 // Direct3D includes
 #include <d3d9.h>
 #include <d3dx9.h>
-#include <dxerr.h>
 
 // DirectSound includes
 #include <mmsystem.h>
@@ -127,5 +126,7 @@
 #ifndef SAFE_RELEASE
 #define SAFE_RELEASE(p)      { if(p) { (p)->Release(); (p)=NULL; } }
 #endif
+
+#include <iostream>
 
 #endif // !defined(DXSDK_STDAFX_H)

@@ -69,7 +69,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/IGNORE:4089"
-				AdditionalDependencies="dxerr.lib dxguid.lib d3dx9.lib d3d9.lib dsound.lib winmm.lib comctl32.lib zlib.lib"
+				AdditionalDependencies="dxguid.lib d3dx9.lib d3d9.lib dsound.lib winmm.lib comctl32.lib zlib.lib"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(SolutionDir)\$(ConfigurationName)&quot;;&quot;C:\Program Files\Microsoft DirectX SDK (June 2010)\Lib\x86&quot;"
 				GenerateDebugInformation="true"

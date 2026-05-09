@@ -59,39 +59,35 @@ namespace {
   }
 }
 
-bool   scenePlayerTimePause = false;
-double scenePlayerTime = 0.0;
-double scenePlayerTimeModifier = 1.0;
-const double scenePlayerTimeModifierStep = 0.02;
-
-//--------------------------------------------------------------------------------------
-//
-//--------------------------------------------------------------------------------------
-enum { FramesPerSecond = 60 };
-unsigned timeToFrame(float t) { return static_cast<unsigned>(floor(t*FramesPerSecond)); }
-
-std::auto_ptr<TestDemo> gDemo;
-
-//--------------------------------------------------------------------------------------
 // Global variables
-//--------------------------------------------------------------------------------------
 ID3DXFont*              g_pFont = NULL;         // Font for drawing text
 ID3DXSprite*            g_pSprite = NULL;       // Sprite for batching draw text calls
-bool                    g_bShowHelp = false;    // If true, it renders the UI control text
 ID3DXEffect*            g_pEffect = NULL;       // D3DX effect interface
-CDXUTDialogResourceManager g_DialogResourceManager; // manager for shared resources of dialogs
-CD3DSettingsDlg         g_SettingsDlg;          // Device settings dialog
-CDXUTDialog             g_HUD;                  // manages the 3D UI
-CDXUTDialog             g_SampleUI;             // dialog for sample specific controls
-bool                    g_bEnablePreshader;     // if TRUE, then D3DXSHADER_NO_PRESHADER is used when compiling the shader
+CDXUTDialogResourceManager g_DialogResourceManager;
+CD3DSettingsDlg         g_SettingsDlg;
+CDXUTDialog             g_HUD;
 D3DXMATRIXA16           g_mCenterWorld;
+
+// GUI
+bool         g_bEnablePreshader;
+bool         g_bShowHelp = false;
+bool         g_scenePlayerTimePause = false;
+double       g_scenePlayerTime = 0.0;
+double       g_scenePlayerTimeModifier = 1.0;
+const double g_scenePlayerTimeModifierStep = 0.02;
+
+// Demo
+std::auto_ptr<TestDemo> gDemo;
+
 
 //--------------------------------------------------------------------------------------
 // UI control IDs
 //--------------------------------------------------------------------------------------
-#define IDC_TOGGLEFULLSCREEN    1
-#define IDC_TOGGLEREF           3
-#define IDC_CHANGEDEVICE        4
+enum {
+  IDC_TOGGLEFULLSCREEN,
+  IDC_TOGGLEREF,
+  IDC_CHANGEDEVICE
+};
 
 //--------------------------------------------------------------------------------------
 // Forward declarations
@@ -178,16 +174,14 @@ void InitApp()
   g_bEnablePreshader = true;
 
   // Initialize dialogs
-  g_SettingsDlg.Init( &g_DialogResourceManager );
-  g_HUD.Init( &g_DialogResourceManager );
-  g_SampleUI.Init( &g_DialogResourceManager );
+  g_SettingsDlg.Init(&g_DialogResourceManager);
+  g_HUD.Init(&g_DialogResourceManager);
 
-  g_HUD.SetCallback( OnGUIEvent ); int iY = 10;
-  g_HUD.AddButton( IDC_TOGGLEFULLSCREEN, L"Toggle full screen", 35, iY, 125, 22 );
-  g_HUD.AddButton( IDC_TOGGLEREF, L"Toggle REF (F3)", 35, iY += 24, 125, 22 );
-  g_HUD.AddButton( IDC_CHANGEDEVICE, L"Change device (F2)", 35, iY += 24, 125, 22, VK_F2 );
-
-  g_SampleUI.SetCallback( OnGUIEvent ); iY = 10;
+  g_HUD.SetCallback( OnGUIEvent );
+  int iY = 10;
+  g_HUD.AddButton(IDC_TOGGLEFULLSCREEN, L"Toggle full screen", 35, iY, 125, 22);
+  g_HUD.AddButton(IDC_CHANGEDEVICE, L"Change device (F2)", 35, iY += 24, 125, 22, VK_F2);
+  g_HUD.AddButton(IDC_TOGGLEREF, L"Toggle SW rendering (F3)", 35, iY += 24, 125, 22);
 }
 
 
@@ -195,12 +189,9 @@ void InitApp()
 // Called during device initialization, this code checks the device for some
 // minimum set of capabilities, and rejects those that don't pass by returning E_FAIL.
 //--------------------------------------------------------------------------------------
-bool CALLBACK IsDeviceAcceptable( D3DCAPS9* pCaps, D3DFORMAT AdapterFormat,
-                                 D3DFORMAT BackBufferFormat, bool bWindowed, void* pUserContext )
-{
-  // No fallback defined by this app, so reject any device that
-  // doesn't support at least ps1.1
-  if( pCaps->PixelShaderVersion < D3DPS_VERSION(1,1) ){
+bool CALLBACK IsDeviceAcceptable(D3DCAPS9* pCaps, D3DFORMAT AdapterFormat, D3DFORMAT BackBufferFormat, bool bWindowed, void* pUserContext) {
+  // No fallback defined by this app, so reject any device that doesn't support at least ps2.0
+  if( pCaps->PixelShaderVersion < D3DPS_VERSION(2,0) ){
     return false;
   }
 
@@ -224,8 +215,7 @@ bool CALLBACK IsDeviceAcceptable( D3DCAPS9* pCaps, D3DFORMAT AdapterFormat,
 //--------------------------------------------------------------------------------------
 bool CALLBACK ModifyDeviceSettings( DXUTDeviceSettings* pDeviceSettings, const D3DCAPS9* pCaps, void* pUserContext )
 {
-  // If device doesn't support HW T&L or doesn't support 1.1 vertex shaders in HW
-  // then switch to SWVP.
+  // If device doesn't support HW T&L or doesn't support 1.1 vertex shaders in HW then switch to SWVP.
   if((pCaps->DevCaps & D3DDEVCAPS_HWTRANSFORMANDLIGHT) == 0 || pCaps->VertexShaderVersion < D3DVS_VERSION(1,1))
   {
     pDeviceSettings->BehaviorFlags = D3DCREATE_SOFTWARE_VERTEXPROCESSING;
@@ -244,14 +234,9 @@ bool CALLBACK ModifyDeviceSettings( DXUTDeviceSettings* pDeviceSettings, const D
 #ifdef DEBUG_PS
   pDeviceSettings->DeviceType = D3DDEVTYPE_REF;
 #endif
-  // For the first device created if its a REF device, optionally display a warning dialog box
-  static bool s_bFirstTime = true;
-  if( s_bFirstTime )
-  {
-    s_bFirstTime = false;
-    if( pDeviceSettings->DeviceType == D3DDEVTYPE_REF ) {
-      DXUTDisplaySwitchingToREFWarning();
-    }
+
+  if( pDeviceSettings->DeviceType == D3DDEVTYPE_REF ) {
+     std::cerr << "Using Software rendering" << std::endl;
   }
 
   return true;
@@ -271,9 +256,7 @@ HRESULT CALLBACK OnCreateDevice( IDirect3DDevice9* pd3dDevice, const D3DSURFACE_
   V_RETURN( g_DialogResourceManager.OnCreateDevice( pd3dDevice ) );
   V_RETURN( g_SettingsDlg.OnCreateDevice( pd3dDevice ) );
   // Initialize the font
-  V_RETURN( D3DXCreateFont(pd3dDevice, 15, 0, FW_BOLD, 1, FALSE, DEFAULT_CHARSET,
-    OUT_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_DONTCARE,
-    L"Arial", &g_pFont ) );
+  V_RETURN( D3DXCreateFont(pd3dDevice, 15, 0, FW_BOLD, 1, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_DONTCARE, L"Arial", &g_pFont ) );
 
   D3DXVECTOR3 vCenter;
   FLOAT fObjectRadius;
@@ -332,7 +315,7 @@ HRESULT CALLBACK OnCreateDevice( IDirect3DDevice9* pd3dDevice, const D3DSURFACE_
   }
   V_RETURN(hr2);
 
-  scenePlayerTime = 0.0;
+  g_scenePlayerTime = 0.0;
   gDemo.reset(new TestDemo());
   gDemo->platformSetup(*pd3dDevice, *g_pEffect);
   gDemo->start();
@@ -415,8 +398,6 @@ HRESULT CALLBACK OnResetDevice(IDirect3DDevice9* pd3dDevice, const D3DSURFACE_DE
 
   g_HUD.SetLocation(pBackBufferSurfaceDesc->Width-170, 0);
   g_HUD.SetSize(170, 170);
-  g_SampleUI.SetLocation(pBackBufferSurfaceDesc->Width-170, pBackBufferSurfaceDesc->Height-300);
-  g_SampleUI.SetSize(170, 300);
 
   return S_OK;
 }
@@ -430,10 +411,10 @@ HRESULT CALLBACK OnResetDevice(IDirect3DDevice9* pd3dDevice, const D3DSURFACE_DE
 //--------------------------------------------------------------------------------------
 void CALLBACK OnFrameMove( IDirect3DDevice9* pd3dDevice, double fTime, float fElapsedTime, void* pUserContext )
 {
-  if (!scenePlayerTimePause) {
-    scenePlayerTime += fElapsedTime * scenePlayerTimeModifier;
+  if (!g_scenePlayerTimePause) {
+    g_scenePlayerTime += fElapsedTime * g_scenePlayerTimeModifier;
   }
-  gDemo->updateFrame((float) scenePlayerTime);
+  gDemo->updateFrame((float) g_scenePlayerTime);
 }
 
 void CALLBACK OnFrameRender( IDirect3DDevice9* pd3dDevice, double fTime, float fElapsedTime, void* pUserContext )
@@ -462,7 +443,6 @@ void CALLBACK OnFrameRender( IDirect3DDevice9* pd3dDevice, double fTime, float f
 
     // GUI Stuff
     g_HUD.OnRender( fElapsedTime );
-    g_SampleUI.OnRender( fElapsedTime );
     RenderText( fTime );
 
     V( pd3dDevice->EndScene() );
@@ -486,7 +466,7 @@ void RenderText( double fTime )
 
   txtHelper.SetForegroundColor( D3DXCOLOR( 1.0f, 1.0f, 1.0f, 1.0f ) );
   txtHelper.DrawFormattedTextLine( L"fTime: %0.2f", fTime);
-  txtHelper.DrawFormattedTextLine( L"demoTime: %0.2f @ %0.2f", scenePlayerTime, scenePlayerTimeModifier );
+  txtHelper.DrawFormattedTextLine( L"demoTime: %0.2f @ %0.2f", g_scenePlayerTime, g_scenePlayerTimeModifier );
 
   std::wstring scene = L"None";
 
@@ -547,11 +527,6 @@ LRESULT CALLBACK MsgProc( HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, bo
     return 0;
   }
 
-  *pbNoFurtherProcessing = g_SampleUI.MsgProc( hWnd, uMsg, wParam, lParam );
-  if( *pbNoFurtherProcessing ){
-    return 0;
-  }
-
   return 0;
 }
 
@@ -570,35 +545,35 @@ void CALLBACK KeyboardProc( UINT nChar, bool bKeyDown, bool bAltDown, void* pUse
       g_bShowHelp = !g_bShowHelp;
       break;
     case VK_UP:
-      if (scenePlayerTimeModifier <= 4.0) {
-        scenePlayerTimeModifier += scenePlayerTimeModifierStep;
+      if (g_scenePlayerTimeModifier <= 4.0) {
+        g_scenePlayerTimeModifier += g_scenePlayerTimeModifierStep;
       }
       break;
     case VK_DOWN:
-      if (scenePlayerTimeModifier >= scenePlayerTimeModifierStep) {
-        scenePlayerTimeModifier -= scenePlayerTimeModifierStep;
+      if (g_scenePlayerTimeModifier >= g_scenePlayerTimeModifierStep) {
+        g_scenePlayerTimeModifier -= g_scenePlayerTimeModifierStep;
       }
       break;
     case VK_LEFT:
-      if (scenePlayerTime > 1.0) {
-        scenePlayerTime -= 1.0 * speedModifier;
+      if (g_scenePlayerTime > 1.0) {
+        g_scenePlayerTime -= 1.0 * speedModifier;
       } else {
-        scenePlayerTime = 0.0 * speedModifier;
+        g_scenePlayerTime = 0.0 * speedModifier;
       }
       break;
     case VK_RIGHT:
-      scenePlayerTime += 1.0 * speedModifier;
+      g_scenePlayerTime += 1.0 * speedModifier;
       break;
     case VK_SPACE:
-      scenePlayerTimePause = !scenePlayerTimePause;
+      g_scenePlayerTimePause = !g_scenePlayerTimePause;
       break;
     case VK_NUMPAD3:
       break;
     case VK_NUMPAD9:
       break;
     case 'R':
-      scenePlayerTimeModifier = 1.0;
-      scenePlayerTime = 0.0;
+      g_scenePlayerTimeModifier = 1.0;
+      g_scenePlayerTime = 0.0;
       break;
     }
   }

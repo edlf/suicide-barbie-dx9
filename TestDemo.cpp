@@ -446,32 +446,28 @@ namespace {
 
   void updateAnimatedProperties4_short(mutalisk::RenderableSceneT const& scene)
   {
-    /*  const mutalisk::array<mutalisk::data::scene::Actor>& actors = scene.mBlueprint.actors;
+    const mutalisk::array<mutalisk::data::scene::Actor>& actors = scene.mBlueprint.actors;
     float time = scene.mState.time;
 
     // update properties
     for(size_t q = 0; q < actors.size(); ++q)
     {
-    float f = std::max(std::min((8.5f - time)*2.0f, 1.0f), 0.0f);
+		float f = max(min((8.5f - time)*2.0f, 1.0f), 0.0f);
 
-    mutalisk::data::scene::Actor& actor = const_cast<mutalisk::data::scene::Actor&>(actors[q]);
-    for(size_t w = 0; w < actor.materials.size(); ++w)
-    {
-    actor.materials[w].shaderInput.emissive.r = f;
-    actor.materials[w].shaderInput.emissive.g = f;
-    actor.materials[w].shaderInput.emissive.b = f;
-    actor.materials[w].shaderInput.ambient.r = f;
-    actor.materials[w].shaderInput.ambient.g = f;
-    actor.materials[w].shaderInput.ambient.b = f;
+		mutalisk::data::scene::Actor& actor = const_cast<mutalisk::data::scene::Actor&>(actors[q]);
+		for(size_t w = 0; w < actor.materials.size(); ++w) {
+			actor.materials[w].shaderInput.emissive.r = f;
+			actor.materials[w].shaderInput.emissive.g = f;
+			actor.materials[w].shaderInput.emissive.b = f;
+			actor.materials[w].shaderInput.ambient.r = f;
+			actor.materials[w].shaderInput.ambient.g = f;
+			actor.materials[w].shaderInput.ambient.b = f;
+		}
     }
-    }
-    */
   }
 
   void updateAnimatedProperties5(mutalisk::RenderableScene const& scene)
   {
-    float vScale = gVScale;
-
     const mutalisk::array<mutalisk::data::scene::Actor>& actors = scene.mBlueprint.actors;
     float time = scene.mState.time;
 

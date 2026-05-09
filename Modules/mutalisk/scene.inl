@@ -50,21 +50,11 @@ template <typename In> In& operator>> (In& i, scene& data)
 
     // meshes
     data.meshIds.resize(i.readDword());
-    std::cout << "Mesh count: " << data.meshIds.size() << std::endl;
     i.readArray(data.meshIds.begin(), data.meshIds.end());
-
-    for (size_t k = 0; k < data.meshIds.size(); k++) {
-      std::cout << "Mesh: " << data.meshIds[k] << std::endl;
-    }
 
     // textures
     data.textureIds.resize(i.readDword());
-    std::cout << "Texture count: " << data.textureIds.size() << std::endl;
     i.readArray(data.textureIds.begin(), data.textureIds.end());
-
-    for (size_t k = 0; k < data.textureIds.size(); k++) {
-      std::cout << "Texture: " << data.textureIds[k] << std::endl;
-    }
 
     // shaders
     // data.shaderInputs.resize(i.readDword());
@@ -73,7 +63,6 @@ template <typename In> In& operator>> (In& i, scene& data)
 
     // lights
     data.lights.resize(i.readDword());
-    std::cout << "Light count: " << data.lights.size() << std::endl;
     for(size_t q = 0; q < data.lights.size(); ++q)
     {
       i >> data.lights[q].base();
@@ -99,11 +88,8 @@ template <typename In> In& operator>> (In& i, scene& data)
     }
     data.defaultCameraIndex = i.readDword();
 
-    std::cout << "Camera count: " << data.cameras.size() << ", default " << data.defaultCameraIndex << std::endl;
-
     // actors
     data.actors.resize(i.readDword());
-    std::cout << "Actor count: " << data.actors.size() << std::endl;
     for(size_t q = 0; q < data.actors.size(); ++q)
     {
       i >> data.actors[q].base();
@@ -112,7 +98,6 @@ template <typename In> In& operator>> (In& i, scene& data)
       data.actors[q].materials.resize(materials);
 
       size_t sss = data.actors[q].materials.size();
-      std::cout << "Material count: " << sss << std::endl;
 
       for(size_t w = 0; w < data.actors[q].materials.size(); ++w)
       {

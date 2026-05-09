@@ -9,9 +9,10 @@
 
 class TestDemo : public mutalisk::BaseDemoPlayer
 {
-  typedef TestDemo          SelfT;
+  typedef TestDemo                   SelfT;
   typedef mutalisk::Timeline<SelfT>  TimelineT;
-  typedef TimelineT::Item        Item;
+  typedef TimelineT::Item            Item;
+
   struct Scenes
   {
     Scene  walk;

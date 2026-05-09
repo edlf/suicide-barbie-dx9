@@ -37,8 +37,7 @@
 #include "TestDemo.h"
 
 namespace {
-  void splitFilename(std::string const& fullPath, std::string& path, std::string& fileName)
-  {
+  void splitFilename(std::string const& fullPath, std::string& path, std::string& fileName) {
     size_t offset0 = fullPath.find_last_of('/');
     size_t offset1 = fullPath.find_last_of('\\');
 
@@ -71,171 +70,6 @@ const double scenePlayerTimeModifierStep = 0.02;
 enum { FramesPerSecond = 60 };
 unsigned timeToFrame(float t) { return static_cast<unsigned>(floor(t*FramesPerSecond)); }
 
-template <typename Context>
-class Timeline
-{
-public:
-  typename typedef void (Context::*TimelineFuncT)();
-  struct Item
-  {
-    enum nFlags { EachFrame = 0x00, Once = 0x01, AutoClear = 0x02,
-      Default = EachFrame|AutoClear };
-    unsigned startFrame;
-    TimelineFuncT func;
-    nFlags flags;
-
-    Item(unsigned sec = 0, int frame = -1, TimelineFuncT func_ = 0, nFlags flags_ = Default)
-      : func(func_), flags(flags_) { startFrame = (frame >= 0)? sec*FramesPerSecond + frame: ~0U; }
-  };
-
-  void addScript(Item items[])
-  {
-    unsigned itemCount = 0;
-    for(int q = 0; items[q].startFrame != ~0U; ++q) {
-      ++itemCount;
-    }
-
-    ASSERT(itemCount > 0);
-
-    ScriptT newScript(itemCount);
-    std::copy(items, items + itemCount, newScript.begin());
-    mScripts.push_back(std::make_pair(newScript, 0));
-  }
-
-  void update(Context& ctx, unsigned frame)
-  {
-    for(RunningScripts::iterator it = mScripts.begin(); it != mScripts.end(); ++it) {
-      unsigned& currScriptIt = it->second;
-      if(currScriptIt == it->first.size()) {
-        continue;
-      }
-
-      unsigned nextScriptIt = currScriptIt;
-      if(frame >= it->first[currScriptIt].startFrame) {
-        ++nextScriptIt;
-        if(nextScriptIt < it->first.size() && frame >= it->first[nextScriptIt].startFrame)
-          currScriptIt = nextScriptIt;
-      } else {
-        if(nextScriptIt > 0) {
-          --nextScriptIt;
-        }
-        if(frame < it->first[currScriptIt].startFrame) {
-          currScriptIt = nextScriptIt;
-        }
-      }
-
-      TimelineFuncT func = it->first[currScriptIt].func;
-      ASSERT(func);
-      (ctx.*func)();
-    }
-  }
-
-private:
-  typedef std::vector<Item> ScriptT;
-  typedef std::vector<std::pair<ScriptT, unsigned> > RunningScripts;
-
-  RunningScripts  mScripts;
-};
-
-class BaseDemoPlayer
-{
-public:
-  struct Scene
-  {
-    std::auto_ptr<mutalisk::data::scene>  blueprint;
-    mutable mutalisk::Dx9RenderableScene*        renderable;
-    mutable float              startTime;
-  };
-
-public:
-  void start() { onStart(); }
-protected:
-  virtual void onStart() = 0;
-
-public:
-  // script interface
-  void clear() {}
-  void clearZ();
-  void clearColor() {}
-
-  Scene load(std::string const& sceneName);
-  void draw(Scene const& scene);
-  void pause(Scene const& scene) {
-    (void) scene;
-  }
-  void restart(Scene const& scene) {
-    (void) scene;
-  }
-  float sceneTime(Scene const& scene);
-
-  void blink() {
-  }
-
-  //
-  unsigned frame() const { return mCurrFrame; }
-  float time() const { return mCurrTime; }
-
-protected:
-  void setTime(float t) {
-    mCurrTime = t; mCurrFrame = timeToFrame(t);
-  }
-
-private:
-  //  typedef std::map<mutalisk::data::scene const*, RenderableScene*>  ScenesT;
-  //  ScenesT      mScenes;
-  float      mCurrTime;
-  unsigned    mCurrFrame;
-
-public:
-  void platformSetup(IDirect3DDevice9& device, ID3DXEffect& defaultEffect)
-  {
-    renderContext.device = &device;
-    renderContext.defaultEffect = &defaultEffect;
-    D3DXMatrixIdentity(&renderContext.viewProjMatrix);
-    D3DXMatrixIdentity(&renderContext.projMatrix);
-  }
-
-protected:
-  mutalisk::RenderContext  renderContext;
-};
-
-BaseDemoPlayer::Scene BaseDemoPlayer::load(std::string const& sceneName)
-{
-  std::string path, fileName;
-  splitFilename(sceneName, path, fileName);
-  mutalisk::setResourcePath(path);
-
-  Scene scene;
-  scene.blueprint = mutalisk::loadResource<mutalisk::data::scene>(fileName);
-  scene.renderable = prepare(renderContext, *scene.blueprint).release();
-  scene.startTime = -1.0f;
-  return scene;
-}
-
-float BaseDemoPlayer::sceneTime(Scene const& scene)
-{
-  ASSERT(scene.startTime >= 0.0f);
-  return time() - scene.startTime;
-}
-
-void BaseDemoPlayer::draw(Scene const& scene)
-{
-  if(scene.startTime <= 0.0f) {
-    scene.startTime = time();
-  }
-
-  ASSERT(scene.renderable);
-  mutalisk::update(*scene.renderable, time() - scene.startTime);
-  mutalisk::process(*scene.renderable);
-  mutalisk::render(renderContext, *scene.renderable);
-}
-
-void BaseDemoPlayer::clearZ()
-{
-  DX_MSG("Depth clear") =
-    renderContext.device->Clear(0, NULL, D3DCLEAR_ZBUFFER, D3DXCOLOR(0.0f,0.0f,0.0f,0.0f), 1.0f, 0);
-}
-
 std::auto_ptr<TestDemo> gDemo;
 
 //--------------------------------------------------------------------------------------
@@ -244,7 +78,6 @@ std::auto_ptr<TestDemo> gDemo;
 ID3DXFont*              g_pFont = NULL;         // Font for drawing text
 ID3DXSprite*            g_pSprite = NULL;       // Sprite for batching draw text calls
 bool                    g_bShowHelp = false;    // If true, it renders the UI control text
-CModelViewerCamera      g_Camera;               // A model viewing camera
 ID3DXEffect*            g_pEffect = NULL;       // D3DX effect interface
 CDXUTDialogResourceManager g_DialogResourceManager; // manager for shared resources of dialogs
 CD3DSettingsDlg         g_SettingsDlg;          // Device settings dialog
@@ -461,8 +294,6 @@ HRESULT CALLBACK OnCreateDevice( IDirect3DDevice9* pd3dDevice, const D3DSURFACE_
   D3DXMatrixRotationX( &m, D3DX_PI / 2.0f );
   g_mCenterWorld *= m;
 
-  V_RETURN( CDXUTDirectionWidget::StaticOnCreateDevice( pd3dDevice ) );
-
   // Define DEBUG_VS and/or DEBUG_PS to debug vertex and/or pixel shaders with the
   // shader debugger. Debugging vertex shaders requires either REF or software vertex
   // processing, and debugging pixel shaders requires REF.  The
@@ -500,12 +331,6 @@ HRESULT CALLBACK OnCreateDevice( IDirect3DDevice9* pd3dDevice, const D3DSURFACE_
     std::string errorStr = std::string((char*)errorBuffer->GetBufferPointer(), errorBuffer->GetBufferSize());
   }
   V_RETURN(hr2);
-
-  // Setup the camera's view parameters
-  D3DXVECTOR3 vecEye(0.0f, 0.0f, -15.0f);
-  D3DXVECTOR3 vecAt (0.0f, 0.0f, -0.0f);
-  g_Camera.SetViewParams( &vecEye, &vecAt );
-  g_Camera.SetRadius( fObjectRadius*3.0f, fObjectRadius*0.5f, fObjectRadius*10.0f );
 
   scenePlayerTime = 0.0;
   gDemo.reset(new TestDemo());
@@ -571,36 +396,27 @@ HRESULT LoadMesh( IDirect3DDevice9* pd3dDevice, WCHAR* strFileName, ID3DXMesh** 
 // the device is lost. Resources created here should be released in the OnLostDevice
 // callback.
 //--------------------------------------------------------------------------------------
-HRESULT CALLBACK OnResetDevice( IDirect3DDevice9* pd3dDevice,
-                               const D3DSURFACE_DESC* pBackBufferSurfaceDesc, void* pUserContext )
+HRESULT CALLBACK OnResetDevice(IDirect3DDevice9* pd3dDevice, const D3DSURFACE_DESC* pBackBufferSurfaceDesc, void* pUserContext)
 {
   HRESULT hr;
 
-  V_RETURN( g_DialogResourceManager.OnResetDevice() );
-  V_RETURN( g_SettingsDlg.OnResetDevice() );
+  V_RETURN(g_DialogResourceManager.OnResetDevice());
+  V_RETURN(g_SettingsDlg.OnResetDevice());
 
   if( g_pFont ) {
-    V_RETURN( g_pFont->OnResetDevice() );
+    V_RETURN(g_pFont->OnResetDevice());
   }
   if( g_pEffect ) {
-    V_RETURN( g_pEffect->OnResetDevice() );
+    V_RETURN(g_pEffect->OnResetDevice());
   }
 
   // Create a sprite to help batch calls when drawing many lines of text
-  V_RETURN( D3DXCreateSprite( pd3dDevice, &g_pSprite ) );
+  V_RETURN(D3DXCreateSprite(pd3dDevice, &g_pSprite));
 
-  // Setup the camera's projection parameters
-  float fAspectRatio = pBackBufferSurfaceDesc->Width / (FLOAT)pBackBufferSurfaceDesc->Height;
-  g_Camera.SetProjParams( D3DX_PI/4, fAspectRatio, 2.0f, 40000.0f );
-  //  g_Camera.SetProjParams( D3DX_PI/4, fAspectRatio, 1000.0f, 5000.0f );
-  //  g_Camera.SetProjParams( D3DX_PI/4, fAspectRatio, 10.0f, 50.0f );
-  g_Camera.SetWindow( pBackBufferSurfaceDesc->Width, pBackBufferSurfaceDesc->Height );
-  g_Camera.SetButtonMasks( MOUSE_LEFT_BUTTON, MOUSE_WHEEL, MOUSE_MIDDLE_BUTTON );
-
-  g_HUD.SetLocation( pBackBufferSurfaceDesc->Width-170, 0 );
-  g_HUD.SetSize( 170, 170 );
-  g_SampleUI.SetLocation( pBackBufferSurfaceDesc->Width-170, pBackBufferSurfaceDesc->Height-300 );
-  g_SampleUI.SetSize( 170, 300 );
+  g_HUD.SetLocation(pBackBufferSurfaceDesc->Width-170, 0);
+  g_HUD.SetSize(170, 170);
+  g_SampleUI.SetLocation(pBackBufferSurfaceDesc->Width-170, pBackBufferSurfaceDesc->Height-300);
+  g_SampleUI.SetSize(170, 300);
 
   return S_OK;
 }
@@ -614,17 +430,12 @@ HRESULT CALLBACK OnResetDevice( IDirect3DDevice9* pd3dDevice,
 //--------------------------------------------------------------------------------------
 void CALLBACK OnFrameMove( IDirect3DDevice9* pd3dDevice, double fTime, float fElapsedTime, void* pUserContext )
 {
-  // Update the camera's position based on user input
-  g_Camera.FrameMove( fElapsedTime );
+  if (!scenePlayerTimePause) {
+    scenePlayerTime += fElapsedTime * scenePlayerTimeModifier;
+  }
+  gDemo->updateFrame((float) scenePlayerTime);
 }
 
-
-//--------------------------------------------------------------------------------------
-// This callback function will be called at the end of every frame to perform all the
-// rendering calls for the scene, and it will also be called if the window needs to be
-// repainted. After this function has returned, DXUT will call
-// IDirect3DDevice9::Present to display the contents of the next buffer in the swap chain
-//--------------------------------------------------------------------------------------
 void CALLBACK OnFrameRender( IDirect3DDevice9* pd3dDevice, double fTime, float fElapsedTime, void* pUserContext )
 {
   // If the settings dialog is being shown, then
@@ -636,7 +447,6 @@ void CALLBACK OnFrameRender( IDirect3DDevice9* pd3dDevice, double fTime, float f
 
   HRESULT hr;
   D3DXMATRIXA16 mWorldViewProjection;
-  UINT iPass, cPasses;
   D3DXMATRIXA16 mWorld;
   D3DXMATRIXA16 mView;
   D3DXMATRIXA16 mProj;
@@ -648,10 +458,6 @@ void CALLBACK OnFrameRender( IDirect3DDevice9* pd3dDevice, double fTime, float f
   // Render the scene
   if( SUCCEEDED( pd3dDevice->BeginScene() ) )
   {
-    if (!scenePlayerTimePause) {
-      scenePlayerTime += fElapsedTime * scenePlayerTimeModifier;
-    }
-    gDemo->updateFrame(scenePlayerTime);
     gDemo->renderFrame();
 
     // GUI Stuff
@@ -663,11 +469,6 @@ void CALLBACK OnFrameRender( IDirect3DDevice9* pd3dDevice, double fTime, float f
   }
 }
 
-
-//--------------------------------------------------------------------------------------
-// Render the help and statistics text. This function uses the ID3DXFont interface for
-// efficient text rendering.
-//--------------------------------------------------------------------------------------
 void RenderText( double fTime )
 {
   // The helper object simply helps keep track of text position, and color
@@ -684,7 +485,7 @@ void RenderText( double fTime )
   txtHelper.DrawTextLine( DXUTGetDeviceStats() );
 
   txtHelper.SetForegroundColor( D3DXCOLOR( 1.0f, 1.0f, 1.0f, 1.0f ) );
-  txtHelper.DrawFormattedTextLine( L"fTime: %0.1f  sin(fTime): %0.4f", fTime, sin(fTime) );
+  txtHelper.DrawFormattedTextLine( L"fTime: %0.2f", fTime);
   txtHelper.DrawFormattedTextLine( L"demoTime: %0.2f @ %0.2f", scenePlayerTime, scenePlayerTimeModifier );
 
   std::wstring scene = L"None";
@@ -704,9 +505,9 @@ void RenderText( double fTime )
     txtHelper.DrawTextLine( L"Controls:" );
 
     txtHelper.SetInsertionPos( 20, pd3dsdBackBuffer->Height-15*5 );
-    txtHelper.DrawTextLine( L"Rotate model: Left mouse button\n"
-      L"Rotate camera: Middle mouse button\n"
-      L"Zoom camera: Mouse wheel scroll\n" );
+    txtHelper.DrawTextLine( L"Pause: Space bar\n"
+      L"Scrub: Left and right keys\n"
+      L"Speed: Up and down keys\n" );
 
     txtHelper.SetInsertionPos( 250, pd3dsdBackBuffer->Height-15*5 );
     txtHelper.DrawTextLine( L"Hide help: F1\n"
@@ -745,24 +546,15 @@ LRESULT CALLBACK MsgProc( HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, bo
   if( *pbNoFurtherProcessing ) {
     return 0;
   }
+
   *pbNoFurtherProcessing = g_SampleUI.MsgProc( hWnd, uMsg, wParam, lParam );
   if( *pbNoFurtherProcessing ){
     return 0;
   }
 
-  // Pass all remaining windows messages to camera so it can respond to user input
-  g_Camera.HandleMessages( hWnd, uMsg, wParam, lParam );
-
   return 0;
 }
 
-
-//--------------------------------------------------------------------------------------
-// As a convenience, DXUT inspects the incoming windows messages for
-// keystroke messages and decodes the message parameters to pass relevant keyboard
-// messages to the application.  The framework does not remove the underlying keystroke
-// messages, which are still passed to the application's MsgProc callback.
-//--------------------------------------------------------------------------------------
 void CALLBACK KeyboardProc( UINT nChar, bool bKeyDown, bool bAltDown, void* pUserContext )
 {
   if( bKeyDown )
@@ -812,26 +604,21 @@ void CALLBACK KeyboardProc( UINT nChar, bool bKeyDown, bool bAltDown, void* pUse
   }
 }
 
-
-//--------------------------------------------------------------------------------------
-// Handles the GUI events
-//--------------------------------------------------------------------------------------
 void CALLBACK OnGUIEvent( UINT nEvent, int nControlID, CDXUTControl* pControl, void* pUserContext )
 {
   switch( nControlID )
   {
   case IDC_TOGGLEFULLSCREEN:
-	  DXUTToggleFullScreen();
-	  break;
+    DXUTToggleFullScreen();
+    break;
   case IDC_TOGGLEREF:
-		DXUTToggleREF();
-		break;
+    DXUTToggleREF();
+    break;
   case IDC_CHANGEDEVICE:
-	  g_SettingsDlg.SetActive( !g_SettingsDlg.IsActive() );
-	  break;
+    g_SettingsDlg.SetActive( !g_SettingsDlg.IsActive() );
+    break;
   }
 }
-
 
 //--------------------------------------------------------------------------------------
 // This callback function will be called immediately after the Direct3D device has
@@ -841,16 +628,16 @@ void CALLBACK OnGUIEvent( UINT nEvent, int nControlID, CDXUTControl* pControl, v
 // information about lost devices.
 //--------------------------------------------------------------------------------------
 void CALLBACK OnLostDevice( void* pUserContext ) {
+  gDemo.release();
   g_DialogResourceManager.OnLostDevice();
   g_SettingsDlg.OnLostDevice();
-  CDXUTDirectionWidget::StaticOnLostDevice();
   if( g_pFont ) {
     g_pFont->OnLostDevice();
   }
   if( g_pEffect ) {
     g_pEffect->OnLostDevice();
   }
-  SAFE_RELEASE(g_pSprite);
+  g_pSprite->OnLostDevice();
 }
 
 
@@ -861,9 +648,9 @@ void CALLBACK OnLostDevice( void* pUserContext ) {
 // should be released here, which generally includes all D3DPOOL_MANAGED resources.
 //--------------------------------------------------------------------------------------
 void CALLBACK OnDestroyDevice( void* pUserContext ) {
+  gDemo.release();
   g_DialogResourceManager.OnDestroyDevice();
   g_SettingsDlg.OnDestroyDevice();
-  CDXUTDirectionWidget::StaticOnDestroyDevice();
   SAFE_RELEASE(g_pEffect);
   SAFE_RELEASE(g_pFont);
   SAFE_RELEASE(g_pSprite);

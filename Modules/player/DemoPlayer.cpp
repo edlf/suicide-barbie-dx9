@@ -97,7 +97,6 @@ void BaseDemoPlayer::draw(Scene const& scene, float timeScale)
   draw(scene, &::onDrawDefault, timeScale);
 }
 
-/*
 struct RenderJob : public BaseDemoPlayer::IJob
 {
   BaseDemoPlayer::Scene const*  scene;
@@ -111,7 +110,7 @@ struct RenderJob : public BaseDemoPlayer::IJob
 };
 static const unsigned JobCacheSize = 8;
 RenderJob gRenderJob[JobCacheSize];
-unsigned gRenderJobIndex = 0;*/
+unsigned gRenderJobIndex = 0;
 
 void BaseDemoPlayer::draw(Scene const& scene, OnDrawT onDraw, float timeScale)
 {
@@ -123,8 +122,8 @@ void BaseDemoPlayer::draw(Scene const& scene, OnDrawT onDraw, float timeScale)
     ASSERT(scene.renderable);
     mutalisk::update(*scene.renderable, (time() - scene.startTime) * timeScale);
     mutalisk::process(*scene.renderable);
-    //renderContext.znear = scene.znear;
-    //renderContext.zfar = scene.zfar;
+    renderContext.znear = scene.znear;
+    renderContext.zfar = scene.zfar;
 
     onDraw(*scene.renderable);
   }
@@ -150,7 +149,7 @@ void BaseDemoPlayer::clear()
   else if(mPhase == RenderPhase)
   { }
 }
-/*
+
 struct ClearZJob : public BaseDemoPlayer::IJob
 {
   RenderContextT*          renderContext;
@@ -162,7 +161,7 @@ struct ClearZJob : public BaseDemoPlayer::IJob
   }
 };
 ClearZJob gClearZJob[JobCacheSize];
-unsigned gClearZJobIndex = 0;*/
+unsigned gClearZJobIndex = 0;
 
 void BaseDemoPlayer::clearZ()
 {
@@ -190,7 +189,6 @@ void BaseDemoPlayer::clearColor()
   { }
 }
 
-/*
 struct BloomJob : public BaseDemoPlayer::IJob
 {
   BaseDemoPlayer::PostProcessSettings* dstSettings;
@@ -202,7 +200,7 @@ struct BloomJob : public BaseDemoPlayer::IJob
   }
 };
 BloomJob gBloomJob[JobCacheSize];
-unsigned gBloomJobIndex = 0;*/
+unsigned gBloomJobIndex = 0;
 
 void BaseDemoPlayer::ppBloom(float strength, unsigned threshold, unsigned srcModifier, unsigned dstModifier, unsigned quality)
 {
@@ -217,7 +215,6 @@ void BaseDemoPlayer::ppBloom(float strength, unsigned threshold, unsigned srcMod
     mPPSettings.dstModifier = dstModifier;
     mPPSettings.quality = quality;
 
-  /*
     BloomJob* job = &gBloomJob[gBloomJobIndex]; gBloomJobIndex = (gBloomJobIndex+1)%JobCacheSize;
     job->dstSettings = &mPPSettings;
     job->srcSettings.strength = strength;
@@ -226,6 +223,6 @@ void BaseDemoPlayer::ppBloom(float strength, unsigned threshold, unsigned srcMod
     job->srcSettings.dstModifier = dstModifier;
     job->srcSettings.quality = quality;
     job->process();
-  //  mJobQueue.push_back(job);*/
+  //  mJobQueue.push_back(job);
   }
 }

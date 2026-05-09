@@ -253,26 +253,12 @@ CDXUTDialog             g_SampleUI;             // dialog for sample specific co
 bool                    g_bEnablePreshader;     // if TRUE, then D3DXSHADER_NO_PRESHADER is used when compiling the shader
 D3DXMATRIXA16           g_mCenterWorld;
 
-#define MAX_LIGHTS 4
-CDXUTDirectionWidget g_LightControl[MAX_LIGHTS];
-float                g_fLightScale;
-int                  g_nNumActiveLights;
-int                  g_nActiveLight;
-
-
 //--------------------------------------------------------------------------------------
 // UI control IDs
 //--------------------------------------------------------------------------------------
 #define IDC_TOGGLEFULLSCREEN    1
 #define IDC_TOGGLEREF           3
 #define IDC_CHANGEDEVICE        4
-#define IDC_ENABLE_PRESHADER    5
-#define IDC_NUM_LIGHTS          6
-#define IDC_NUM_LIGHTS_STATIC   7
-#define IDC_ACTIVE_LIGHT        8
-#define IDC_LIGHT_SCALE         9
-#define IDC_LIGHT_SCALE_STATIC  10
-
 
 //--------------------------------------------------------------------------------------
 // Forward declarations
@@ -358,14 +344,6 @@ void InitApp()
 {
   g_bEnablePreshader = true;
 
-  for( int i=0; i<MAX_LIGHTS; i++ ){
-    g_LightControl[i].SetLightDirection( D3DXVECTOR3( sinf(D3DX_PI*2*i/MAX_LIGHTS-D3DX_PI/6), 0, -cosf(D3DX_PI*2*i/MAX_LIGHTS-D3DX_PI/6) ) );
-  }
-
-  g_nActiveLight = 0;
-  g_nNumActiveLights = 1;
-  g_fLightScale = 1.0f;
-
   // Initialize dialogs
   g_SettingsDlg.Init( &g_DialogResourceManager );
   g_HUD.Init( &g_DialogResourceManager );
@@ -377,21 +355,6 @@ void InitApp()
   g_HUD.AddButton( IDC_CHANGEDEVICE, L"Change device (F2)", 35, iY += 24, 125, 22, VK_F2 );
 
   g_SampleUI.SetCallback( OnGUIEvent ); iY = 10;
-
-  WCHAR sz[100];
-  iY += 24;
-  StringCchPrintf( sz, 100, L"# Lights: %d", g_nNumActiveLights );
-  g_SampleUI.AddStatic( IDC_NUM_LIGHTS_STATIC, sz, 35, iY += 24, 125, 22 );
-  g_SampleUI.AddSlider( IDC_NUM_LIGHTS, 50, iY += 24, 100, 22, 1, MAX_LIGHTS, g_nNumActiveLights );
-
-  iY += 24;
-  StringCchPrintf( sz, 100, L"Light scale: %0.2f", g_fLightScale );
-  g_SampleUI.AddStatic( IDC_LIGHT_SCALE_STATIC, sz, 35, iY += 24, 125, 22 );
-  g_SampleUI.AddSlider( IDC_LIGHT_SCALE, 50, iY += 24, 100, 22, 0, 20, (int) (g_fLightScale * 10.0f) );
-
-  iY += 24;
-  g_SampleUI.AddButton( IDC_ACTIVE_LIGHT, L"Change active light (K)", 35, iY += 24, 125, 22, 'K' );
-  g_SampleUI.AddCheckBox( IDC_ENABLE_PRESHADER, L"Enable preshaders", 35, iY += 24, 125, 22, g_bEnablePreshader );
 }
 
 
@@ -479,7 +442,6 @@ HRESULT CALLBACK OnCreateDevice( IDirect3DDevice9* pd3dDevice, const D3DSURFACE_
     OUT_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_DONTCARE,
     L"Arial", &g_pFont ) );
 
-  D3DXVECTOR3* pData;
   D3DXVECTOR3 vCenter;
   FLOAT fObjectRadius;
 
@@ -500,10 +462,6 @@ HRESULT CALLBACK OnCreateDevice( IDirect3DDevice9* pd3dDevice, const D3DSURFACE_
   g_mCenterWorld *= m;
 
   V_RETURN( CDXUTDirectionWidget::StaticOnCreateDevice( pd3dDevice ) );
-
-  for( int i=0; i<MAX_LIGHTS; i++ ) {
-    g_LightControl[i].SetRadius( fObjectRadius );
-  }
 
   // Define DEBUG_VS and/or DEBUG_PS to debug vertex and/or pixel shaders with the
   // shader debugger. Debugging vertex shaders requires either REF or software vertex
@@ -631,10 +589,6 @@ HRESULT CALLBACK OnResetDevice( IDirect3DDevice9* pd3dDevice,
   // Create a sprite to help batch calls when drawing many lines of text
   V_RETURN( D3DXCreateSprite( pd3dDevice, &g_pSprite ) );
 
-  for( int i=0; i<MAX_LIGHTS; i++ ) {
-    g_LightControl[i].OnResetDevice( pBackBufferSurfaceDesc  );
-  }
-
   // Setup the camera's projection parameters
   float fAspectRatio = pBackBufferSurfaceDesc->Width / (FLOAT)pBackBufferSurfaceDesc->Height;
   g_Camera.SetProjParams( D3DX_PI/4, fAspectRatio, 2.0f, 40000.0f );
@@ -682,8 +636,6 @@ void CALLBACK OnFrameRender( IDirect3DDevice9* pd3dDevice, double fTime, float f
 
   HRESULT hr;
   D3DXMATRIXA16 mWorldViewProjection;
-  D3DXVECTOR3 vLightDir[MAX_LIGHTS];
-  D3DXCOLOR   vLightDiffuse[MAX_LIGHTS];
   UINT iPass, cPasses;
   D3DXMATRIXA16 mWorld;
   D3DXMATRIXA16 mView;
@@ -701,41 +653,6 @@ void CALLBACK OnFrameRender( IDirect3DDevice9* pd3dDevice, double fTime, float f
     }
     gDemo->updateFrame(scenePlayerTime);
     gDemo->renderFrame();
-
-    /*
-    D3DXMATRIX cameraInvMatrix;
-    D3DXMatrixInverse(&cameraInvMatrix, 0, g_Camera.GetWorldMatrix());
-    // Get the projection & view matrix from the camera class
-    mWorld = g_mCenterWorld * *g_Camera.GetWorldMatrix();
-    mProj = *g_Camera.GetProjMatrix();
-    mView = *g_Camera.GetViewMatrix();
-
-    mWorldViewProjection = mWorld * mView * mProj;
-    */
-
-    /*
-    for( int i=0; i<g_nNumActiveLights; i++ )
-    {
-      vLightDir[i] = g_LightControl[i].GetLightDirection();
-      vLightDiffuse[i] = g_fLightScale * D3DXCOLOR(1,1,1,1);
-
-      D3DXCOLOR arrowColor = ( i == g_nActiveLight ) ? D3DXCOLOR(1,1,0,1) : D3DXCOLOR(1,1,1,1);
-      V( g_LightControl[i].OnRender( arrowColor, &mView, &mProj, g_Camera.GetEyePt() ) );
-    }
-
-    V( g_pEffect->SetTechnique( "Main" ) );
-    V( g_pEffect->SetValue( "vLightDir", vLightDir, sizeof(D3DXVECTOR3)*MAX_LIGHTS ) );
-    V( g_pEffect->SetValue( "vLightDiffuse", vLightDiffuse, sizeof(D3DXVECTOR4)*MAX_LIGHTS ) );
-    int lightTypes[MAX_LIGHTS] = {0,0,0,0}; // lightDIRECTIONAL = 0
-    V( g_pEffect->SetIntArray( "nLightType", lightTypes, MAX_LIGHTS ) );
-    V( g_pEffect->SetInt( "iNumLights", g_nNumActiveLights ) );
-    if(g_nNumActiveLights > 0)
-    {
-      D3DXVECTOR4 ambientColor = D3DXVECTOR4(0,0,0,0);
-      V( g_pEffect->SetValue( "vLightAmbient", ambientColor, sizeof(ambientColor) ) );
-    }
-
-    */
 
     // GUI Stuff
     g_HUD.OnRender( fElapsedTime );
@@ -788,7 +705,6 @@ void RenderText( double fTime )
 
     txtHelper.SetInsertionPos( 20, pd3dsdBackBuffer->Height-15*5 );
     txtHelper.DrawTextLine( L"Rotate model: Left mouse button\n"
-      L"Rotate light: Right mouse button\n"
       L"Rotate camera: Middle mouse button\n"
       L"Zoom camera: Mouse wheel scroll\n" );
 
@@ -833,8 +749,6 @@ LRESULT CALLBACK MsgProc( HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, bo
   if( *pbNoFurtherProcessing ){
     return 0;
   }
-
-  g_LightControl[g_nActiveLight].HandleMessages( hWnd, uMsg, wParam, lParam );
 
   // Pass all remaining windows messages to camera so it can respond to user input
   g_Camera.HandleMessages( hWnd, uMsg, wParam, lParam );
@@ -888,7 +802,7 @@ void CALLBACK KeyboardProc( UINT nChar, bool bKeyDown, bool bAltDown, void* pUse
       break;
     case VK_NUMPAD3:
       break;
-    case VK_NUMPAD9: 
+    case VK_NUMPAD9:
       break;
     case 'R':
       scenePlayerTimeModifier = 1.0;
@@ -904,56 +818,18 @@ void CALLBACK KeyboardProc( UINT nChar, bool bKeyDown, bool bAltDown, void* pUse
 //--------------------------------------------------------------------------------------
 void CALLBACK OnGUIEvent( UINT nEvent, int nControlID, CDXUTControl* pControl, void* pUserContext )
 {
-
   switch( nControlID )
   {
-  case IDC_TOGGLEFULLSCREEN: DXUTToggleFullScreen(); break;
-  case IDC_TOGGLEREF:        DXUTToggleREF(); break;
-  case IDC_CHANGEDEVICE:     g_SettingsDlg.SetActive( !g_SettingsDlg.IsActive() ); break;
-
-  case IDC_ENABLE_PRESHADER:
-    {
-      g_bEnablePreshader = g_SampleUI.GetCheckBox( IDC_ENABLE_PRESHADER )->GetChecked();
-
-      if( DXUTGetD3DDevice() != NULL )
-      {
-        OnLostDevice( NULL );
-        OnDestroyDevice( NULL );
-        OnCreateDevice( DXUTGetD3DDevice(), DXUTGetBackBufferSurfaceDesc(), NULL );
-        OnResetDevice( DXUTGetD3DDevice(), DXUTGetBackBufferSurfaceDesc(), NULL );
-      }
-      break;
-    }
-
-  case IDC_ACTIVE_LIGHT:
-    if( !g_LightControl[g_nActiveLight].IsBeingDragged() )
-    {
-      g_nActiveLight++;
-      g_nActiveLight %= g_nNumActiveLights;
-    }
-    break;
-
-  case IDC_NUM_LIGHTS:
-    if( !g_LightControl[g_nActiveLight].IsBeingDragged() )
-    {
-      WCHAR sz[100];
-      StringCchPrintf( sz, 100, L"# Lights: %d", g_SampleUI.GetSlider( IDC_NUM_LIGHTS )->GetValue() );
-      g_SampleUI.GetStatic( IDC_NUM_LIGHTS_STATIC )->SetText( sz );
-
-      g_nNumActiveLights = g_SampleUI.GetSlider( IDC_NUM_LIGHTS )->GetValue();
-      g_nActiveLight %= g_nNumActiveLights;
-    }
-    break;
-
-  case IDC_LIGHT_SCALE:
-    g_fLightScale = (float) (g_SampleUI.GetSlider( IDC_LIGHT_SCALE )->GetValue() * 0.10f);
-
-    WCHAR sz[100];
-    StringCchPrintf( sz, 100, L"Light scale: %0.2f", g_fLightScale );
-    g_SampleUI.GetStatic( IDC_LIGHT_SCALE_STATIC )->SetText( sz );
-    break;
+  case IDC_TOGGLEFULLSCREEN:
+	  DXUTToggleFullScreen();
+	  break;
+  case IDC_TOGGLEREF:
+		DXUTToggleREF();
+		break;
+  case IDC_CHANGEDEVICE:
+	  g_SettingsDlg.SetActive( !g_SettingsDlg.IsActive() );
+	  break;
   }
-
 }
 
 
@@ -964,8 +840,7 @@ void CALLBACK OnGUIEvent( UINT nEvent, int nControlID, CDXUTControl* pControl, v
 // D3DPOOL_DEFAULT resources. See the "Lost Devices" section of the documentation for
 // information about lost devices.
 //--------------------------------------------------------------------------------------
-void CALLBACK OnLostDevice( void* pUserContext )
-{
+void CALLBACK OnLostDevice( void* pUserContext ) {
   g_DialogResourceManager.OnLostDevice();
   g_SettingsDlg.OnLostDevice();
   CDXUTDirectionWidget::StaticOnLostDevice();
@@ -985,11 +860,11 @@ void CALLBACK OnLostDevice( void* pUserContext )
 // windowed/full screen toggles. Resources created in the OnCreateDevice callback
 // should be released here, which generally includes all D3DPOOL_MANAGED resources.
 //--------------------------------------------------------------------------------------
-void CALLBACK OnDestroyDevice( void* pUserContext )
-{
+void CALLBACK OnDestroyDevice( void* pUserContext ) {
   g_DialogResourceManager.OnDestroyDevice();
   g_SettingsDlg.OnDestroyDevice();
   CDXUTDirectionWidget::StaticOnDestroyDevice();
   SAFE_RELEASE(g_pEffect);
   SAFE_RELEASE(g_pFont);
+  SAFE_RELEASE(g_pSprite);
 }

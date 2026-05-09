@@ -72,6 +72,7 @@ void TestDemo::drawMirrorFrame(Scene const& scene, unsigned mirrorActorId, unsig
 {
   if(mPhase == UpdatePhase)
   {
+	  //
   }
   else if(mPhase == RenderPhase)
   {
@@ -80,9 +81,11 @@ void TestDemo::drawMirrorFrame(Scene const& scene, unsigned mirrorActorId, unsig
     CTransform::t_matrix cameraMatrix = scene.renderable->mState.cameraMatrix;
     CTransform::t_matrix prevCameraMatrix = cameraMatrix;
 
-    for(size_t q = 0; q < scene.blueprint->actors.size(); ++q)
-      if(q != reflectedActorId)
-        scene.blueprint->actors[q].active = false;
+	for(size_t q = 0; q < scene.blueprint->actors.size(); ++q) {
+		if(q != reflectedActorId) {
+			scene.blueprint->actors[q].active = false;
+		}
+	}
 
     CTransform::t_matrix const& mirrorMatrix =
       scene.renderable->mState.matrices[
@@ -146,20 +149,17 @@ void TestDemo::drawMirrorFrame(Scene const& scene, unsigned mirrorActorId, unsig
   }
 }
 
-namespace
-{
-  int ms(int v)
-  {
+namespace {
+  int ms(int v) {
     return static_cast<int>(floor(0.5f + static_cast<float>(v) * 0.3f));
   }
 }
-void TestDemo::onStart()
-{
+
+void TestDemo::onStart() {
   timeOffset = 0;
-  //  timeOffset = 208;
 
   {Item items[] = {
-    Item(0,    ms(00),    S_FUNC(walk)),
+    Item(0,   ms(00),    S_FUNC(walk)),
     Item(11,  ms(00),    S_FUNC(walk_far)),
 
     Item(23,  ms(05),    S_FUNC(logo)),
@@ -185,11 +185,11 @@ void TestDemo::onStart()
     Item(84,  ms(50),    S_FUNC(phone__x_4)),
     Item(85,  ms(00),    S_FUNC(phone4)),      // (32 + 82)/2
 
-    Item(92,  ms(18),    S_FUNC(text0)),
-    Item(93,  ms(0),    S_FUNC(text)),
+    Item(92,   ms(18),    S_FUNC(text0)),
+    Item(93,   ms(0),    S_FUNC(text)),
     Item(115,  ms(22),    S_FUNC(jealousy)),
 
-    Item(122,  ms(90),    S_FUNC(beer1)),
+    Item(122,     ms(90),    S_FUNC(beer1)),
     Item(129.75,  ms(71),    S_FUNC(beer2)),
     Item(137.75,  ms(51),    S_FUNC(garlic1)),
     Item(145.60,  ms(32),    S_FUNC(garlic2)),
@@ -424,7 +424,7 @@ namespace {
     }
   }
 
-  void updateAnimatedProperties4(mutalisk::RenderableScene const& scene)
+  void updateAnimatedProperties4(mutalisk::RenderableSceneT const& scene)
   {
     const mutalisk::array<mutalisk::data::scene::Actor>& actors = scene.mBlueprint.actors;
     float time = scene.mState.time;
@@ -755,15 +755,13 @@ void TestDemo::explodeGirl2()
 }
 void TestDemo::windowBarbie1()
 {
-  //  printf("TestDemo::windowBarbie1\n");
-
   draw(scn.windowBarbie, updateAnimatedProperties3);
   ppBloom(0.2f, 114, 200, 160);
 }
 void TestDemo::windowBarbie2()
 {
   draw(scn.windowBarbie);
-  //  draw(scn.windowBarbie, updateAnimatedProperties4);
+  draw(scn.windowBarbie, updateAnimatedProperties4);
   clearZ();
   draw(scn.window, updateAnimatedProperties4_short, 2.1f);//2.5f);
   ppBloom(0.2f, 114, 200, 160);
@@ -771,9 +769,9 @@ void TestDemo::windowBarbie2()
 
 void TestDemo::endBarbie0()
 {
-  //  restart(scn.window);
-  //  draw(scn.window, 2.5f);
-  //  ppBloom(0.2f, 114, 200, 160);
+  restart(scn.window);
+  draw(scn.window, 2.5f);
+  ppBloom(0.2f, 114, 200, 160);
 }
 
 void TestDemo::endBarbie1()
@@ -857,36 +855,21 @@ void TestDemo::loadEndScenes() {
   scn.expGirl1BG.renderable->mResources.animCharSet.reset();
   scn.expGirl1.renderable->mResources.animCharSet.reset();
   scn.bullet2.renderable->mResources.animCharSet.reset();
-  //  scn.expGirl2BG.renderable->mResources.animCharSet.reset();
-  //  scn.expGirl2.renderable->mResources.animCharSet.reset();
-  //  scn.windowBarbie.renderable->mResources.animCharSet.reset();
-  //  scn.window.renderable->mResources.animCharSet.reset();
 
   scn.expGirl1BG.renderable->mResources.meshes.resize(0);
   scn.expGirl1.renderable->mResources.meshes.resize(0);
   scn.bullet2.renderable->mResources.meshes.resize(0);
-  //  scn.expGirl2BG.renderable->mResources.meshes.resize(0);
-  //  scn.expGirl2.renderable->mResources.meshes.resize(0);
-  //  scn.windowBarbie.renderable->mResources.meshes.resize(0);
-  //  scn.window.renderable->mResources.meshes.resize(0);
 
-  //    load(scn.endBack,  "suicidebarbie2\\dx9\\suicidebarbie_back2.msk");
-  //    load(scn.end,  "suicidebarbie2\\dx9\\suicidebarbie2.msk");
-  //    loadTextures(scn.endBack, false);
-  //    loadTextures(scn.end, false);
-  //  return;
-
-  load(scn.endBack,  "suicidebarbie2\\dx9\\suicidebarbie_back2.msk");
+  // TODO:
+  // load(scn.endBack,  "suicidebarbie2\\dx9\\suicidebarbie_back2.msk");
   load(scn.end,  "suicidebarbie2\\dx9\\suicidebarbie2.msk");
 }
 
 void TestDemo::loadEnd()
 {
-  //  printf("%s %s %i\n", __FILE__, __FUNCTION__, __LINE__);
   //  scn.expGirl2BG.renderable->mResources.animCharSet.reset();
   //  scn.expGirl2.renderable->mResources.animCharSet.reset();
 
-  //  printf("%s %s %i\n", __FILE__, __FUNCTION__, __LINE__);
   //  scn.expGirl2BG.renderable->mResources.meshes.resize(0);
   //  scn.expGirl2.renderable->mResources.meshes.resize(0);
 }

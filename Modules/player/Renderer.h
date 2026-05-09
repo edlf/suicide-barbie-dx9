@@ -267,12 +267,16 @@ struct drawRenderBlocks
 
       if(currFx != block.fx)
       {
-        if(currFx)
-          currFx->end();
+		  if(currFx) {
+			  currFx->end();
+		  }
+
+		  if (block.fx != NULL) {
         currFx = block.fx;
 
         currFx->captureState();
-        currFx->begin();
+		currFx->begin();
+		  }
       }
 
       fxInput.surface = &surfaceInputs[block.surfaceIndex];

@@ -7876,8 +7876,9 @@ CUniBuffer::CUniBuffer( int nInitialSize )
 CUniBuffer::~CUniBuffer()
 {
   delete[] m_pwszBuffer;
-  if( m_Analysis )
-    _ScriptStringFree( &m_Analysis );
+  if( m_Analysis ) {
+	  _ScriptStringFree( &m_Analysis );
+  }
 }
 
 
